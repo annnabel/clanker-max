@@ -101,7 +101,7 @@ main{padding:28px clamp(16px,3vw,44px) 120px; min-width:0}
 
 /* Maps */
 .map{margin:18px 0 6px; overflow-x:auto}
-.map svg{display:block; width:100%; min-width:900px; height:auto}
+.map svg{display:block; width:100%; min-width:930px; height:auto}
 .map .node{cursor:pointer}
 .map .node rect, .map .node circle.pill{transition:filter .15s}
 .map .node:hover rect, .map .node:focus rect{filter:brightness(1.08)}
@@ -109,11 +109,11 @@ main{padding:28px clamp(16px,3vw,44px) 120px; min-width:0}
 .map .node:focus rect, .map .node:focus circle{stroke-width:3}
 .map text{font-family:var(--body); fill:var(--ink)}
 .map .edge{stroke:var(--muted); stroke-width:1.3; fill:none}
-.map .elabel, .viz .elabel{font:12px var(--mono); fill:var(--muted)}
+.map .elabel, .viz .elabel{font:13px var(--mono); fill:var(--muted)}
 #map-s2 .elabel{font-size:13.5px}
 .viz text{fill:var(--ink); font-family:var(--body)}
 .viz .edge{stroke-width:1.6; fill:none}
-.map .colhead{font:600 12px var(--mono); letter-spacing:.08em; fill:var(--muted)}
+.map .colhead{font:600 13px var(--mono); letter-spacing:.08em; fill:var(--muted)}
 #map-s2 .colhead{font-size:13.5px; letter-spacing:.06em}
 .maphint{font-size:14px; color:var(--muted); margin:4px 0 0}
 .tip{position:fixed; z-index:60; max-width:320px; background:var(--ink); color:var(--paper); font-size:14px; line-height:1.45; padding:8px 10px; border-radius:8px; pointer-events:none; opacity:0; transition:opacity .12s}
@@ -299,7 +299,7 @@ footer{margin-top:80px; font-size:14px; color:var(--muted); max-width:68ch}
       </section>
 
       <footer>
-        <p>Built in stages. Stage 1 (14 November 2026) covers the framework and Section 1. The other sections show their planned cards and preview maps until they are researched and written.</p>
+        <p>Built in stages. Stage 1 (14 November 2026) covers the framework and Section 1; Sections 2 (Types of AI) and 4 (History & Key Ideas) were added on 14 November 2026. The other sections show their planned cards and preview maps until they are researched and written.</p>
         <p>Your “read” ticks are saved in this browser only.</p>
       </footer>
     </div>
@@ -323,7 +323,7 @@ const SRC = {
   oecdMemo:{t:1,a:"OECD (2024)",ti:"Explanatory memorandum on the updated OECD definition of an AI system",p:"OECD Artificial Intelligence Papers. Definition adopted by the OECD Council on 8 Nov 2023",u:"https://www.oecd.org/en/publications/explanatory-memorandum-on-the-updated-oecd-definition-of-an-ai-system_623da898-en.html"},
   oecdai:{t:1,a:"OECD.AI Policy Observatory (2024)",ti:"Explainer on the updated OECD definition of an AI system",p:"OECD.AI blog",u:"https://oecd.ai/en/wonk"},
   indiaai:{t:1,a:"IndiaAI, Government of India (2023)",ti:"OECD adopts a new definition of AI",p:"Reports the definition text and its link to the EU AI Act",u:"https://indiaai.gov.in/news/oecd-adopts-a-new-definition-of-ai"},
-  dartmouth:{t:1,a:"McCarthy, Minsky, Rochester & Shannon (1955)",ti:"A Proposal for the Dartmouth Summer Research Project on Artificial Intelligence",p:"Primary document, dated 31 August 1955"},
+  dartmouth:{t:1,a:"McCarthy, Minsky, Rochester & Shannon (1955)",ti:"A Proposal for the Dartmouth Summer Research Project on Artificial Intelligence",p:"Primary document, dated 31 August 1955",u:"http://jmc.stanford.edu/articles/dartmouth/dartmouth.pdf"},
   indiaaiDart:{t:1,a:"IndiaAI, Government of India",ti:"Exploring the significance of the Dartmouth workshop",p:"Gives 2 September 1955 as the formal proposal date",u:"https://indiaai.gov.in/article/exploring-the-significance-of-the-dartmouth-workshop"},
   samuel59:{t:1,a:"Samuel, A. L. (1959)",ti:"Some Studies in Machine Learning Using the Game of Checkers",p:"IBM Journal of Research and Development 3(3):210–229",u:"https://doi.org/10.1147/rd.33.0210"},
   rumelhart86:{t:1,a:"Rumelhart, Hinton & Williams (1986)",ti:"Learning representations by back-propagating errors",p:"Nature 323:533–536",u:"https://doi.org/10.1038/323533a0"},
@@ -367,13 +367,39 @@ const SRC = {
   breiman01:{t:1,a:"Breiman, L. (2001)",ti:"Statistical Modeling: The Two Cultures",p:"Statistical Science 16(3):199–231",u:"https://www.jstor.org/stable/2676681"},
   kass:{t:1,a:"Commentary in Observational Studies (2021)",ti:"The Two Cultures: Statistics and Machine Learning in Science",p:"Response to Breiman by a statistician who commented on the original",u:"https://muse.jhu.edu/article/799725"},
   daoud21:{t:1,a:"Daoud & Dubhashi (2021)",ti:"Statistical modeling: the three cultures",p:"arXiv:2012.04570; Observational Studies",u:"https://arxiv.org/abs/2012.04570"},
+  /* ---- Section 4 sources ---- */
+  mcculloch43:{t:1,a:"McCulloch & Pitts (1943)",ti:"A logical calculus of the ideas immanent in nervous activity",p:"Bulletin of Mathematical Biophysics 5:115–133; reprinted in Bulletin of Mathematical Biology 52:99–115 (1990)",u:"https://www.cs.cmu.edu/~./epxing/Class/10715/reading/McCulloch.and.Pitts.pdf"},
+  turing50:{t:1,a:"Turing, A. M. (1950)",ti:"Computing Machinery and Intelligence",p:"Mind 59(236):433–460",u:"https://courses.cs.umbc.edu/471/papers/turing.pdf"},
+  rosenblatt58:{t:1,a:"Rosenblatt, F. (1958)",ti:"The perceptron: a probabilistic model for information storage and organization in the brain",p:"Psychological Review 65(6):386–408",u:"https://www.ling.upenn.edu/courses/cogs501/Rosenblatt1958.pdf"},
+  cornell19:{t:2,a:"Cornell Chronicle (Sep 2019)",ti:"Professor’s perceptron paved the way for AI – 60 years too soon",p:"Cornell University news history of Frank Rosenblatt, quoting 1958 press coverage",u:"https://news.cornell.edu/stories/2019/09/professors-perceptron-paved-way-ai-60-years-too-soon"},
+  simon98:{t:2,a:"Simon, H. A. (24 Sep 1998)",ti:"Reply to W. J. Rapaport: citation for the 1957 chess prediction",p:"Email correspondence, archived by the University at Buffalo. Confirms publication in Operations Research 6:1–10 (1958)",u:"https://cse.buffalo.edu/~rapaport/584/S07/simon.txt"},
+  lighthill72:{t:1,a:"Lighthill, J. (July 1972)",ti:"Artificial Intelligence: A General Survey",p:"Report for the UK Science Research Council, published 1973",u:"https://www.aiai.ed.ac.uk/events/lighthill1973/lighthill.pdf"},
+  srcPreface:{t:1,a:"UK Science Research Council (1973)",ti:"Preface to “Artificial Intelligence: a paper symposium”",p:"Explains why the Lighthill review was commissioned and published with replies",u:"http://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/preface.htm"},
+  chiltonLH:{t:2,a:"Chilton Computing heritage archive (UKRI STFC)",ti:"Lighthill Report: overview",p:"Background and aftermath of the report",u:"http://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/overview.htm"},
+  aiaiDebate:{t:2,a:"AIAI, University of Edinburgh",ti:"BBC TV, June 1973: Lighthill Controversy Debate at the Royal Institution",p:"Archive page with the recorded debate",u:"https://www.aiai.ed.ac.uk/events/lighthill1973/"},
+  time88:{t:2,a:"Linden, E. (28 Mar 1988)",ti:"Technology: Putting Knowledge to Work",p:"TIME magazine",u:"https://content.time.com/time/subscriber/article/0,33009,967102-4,00.html"},
+  alic03:{t:2,a:"Alic, J. A. (Spring 2003)",ti:"Review of Roland & Shiman, Strategic Computing: DARPA and the Quest for Machine Intelligence, 1983–1993",p:"Issues in Science and Technology 19(3)",u:"https://issues.org/br_alic/"},
+  icot94:{t:1,a:"Shapiro, E. (June 1992)",ti:"Report in the ICOT Final Evaluation of the Fifth Generation Computer Systems project, p.94",p:"Official end-of-project evaluation",u:"https://www.airc.aist.go.jp/aitec-icot/ICOT/Museum/FinalEval/finaleval094.html"},
+  icot155:{t:1,a:"Treleaven, P. (1992)",ti:"Report on the Success of Japan’s Fifth Generation Project, ICOT Final Evaluation p.155",p:"Official end-of-project evaluation",u:"https://www.airc.aist.go.jp/aitec-icot/ICOT/Museum/FinalEval/finaleval155.html"},
+  brown90:{t:1,a:"Brown et al., IBM (1990)",ti:"A Statistical Approach to Machine Translation",p:"Computational Linguistics 16(2):79–85",u:"https://aclanthology.org/J90-2002.pdf"},
+  sutton19:{t:2,a:"Sutton, R. (13 Mar 2019)",ti:"The Bitter Lesson",p:"Essay by a recognised AI researcher (not peer reviewed)",u:"http://www.incompleteideas.net/IncIdeas/BitterLesson.html"},
+  brooks19:{t:2,a:"Brooks, R. (19 Mar 2019)",ti:"A Better Lesson",p:"Reply to Sutton by the MIT roboticist",u:"https://rodneybrooks.com/a-better-lesson/"},
+  silver16:{t:1,a:"Silver et al. (2016)",ti:"Mastering the game of Go with deep neural networks and tree search",p:"Nature 529:484–489 (DeepMind); includes Nature’s editorial summary",u:"https://www.nature.com/articles/nature16961"},
+  hinton06:{t:1,a:"Hinton & Salakhutdinov (2006)",ti:"Reducing the Dimensionality of Data with Neural Networks",p:"Science 313:504–507",u:"https://www.cs.toronto.edu/~hinton/absps/science.pdf"},
+  lecun15:{t:1,a:"LeCun, Bengio & Hinton (2015)",ti:"Deep learning",p:"Nature 521:436–444 (review)",u:"https://www.nature.com/articles/nature14539"},
+  acm19:{t:1,a:"ACM (27 Mar 2019)",ti:"Fathers of the deep learning revolution receive the ACM A.M. Turing Award",p:"Association for Computing Machinery press release, via EurekAlert",u:"https://www.eurekalert.org/news-releases/508417"},
+  nobelPhys24:{t:1,a:"Royal Swedish Academy of Sciences (2024)",ti:"Press release: The Nobel Prize in Physics 2024",p:"NobelPrize.org",u:"https://www.nobelprize.org/prizes/physics/2024/press-release/"},
+  nobelChem24:{t:1,a:"Royal Swedish Academy of Sciences (2024)",ti:"Press release: The Nobel Prize in Chemistry 2024",p:"NobelPrize.org",u:"https://www.nobelprize.org/prizes/chemistry/2024/press-release/"},
+  schmid22:{t:2,a:"Schmidhuber, J. (Dec 2022)",ti:"Scientific Integrity and the History of Deep Learning: The 2021 Turing Lecture, and the 2018 Turing Award",p:"Technical Report IDSIA-77-21 (v5); author declares a conflict of interest",u:"https://people.idsia.ch/~juergen/scientific-integrity-turing-award-deep-learning.html"},
+  ubs23:{t:2,a:"Bove, T. (2 Feb 2023)",ti:"ChatGPT is the fastest-growing app in history and it could disrupt market trading",p:"Fortune, reporting a UBS research note",u:"https://fortune.com/2023/02/02/chatgpt-fastest-growing-app-in-history-could-revolutionize-trading/"},
+  aiindex26:{t:1,a:"Stanford HAI (2026)",ti:"The 2026 AI Index Report",p:"Top takeaways; covers data to early 2026",u:"https://hai.stanford.edu/ai-index/2026-ai-index-report"},
+  narayanan26:{t:2,a:"Narayanan, A. (29 Jan 2026)",ti:"Fact checking Moravec’s paradox",p:"AI as Normal Technology newsletter; quotes Moravec’s Mind Children (1988)",u:"https://normaltech.ai/p/fact-checking-moravecs-paradox"},
   morris24:{t:1,a:"Morris et al., Google DeepMind (2024)",ti:"Levels of AGI for Operationalizing Progress on the Path to AGI",p:"ICML 2024 position paper; arXiv:2311.02462 (v5, Sep 2025)",u:"https://arxiv.org/abs/2311.02462"},
   isr25:{t:1,a:"Bengio et al. (Jan 2025)",ti:"International AI Safety Report",p:"Report by 100 experts, mandated by the nations at the Bletchley AI Safety Summit; arXiv:2501.17805",u:"https://arxiv.org/abs/2501.17805"},
   grace24:{t:1,a:"Grace et al. (2024)",ti:"Thousands of AI Authors on the Future of AI",p:"Survey of 2,778 researchers; arXiv:2401.02843",u:"https://arxiv.org/abs/2401.02843"},
   bostrom98:{t:2,a:"Bostrom, N. (1997, revised 1998)",ti:"How Long Before Superintelligence?",p:"International Journal of Futures Studies, vol. 2",u:"https://nickbostrom.com/superintelligence"},
   jumper21:{t:1,a:"Jumper et al. (2021)",ti:"Highly accurate protein structure prediction with AlphaFold",p:"Nature (DeepMind)",u:"https://www.nature.com/articles/s41586-021-03819-2"},
   mnih15:{t:1,a:"Mnih et al. (2015)",ti:"Human-level control through deep reinforcement learning",p:"Nature (DeepMind)",u:"https://www.nature.com/articles/nature14236"},
-  silver16:{t:1,a:"Silver et al. (2016)",ti:"Mastering the game of Go with deep neural networks and tree search",p:"Nature (DeepMind)",u:"https://www.nature.com/articles/nature16961"},
   devlin18:{t:1,a:"Devlin, Chang, Lee & Toutanova (2018)",ti:"BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",p:"arXiv:1810.04805 (Google)",u:"https://arxiv.org/abs/1810.04805"},
   balestriero23:{t:1,a:"Balestriero et al. (2023)",ti:"A Cookbook of Self-Supervised Learning",p:"arXiv:2304.12210 (Meta AI and universities)",u:"https://arxiv.org/abs/2304.12210"},
   russakovsky15:{t:1,a:"Russakovsky et al. (2015)",ti:"ImageNet Large Scale Visual Recognition Challenge",p:"arXiv:1409.0575 (Stanford and others)",u:"https://arxiv.org/abs/1409.0575"},
@@ -401,7 +427,6 @@ const SRC = {
   brohan23:{t:1,a:"Brohan et al. (2023)",ti:"RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control",p:"arXiv:2307.15818 (Google DeepMind)",u:"https://arxiv.org/abs/2307.15818"},
   black24:{t:1,a:"Black et al., Physical Intelligence (2024)",ti:"π0: A Vision-Language-Action Flow Model for General Robot Control",p:"RSS 2025; arXiv:2410.24164",u:"https://arxiv.org/abs/2410.24164"},
   ifr26:{t:3,a:"International Federation of Robotics (12 Nov 2026)",ti:"Robot Density Highest in South Korea, Singapore and Germany",p:"Industry association press release (World Robotics data)",u:"https://ifr.org/ifr-press-releases/news/"},
-  lecun15:{t:1,a:"LeCun, Bengio & Hinton (2015)",ti:"Deep learning",p:"Nature (review article)",u:"https://www.nature.com/articles/nature14539"},
   trinh24:{t:1,a:"Trinh et al. (2024)",ti:"Solving olympiad geometry without human demonstrations (AlphaGeometry)",p:"Nature (Google DeepMind)",u:"https://www.nature.com/articles/s41586-023-06747-5"},
   garcez20:{t:1,a:"d’Avila Garcez & Lamb (2020)",ti:"Neurosymbolic AI: The 3rd Wave",p:"arXiv:2012.05876",u:"https://arxiv.org/abs/2012.05876"},
   marcus20:{t:2,a:"Marcus, G. (2020)",ti:"The Next Decade in AI: Four Steps Towards Robust Artificial Intelligence",p:"arXiv:2002.06177",u:"https://arxiv.org/abs/2002.06177"},
@@ -945,12 +970,151 @@ const SECTIONS = [
   {id:"s3-5",n:"3.5",title:"Tooling & infrastructure",cards:[["s3-frameworks","Frameworks & developer software"],["s3-dataplat","Data & labelling platforms"],["s3-hosting","Model hosting & APIs"],["s3-retrievalinfra","Retrieval & agent infrastructure"],["s3-evalmon","Evaluation & monitoring"]]},
   {id:"s3-6",n:"3.6",title:"Applications layer",cards:[["s3-wrapper","Horizontal vs vertical apps"],["s3-distribution","Distribution"]]},
   {id:"s3-7",n:"3.7",title:"The players",cards:[["s3-bigtech","Big tech platforms"],["s3-oss","Open-source communities"],["s3-academia","Universities & research institutes"],["s3-nonprofits","Non-profits, safety institutes & standards bodies"]]}]},
-{ id:"s4", n:4, title:"History & Key Ideas", q:"How did we get here?", color:"var(--c4)", status:"planned",
-  intro:`Seven eras, the people behind them, and the patterns that keep recurring.`,
+{ id:"s4", n:4, title:"History & Key Ideas", q:"How did we get here?", color:"var(--c4)", status:"built", updated:"14 Nov 2026",
+  intro:`Seven eras, the people behind them, and the patterns that keep coming back. The map is a timeline: coloured bands are eras, grey shading marks the two “AI winters”, and the line sketches the rise and fall of excitement. Era dates are this guide’s approximate groupings; historians draw the lines in slightly different places.`,
   subs:[
-  {id:"s4-1",n:"4.1",title:"Eras",cards:[["s4-origins","Origins (1940s–1956)"],["s4-optimism","Early optimism"],["s4-winter1","First AI winter"],["s4-expert","Expert systems & the second winter"],["s4-statistical","The statistical turn"],["s4-deeplearning","Deep learning revolution"],["s4-generative","The generative era"]]},
-  {id:"s4-2",n:"4.2",title:"Key people",cards:[["s4-founders","Founders of the field"],["s4-dlpioneers","Deep learning pioneers"],["s4-builders","Builders of the modern era"]]},
-  {id:"s4-3",n:"4.3",title:"Recurring ideas",cards:[["s4-hype","Hype cycles & winters"],["s4-bitter","The bitter lesson"],["s4-moravec","Moravec’s paradox"]]}]},
+  { id:"s4-1", n:"4.1", title:"Eras", note:"From the first neuron model to chatbots in everyday use.",
+    cards:[
+    { id:"s4-origins", title:"Origins (1940s–1956)", level:"Beginner", terms:["McCulloch–Pitts neuron","Turing test","imitation game","Dartmouth workshop"],
+      def:`The years when scientists first asked whether machines could think, sketched the first artificial neurons, and gave the field its name.`,
+      body:[`In 1943 Warren McCulloch and Walter Pitts described brain cells as simple on-off units whose combined behaviour could be written down as logic [[mcculloch43]]. A network of simple units is still the basic idea behind today’s neural networks.`,
+            `In 1950 Alan Turing proposed swapping the vague question “Can machines think?” for a test he called the imitation game: can a machine answer typed questions well enough that an interrogator cannot reliably tell it from a person [[turing50]]? He predicted that in about fifty years an average interrogator would have no better than a 70% chance of picking the machine after five minutes of questioning [[turing50]].`,
+            `The name arrived in a proposal dated 31 August 1955. John McCarthy, Marvin Minsky, Nathaniel Rochester and Claude Shannon asked for funding for a two-month, ten-person “study of artificial intelligence” at Dartmouth College in the summer of 1956 [[dartmouth]]. Their starting assumption was that every aspect of learning or intelligence could in principle be described precisely enough for a machine to simulate it [[dartmouth]].`],
+      example:`Turing’s imitation game is the “Turing test” people still bring up whenever a chatbot seems convincingly human.`,
+      links:[["c-ai","named the field defined in"],["c-nn","first sketched the idea behind"],["s4-founders","was the work of"],["s4-optimism","led into"]],
+      deeper:[`Turing already anticipated machine learning. Instead of programming an adult mind, he asked, why not simulate a child’s mind and then give it an education [[turing50]]?`,
+              `The Dartmouth proposal listed the problems it hoped to make progress on: getting machines to use language, form abstractions and concepts, solve problems then reserved for humans, and improve themselves [[dartmouth]].`],
+      myth:[`AI is a 21st-century invention.`,`The term comes from a 1955 proposal [[dartmouth]], and the idea of networks of artificial neurons from 1943 [[mcculloch43]].`]
+    },
+    { id:"s4-optimism", title:"Early optimism (1956–early 1970s)", level:"Beginner", terms:["perceptron","early AI predictions"],
+      def:`The field’s first two decades, when early successes led leading researchers and journalists to expect thinking machines soon.`,
+      body:[`In 1957 Herbert Simon and Allen Newell predicted, among other things, that a computer would be world chess champion within about ten years. The prediction was published in 1958 [[simon98]]. It came true in 1997, roughly thirty years late, when IBM’s Deep Blue beat world champion Garry Kasparov [[silver16]].`,
+            `In July 1958 the US Office of Naval Research demonstrated Frank Rosenblatt’s perceptron. After 50 trials, a room-sized IBM computer taught itself to tell punch cards marked on the left from cards marked on the right [[cornell19]]. A New York Times headline described it as the “embryo” of a computer designed to read and grow wiser [[cornell19]]. Rosenblatt’s paper set out the theory: information is stored in the strength of connections, not in specific locations [[rosenblatt58]].`,
+            `{{op:Minsky vs Rosenblatt|MIT’s Marvin Minsky argued that the single-layer perceptron could not do what Rosenblatt hoped, and in 1969 he and Seymour Papert published a book, Perceptrons, attacking the approach [[cornell19]]. Rosenblatt’s defenders today say he was on the right track but had no way to train networks with many layers [[cornell19]].}}`],
+      example:`The perceptron’s left-or-right card test is the same basic job a spam filter does today: sort each input into one of two categories.`,
+      links:[["s4-origins","grew out of"],["c-nn","produced the first working"],["s4-winter1","ended in"],["s4-hype","is the first round of"]],
+      deeper:[`Simon later stood by his forecasts. In 1998 he wrote that he saw them as “a highly successful exercise in futurology” and would make them again [[simon98]].`,
+              `Rosenblatt and Minsky had been a year apart at the same New York high school, and later debated the perceptron in public at conferences [[cornell19]].`],
+      myth:[`Neural networks are a recent idea.`,`Rosenblatt’s perceptron, a learning neural network, was demonstrated in 1958 [[cornell19]][[rosenblatt58]].`]
+    },
+    { id:"s4-winter1", title:"The first AI winter (1970s)", level:"Intermediate", terms:["AI winter","Lighthill report","combinatorial explosion"],
+      def:`A period in the 1970s when results fell far short of the promises, and confidence and funding for AI research dropped.`,
+      body:[`In Britain, the Science Research Council asked the mathematician Sir James Lighthill for an outsider’s review of AI. His report is dated July 1972 and was published early in 1973 [[lighthill72]][[chiltonLH]]. He wrote that most researchers felt a pronounced disappointment with the previous twenty-five years, and that inflated public predictions had made things worse [[lighthill72]].`,
+            `His main diagnosis was the “combinatorial explosion”: the number of possibilities a program has to consider grows explosively as a problem gets bigger [[lighthill72]]. He also observed that automation worked only when a program was packed with detailed knowledge of one narrow problem, not when it aimed for generality [[lighthill72]].`,
+            `The report provoked a massive loss of confidence in AI among Britain’s academic establishment, including the funding body, which lasted almost a decade [[chiltonLH]]. In the United States, Cornell University’s account links the perceptron’s rise and fall to decades in which federal funding for AI research dried up; Rosenblatt lost hundreds of thousands of dollars a year in government funds [[cornell19]].`],
+      example:`Looking two moves ahead in chess is easy. Looking twenty moves ahead means checking an astronomically larger number of positions. That jump is the combinatorial explosion in miniature. (Illustrative example.)`,
+      links:[["s4-optimism","followed"],["s4-hype","is the first example of"],["s4-expert","was followed by"],["c-scaling","contrasts with today’s"]],
+      deeper:[`The Council published Lighthill’s report together with replies from other scientists, including Donald Michie and Christopher Longuet-Higgins [[srcPreface]]. In June 1973 the BBC broadcast a debate on it between Lighthill, Michie, Richard Gregory and John McCarthy [[aiaiDebate]].`,
+              `Lighthill stressed that the report was only his personal view, formed after two months of reading and talking to researchers [[lighthill72]].`],
+      myth:[`The first winter happened because AI was shown to be impossible.`,`Lighthill supported AI work on automation and on simulating the brain. He was most critical of foundational research such as robotics and language processing [[chiltonLH]].`]
+    },
+    { id:"s4-expert", title:"Expert systems & the second winter (1980s–early 1990s)", level:"Intermediate", terms:["expert system","knowledge-based system","Fifth Generation project","Strategic Computing","second AI winter"],
+      def:`In the 1980s AI went commercial through expert systems: programs built from large sets of hand-written if-then rules. Government mega-projects followed. By the early 1990s the boom had faded.`,
+      body:[`The best-known success was XCON, which configured computer orders for Digital Equipment Corporation. {{co:Digital, reported by TIME|In 1988 TIME reported that XCON configured almost every Digital computer system and saved the company $25 million a year [[time88]].}} The same article said IBM had 50 such “knowledge systems” running [[time88]].`,
+            `Governments joined in. Japan planned its Fifth Generation Computer Systems project in 1982 to build hardware and software for “knowledge information processing” [[icot155]][[icot94]]. The US Defense Advanced Research Projects Agency (DARPA) ran Strategic Computing, a ten-year, billion-dollar programme for machine intelligence, from 1983 to 1993 [[alic03]].`,
+            `Neither met its grand goals. Strategic Computing’s goals changed again and again, and after about 1990 its AI focus was absorbed into a supercomputing initiative [[alic03]]. {{op:Japan’s 1992 evaluators|In the Fifth Generation project’s 1992 final evaluation, one reviewer judged its international impact smaller than hoped [[icot94]]. Another argued that dismissing it ignored its wider effect on Japanese software research and on how governments organise joint research [[icot155]].}}`],
+      example:`An expert system for diagnosing a faulty disk drive is a long list of rules such as “if error code X appears and the drive is warm, check part Y”. (Illustrative; IBM’s first expert system diagnosed disk-drive faults [[time88]].)`,
+      links:[["c-auto","is a classic example of"],["s2-symbolic","was the high point of"],["s4-statistical","gave way to"],["s4-hype","is the second example of"]],
+      deeper:[`Simple expert systems searched their rules one by one. More sophisticated ones stored knowledge in “frames”, an idea from Marvin Minsky that bundles an object with the attributes you expect it to have [[time88]].`,
+              `Strategic Computing also paid for new chips, massively parallel computers and robotic vehicles. About 90% of the parallel computers it helped create went to government agencies or defence contractors rather than commercial buyers [[alic03]].`]
+    },
+    { id:"s4-statistical", title:"The statistical turn (1990s–2000s)", level:"Intermediate", terms:["statistical machine translation","hidden Markov model","Deep Blue"],
+      def:`The shift from rules written by experts to methods that learn statistical patterns from large amounts of data and lean on raw computing power.`,
+      body:[`Speech recognition showed the way. In a 1970s DARPA competition, statistical methods called hidden Markov models, which used much more computation, beat systems built on human knowledge of words and the vocal tract. Over the following decades statistics came to dominate language processing [[sutton19]].`,
+            `In 1990 IBM researchers proposed translating by probability: learn from documents that exist in two languages how likely one sentence is to be a translation of another [[brown90]]. Their first test used Canadian parliamentary records, published in English and French, and estimated about 81 million parameters from 40,000 sentence pairs [[brown90]]. They argued the idea, first suggested in 1949, had failed before only because computers were too weak and machine-readable text too scarce [[brown90]].`,
+            `Games told the same story. In 1997 IBM’s Deep Blue beat world chess champion Garry Kasparov over six games [[silver16]], relying on massive search rather than human-style chess knowledge [[sutton19]].`],
+      example:`A statistical translator notices that “maison” and “house” keep turning up in matching French and English sentences, and concludes they probably mean the same thing. (Illustrative example.)`,
+      links:[["c-ml","made central"],["c-prob","rests on"],["s4-bitter","supplies key examples for"],["s4-deeplearning","set the stage for"]],
+      deeper:[`The IBM team framed translation as a puzzle in reverse: given a sentence in the target language, find the source sentence most likely to have produced it [[brown90]].`],
+      myth:[`Deep Blue was an early neural network.`,`It won through deep search on special hardware; learning did not play a big role in it [[sutton19]].`]
+    },
+    { id:"s4-deeplearning", title:"The deep learning revolution (2006–2017)", level:"Beginner", terms:["deep learning revolution","AlexNet","ImageNet","AlphaGo"],
+      def:`The years when neural networks with many layers, trained on large datasets using graphics chips, overtook other methods in vision, speech and games.`,
+      body:[`Through the early 2000s only a small group of researchers, including Geoffrey Hinton, Yann LeCun and Yoshua Bengio, stayed committed to neural networks, and their efforts met with scepticism at first [[acm19]]. In 2006 Hinton and Ruslan Salakhutdinov described an effective way to set up the starting weights of deep networks so that they could be trained well [[hinton06]].`,
+            `The turning point came in 2012. AlexNet, a deep network trained on two graphics cards, won the ImageNet image-recognition contest with a top-5 error of 15.3%, against 26.2% for the runner-up [[alexnet12]]. By 2015 a review by LeCun, Bengio and Hinton reported that deep learning had dramatically improved speech recognition, object recognition and other fields [[lecun15]].`,
+            `In a paper published in 2016, DeepMind’s AlphaGo, which combined deep networks with search, beat European Go champion Fan Hui 5–0. It was the first time a program had beaten a human professional at full-sized Go, a feat previously thought to be at least a decade away [[silver16]].`],
+      example:`Typing “dog” into the search box of a photo app and finding your untagged dog pictures relies on the kind of image recognition this era made work. (Illustrative example.)`,
+      links:[["c-dl","is explained in"],["c-backprop","revived"],["s3-gpus","depended on"],["s4-dlpioneers","was led by"],["s4-generative","led into"]],
+      deeper:[`AlexNet took five to six days to train on two graphics cards, and its authors noted that their results could be improved simply by waiting for faster chips and bigger datasets [[alexnet12]].`,
+              `AlphaGo’s networks first learned from games played by human experts, then improved by playing against themselves [[silver16]].`],
+      myth:[`The deep learning boom came from a brand-new algorithm.`,`Its core training method, backpropagation, was published in 1986 [[rumelhart86]]. AlexNet’s authors pointed to faster chips and bigger datasets as the route to better results [[alexnet12]].`]
+    },
+    { id:"s4-generative", title:"The generative era (2017–today)", level:"Beginner", terms:["generative AI","generative era","ChatGPT","GPT-3"],
+      def:`The current era, in which AI models that generate text, images and code moved out of the lab and into everyday use.`,
+      body:[`Three ideas laid the ground. The transformer (2017) replaced older designs with attention and trained much faster [[vaswani17]]. Language-model performance turned out to improve smoothly and predictably with size, data and compute [[kaplan20]], and in 2020 GPT-3, with 175 billion parameters, showed what scaling could do [[brown20]]. Diffusion models produced high-quality images the same year [[ho20]].`,
+            `ChatGPT, launched at the end of 2022, made the technology mainstream. {{est:UBS analysts|A UBS research note estimated it passed 100 million monthly users in a little over two months, which would make it the fastest-growing consumer app in history. TikTok took nine months and Instagram about two and a half years [[ubs23]].}}`,
+            `{{est:Stanford AI Index 2026|Generative AI reached 53% population adoption within three years, faster than the PC or the internet, and 88% of organisations reported using AI [[aiindex26]].}} {{asof:2026}} Industry, not universities, now produces over 90% of notable frontier models [[aiindex26]].`],
+      example:`Asking a chatbot to draft an email, or an image tool to make a birthday card, are typical generative-era uses.`,
+      links:[["c-transformer","is built on"],["c-llm","is driven by"],["c-diffusion","includes"],["s5-chat","produced"],["s6-bubble","raised the question of"],["s9-agi","fuels the debate on"]],
+      deeper:[`Scale keeps climbing: the AI Index reports that training compute for notable models doubles about every five months [[aiindex25]].`,
+              `From 2024, models trained with reinforcement learning to reason step by step added a new direction; DeepSeek’s version was described in a peer-reviewed Nature paper [[deepseekr1]].`],
+      myth:[`ChatGPT was the first large language model.`,`GPT-3, with 175 billion parameters, was described in 2020 [[brown20]], and the transformer design behind it in 2017 [[vaswani17]].`]
+    }]
+  },
+  { id:"s4-2", n:"4.2", title:"Key people", note:"Who built the field. Grouped by contribution; companies appear only as context.",
+    cards:[
+    { id:"s4-founders", title:"Founders of the field", level:"Beginner", terms:["Alan Turing","John McCarthy","Marvin Minsky","Herbert Simon","Allen Newell","Frank Rosenblatt"],
+      def:`The mathematicians, psychologists and engineers who set out AI’s big questions between the 1940s and the 1960s.`,
+      body:[`<ul><li><b>Warren McCulloch and Walter Pitts</b> modelled neurons as logical on-off units (1943) [[mcculloch43]].</li><li><b>Alan Turing</b> asked whether machines can think and proposed the imitation game (1950) [[turing50]].</li><li><b>John McCarthy, Marvin Minsky, Nathaniel Rochester and Claude Shannon</b> wrote the 1955 Dartmouth proposal that named the field [[dartmouth]].</li><li><b>Herbert Simon and Allen Newell</b> made bold forecasts for machine problem-solving (1957) [[simon98]].</li><li><b>Frank Rosenblatt</b> built the perceptron, an early learning machine (1958) [[rosenblatt58]][[cornell19]].</li></ul>`,
+            `The founders did not agree on method. Some built intelligence from logic and symbols; Rosenblatt modelled networks of neurons. Rosenblatt and Minsky debated the perceptron in public, in front of their colleagues and students [[cornell19]].`],
+      example:`Today’s arguments about whether chatbots “really reason” or just match patterns echo the split between these camps. (This guide’s framing.)`,
+      links:[["s4-origins","shaped"],["s4-optimism","drove"],["s2-symbolic","founded the approach in"],["c-nn","pioneered"]],
+      deeper:[`Shannon and others were developing information theory at the time. IBM’s statistical translators later traced their own approach to a 1949 suggestion by Warren Weaver to tackle translation with statistics and information theory [[brown90]].`,
+              `Rosenblatt died in a sailing accident in 1971, long before neural networks were vindicated. His Mark I perceptron is now held by the Smithsonian Institution [[cornell19]].`]
+    },
+    { id:"s4-dlpioneers", title:"Deep learning pioneers", level:"Intermediate", terms:["Geoffrey Hinton","Yann LeCun","Yoshua Bengio","John Hopfield","Jürgen Schmidhuber","Turing Award"],
+      def:`The researchers who kept neural networks alive through the lean years and then made them work at scale.`,
+      body:[`Hinton, LeCun and Bengio received the 2018 Turing Award, often called computing’s Nobel Prize, for breakthroughs that made deep neural networks a critical part of computing [[acm19]]. The award citation credits Hinton with work on backpropagation and Boltzmann machines, LeCun with developing convolutional neural networks in the 1980s, and Bengio with neural models of sequences and word embeddings [[acm19]].`,
+            `In 2024 John Hopfield and Geoffrey Hinton won the Nobel Prize in Physics for foundational discoveries that enable machine learning with artificial neural networks [[nobelPhys24]]. Hopfield built a network that can store and reconstruct patterns; Hinton used it as the basis for the Boltzmann machine [[nobelPhys24]].`,
+            `{{op:Who gets the credit|Jürgen Schmidhuber, whose lab did much early neural-network work, argues that the Turing Award citation and the laureates’ own histories left out earlier pioneers whose work they built on, while acknowledging his own conflict of interest [[schmid22]]. ACM’s citation says the three developed the field’s foundations working independently and together [[acm19]].}}`],
+      example:`Convolutional networks, the design LeCun pioneered, are the kind of network AlexNet used to win the 2012 ImageNet contest [[alexnet12]].`,
+      links:[["c-backprop","developed"],["c-cnnrnn","invented"],["c-nn","championed"],["s4-deeplearning","led"]],
+      deeper:[`The 1986 backpropagation paper by David Rumelhart, Hinton and Ronald Williams showed that hidden units in a network come to represent useful features of a task on their own [[rumelhart86]].`,
+              `AlexNet was built by Alex Krizhevsky and Ilya Sutskever with Hinton [[alexnet12]].`]
+    },
+    { id:"s4-builders", title:"Builders of the modern era", level:"Intermediate", terms:["Demis Hassabis","John Jumper","AlphaFold"],
+      def:`The researchers and teams behind the systems that have defined AI since the mid-2010s.`,
+      body:[`Modern breakthroughs usually come from large teams. The 2016 AlphaGo paper had 20 authors, led by David Silver and Aja Huang, with Demis Hassabis among those managing the project [[silver16]]. The transformer paper had eight authors [[vaswani17]].`,
+            `In 2024 Hassabis and John Jumper shared half the Nobel Prize in Chemistry for AlphaFold2, an AI model presented in 2020 that predicts the 3D shape of proteins, a problem researchers had worked on since the 1970s [[nobelChem24]]. It has been used to predict the structure of virtually all 200 million known proteins, and by more than two million people in 190 countries [[nobelChem24]].`,
+            `The language-model wave came from teams that mapped how models improve with scale [[kaplan20]] and then built very large ones [[brown20]]. In 2025 DeepSeek’s team published, in peer-reviewed form, how reasoning ability can be developed through reinforcement learning [[deepseekr1]].`],
+      example:`Researchers studying antibiotic resistance can now look up predicted protein structures instead of working each one out in the lab [[nobelChem24]].`,
+      links:[["c-transformer","created"],["c-scaling","discovered"],["s5-science","enabled uses in"],["s4-generative","defined"]],
+      deeper:[`Two 2024 Nobel Prizes went to AI-related work, which the Stanford AI Index read as a sign of AI’s growing importance to science [[aiindex25]].`]
+    }]
+  },
+  { id:"s4-3", n:"4.3", title:"Recurring ideas", note:"Patterns that show up again and again, and the arguments about them.",
+    cards:[
+    { id:"s4-hype", title:"Hype cycles & winters", level:"Intermediate", terms:["hype cycle","AI boom","AI bust"],
+      def:`AI’s history has swung at least twice between bursts of excitement and investment and periods of disappointment and cuts.`,
+      body:[`The pattern starts with bold forecasts, such as Simon and Newell’s 1957 prediction of a computer chess champion within a decade [[simon98]], or the 1958 newspaper claim that the perceptron was the embryo of a reading, learning computer [[cornell19]]. When results lag, confidence and money drain away. Lighthill blamed researchers’ embarrassment partly on the “lamentable failure of such inflated predictions” [[lighthill72]].`,
+            `The 1980s repeated the cycle: a commercial boom in expert systems [[time88]], government mega-projects in Japan and the United States, then retrenchment around 1990 [[alic03]][[icot94]].`,
+            `{{op:Is this time different?|Sceptics point to the track record: Arvind Narayanan notes that AI researchers’ forecasts have historically been poor, and argues new capabilities take a long time to spread through the economy [[narayanan26]]. The Stanford AI Index 2026 argues capability is accelerating rather than plateauing, with 88% of organisations already using AI [[aiindex26]].}} The money side of this debate is in Section 6.6.`],
+      example:`“A machine that thinks is just around the corner” was a headline theme in 1958 [[cornell19]]. Spotting the same shape in today’s headlines is a useful habit.`,
+      links:[["s4-winter1","includes"],["s4-expert","includes"],["s6-bubble","is weighed for today in"],["s6-dotcom","is compared with"],["s8-redflags","is a reason to watch for"]],
+      deeper:[`Not every bold forecast failed. Simon called his predictions a successful exercise in futurology [[simon98]], and the chess one came true in 1997, decades late [[silver16]].`,
+              `Winters did not stop research entirely. In Britain, AI work continued after Lighthill, and the next major push came in 1982 [[chiltonLH]].`],
+      myth:[`An AI winter means research stopped.`,`Research continued at lower intensity; Britain’s next big AI programme started about a decade after Lighthill [[chiltonLH]].`]
+    },
+    { id:"s4-bitter", title:"The bitter lesson", level:"Intermediate", terms:["bitter lesson","general methods","search and learning"],
+      def:`Richard Sutton’s argument that, across 70 years of AI, general methods that make use of ever more computing power have beaten approaches built on human knowledge.`,
+      body:[`In a short 2019 essay, computer scientist Richard Sutton argued that general methods that leverage computation are ultimately the most effective, by a large margin, because computing keeps getting cheaper [[sutton19]]. Building in human knowledge helps in the short run, he wrote, but eventually plateaus and can hold progress back [[sutton19]].`,
+            `His examples were chess and Go, where search and self-play learning beat hand-coded strategy; speech recognition, where statistical methods won; and computer vision, where learned networks replaced hand-designed features [[sutton19]]. The two methods he saw as scaling without limit were search and learning [[sutton19]].`,
+            `{{op:Sutton vs Brooks|Roboticist Rodney Brooks replied that even successful networks rely on human design, such as the structure of convolutional networks, and that “learning everything” just moves human effort into building huge labelled datasets [[brooks19]]. He also warned that ever-larger compute budgets put AI research beyond universities and individuals [[brooks19]].}}`],
+      example:`Early vision systems were programmed to look for edges and shapes. Modern networks learn everything from the pixels and do much better [[sutton19]].`,
+      links:[["c-scaling","is given numbers by"],["s4-statistical","draws on"],["s9-scaling","is being tested in"],["s4-moravec","sits in tension with"]],
+      deeper:[`The 2020 scaling-law results, showing smooth gains from more size, data and compute [[kaplan20]], fit Sutton’s pattern. (This guide’s reading; Sutton’s essay predates them.)`,
+              `Sutton’s conclusion was that AI should contain methods that can discover, not the things we have already discovered [[sutton19]].`]
+    },
+    { id:"s4-moravec", title:"Moravec’s paradox", level:"Intermediate", terms:["Moravec's paradox"],
+      def:`The observation that tasks humans find hard, like chess, have often been easier for AI than tasks humans find effortless, like seeing and moving.`,
+      body:[`Roboticist Hans Moravec wrote in his 1988 book Mind Children that it is comparatively easy to make computers match adults on intelligence tests or at checkers, and hard or impossible to give them a one-year-old’s perception and mobility [[narayanan26]].`,
+            `His explanation was evolutionary: perception and movement rest on a billion years of evolved skill, while abstract thought is a new trick, perhaps less than 100,000 years old [[narayanan26]].`,
+            `{{op:The standard view vs Narayanan|Many AI researchers repeat the paradox as established fact [[narayanan26]]. Computer scientist Arvind Narayanan argues it has never been empirically tested, mostly reflects which problems researchers find interesting, and does not predict what AI will find easy next [[narayanan26]].}}`],
+      example:`For a chess robot, choosing a winning move is the easy part. Physically picking up the piece and placing it is the hard part [[narayanan26]].`,
+      links:[["s9-embodied","shapes expectations for"],["s2-robotics","is used to explain the difficulty of"],["s4-bitter","is often paired with"],["c-cant","is one lens on"]],
+      deeper:[`Narayanan argues paradox-style thinking has fed both alarm about imminent superintelligent reasoning and false comfort about how hard robotics is [[narayanan26]].`]
+    }]
+  }]},
 { id:"s5", n:5, title:"Uses & Tools", q:"What is AI used for?", color:"var(--c5)", status:"planned",
   intro:`What the world uses AI for: general-purpose tools, uses by industry, and the AI you never notice.`,
   subs:[
@@ -1196,10 +1360,10 @@ function mapS1(){
     const op = 8 + i*7;
     s += `<g class="node" data-go="${id}"><circle cx="${cx}" cy="${cy}" r="${r}" fill="color-mix(in srgb, ${C} ${op}%, var(--surface))" stroke="${C}" stroke-width="1.5"/><text x="${cx}" y="${i===4?cy+5:cy-r+19}" text-anchor="middle" font-size="${i===4?14:13}" font-weight="600">${l}</text></g>`;
   });
-  const pill=(id,x,y,w,l)=>`<g class="node" data-go="${id}"><rect x="${x-w/2}" y="${y-12}" width="${w}" height="24" rx="12" fill="var(--surface)" stroke="${C}" stroke-dasharray="3 2"/><text x="${x}" y="${y+4}" text-anchor="middle" font-size="12.5">${l}</text></g>`;
-  s += pill("c-cnnrnn", cx-93, cy, 74, "CNNs · RNNs");
-  s += pill("c-diffusion", cx+93, cy, 70, "Diffusion");
-  s += pill("c-nn", cx-48, cy+132, 104, "Neural networks");
+  const pill=(id,x,y,w,l)=>`<g class="node" data-go="${id}"><rect x="${x-w/2}" y="${y-12}" width="${w}" height="24" rx="12" fill="var(--surface)" stroke="${C}" stroke-dasharray="3 2"/><text x="${x}" y="${y+4}" text-anchor="middle" font-size="13">${l}</text></g>`;
+  s += pill("c-cnnrnn", cx-92, cy, 86, "CNNs · RNNs");
+  s += pill("c-diffusion", cx+92, cy, 78, "Diffusion");
+  s += pill("c-nn", cx-50, cy+132, 112, "Neural networks");
   s += pill("c-backprop", cx+56, cy+132, 86, "Backprop");
   s += pill("c-auto", cx-62, cy+172, 112, "vs automation");
   s += pill("c-ds", cx+62, cy+172, 112, "vs data science");
@@ -1221,20 +1385,68 @@ function mapS1(){
   s += pill("c-eval", 766, 35, 86, "Evaluation");
     // limitations
   s += `<text class="colhead" x="450" y="340">LIMITATIONS</text>`;
-  s += pill("c-halluc", 500, 362, 100, "Hallucination");
-  s += pill("c-reliab", 610, 362, 112, "Reliability gaps");
-  s += pill("c-cutoff", 724, 362, 108, "Cutoffs & memory");
-  s += pill("c-brittle", 830, 362, 96, "Brittleness");
-  s += pill("c-cant", 930, 362, 84, "Can’t do yet");
+  s += pill("c-halluc", 496, 362, 100, "Hallucination");
+  s += pill("c-reliab", 606, 362, 112, "Reliability gaps");
+  s += pill("c-cutoff", 724, 362, 118, "Cutoffs & memory");
+  s += pill("c-brittle", 836, 362, 96, "Brittleness");
+  s += pill("c-cant", 930, 362, 86, "Can’t do yet");
   // intuitions band
   s += `<rect x="440" y="398" width="540" height="92" rx="10" fill="none" stroke="var(--rule)" stroke-dasharray="4 4"/>`;
   s += `<text class="colhead" x="452" y="418">INTUITIONS THAT UNDERPIN EVERYTHING</text>`;
-  s += box("c-prob",452,430,118,44,"Probability",C,{fs:12.5});
-  s += box("c-vec",582,430,118,44,"Vectors",C,{fs:12.5});
-  s += box("c-opt",712,430,118,44,"Optimisation",C,{fs:12.5});
-  s += box("c-overfit",842,430,128,44,"Overfitting",C,{fs:12.5});
+  s += box("c-prob",452,430,118,44,"Probability",C,{fs:13});
+  s += box("c-vec",582,430,118,44,"Vectors",C,{fs:13});
+  s += box("c-opt",712,430,118,44,"Optimisation",C,{fs:13});
+  s += box("c-overfit",842,430,128,44,"Overfitting",C,{fs:13});
   s += `</svg>`;
   const el = document.getElementById("map-s1"); el.innerHTML = s; wireMap(el);
+}
+
+function mapS4(){
+  const C = "var(--c4)";
+  // Piecewise time scale: 9px per year to 2010, then 18px per year (the recent past gets more room).
+  const X = y => 50 + (y<=2010 ? (y-1940)*9 : 630 + (y-2010)*18);
+  const T = (x,y,txt,o={}) => `<text x="${x}" y="${y}" text-anchor="${o.a||"middle"}" font-size="${o.fs||13}" font-weight="${o.w||400}" style="fill:${o.fill||"var(--ink)"}${o.mono?";font-family:var(--mono)":""}">${esc(txt)}</text>`;
+  let s = `<svg viewBox="0 0 1000 500" role="img" aria-label="Timeline map of AI history: eras, AI winters, a sketch of hype, milestones, people and recurring ideas">${DEFS}`;
+  // winters (shaded, behind everything)
+  const winters = [["s4-winter1",1974,1980,"first winter"],["s4-expert",1987,1993,"second winter"]];
+  winters.forEach(([id,a,b,l])=>{
+    s += `<g class="node" data-go="${id}"><rect x="${X(a)}" y="40" width="${X(b)-X(a)}" height="250" fill="color-mix(in srgb, var(--muted) 16%, transparent)"/>${T((X(a)+X(b))/2,282,l,{fs:13,fill:"var(--muted)"})}</g>`;
+  });
+  s += T(50,26,"ERAS",{a:"start",fs:13,w:600,fill:"var(--muted)",mono:1});
+  s += T(950,26,"shaded = AI winter",{a:"end",fs:13,fill:"var(--muted)",mono:1});
+  // era bands
+  const eras = [["s4-origins",1940,1956,"Origins"],["s4-optimism",1956,1974,"Early\noptimism"],["s4-winter1",1974,1980,"First\nwinter"],["s4-expert",1980,1993,"Expert\nsystems"],["s4-statistical",1993,2012,"Statistical\nturn"],["s4-deeplearning",2012,2017,"Deep\nlearning"],["s4-generative",2017,2026,"Generative\nera"]];
+  eras.forEach(([id,a,b,l],i)=>{ s += box(id,X(a)+1,44,X(b)-X(a)-2,50,l,C,{fs:13.5,bold:true,solid:i===6,r:6}); });
+  // hype line (illustrative)
+  const pts = [[1943,250],[1950,238],[1956,210],[1960,160],[1965,150],[1970,180],[1974,236],[1978,250],[1981,205],[1985,150],[1987,175],[1990,238],[1993,248],[1997,222],[2003,226],[2008,214],[2012,180],[2016,148],[2020,130],[2022,112],[2026,104]];
+  let d = `M${X(pts[0][0])},${pts[0][1]}`;
+  for(let i=1;i<pts.length;i++){ const [x0,y0]=[X(pts[i-1][0]),pts[i-1][1]], [x1,y1]=[X(pts[i][0]),pts[i][1]], mx=(x0+x1)/2; d += ` C${mx},${y0} ${mx},${y1} ${x1},${y1}`; }
+  s += `<g class="node" data-go="s4-hype"><path d="${d}" fill="none" stroke="transparent" stroke-width="16"/><path d="${d}" fill="none" stroke="${C}" stroke-width="2.6"/>`;
+  s += T(X(1960),140,"excitement & funding",{fs:13,w:600,fill:C});
+  s += T(X(1960),124,"(illustrative sketch, not data)",{fs:13,fill:"var(--muted)"});
+  s += `</g>`;
+  // axis
+  s += `<line x1="${X(1940)}" y1="292" x2="${X(2026)}" y2="292" stroke="var(--muted)" stroke-width="1.4"/>`;
+  [1940,1950,1960,1970,1980,1990,2000,2010,2020].forEach(y=>{ s += `<line x1="${X(y)}" y1="288" x2="${X(y)}" y2="296" stroke="var(--muted)"/>` + T(X(y),310,String(y),{fs:13,fill:"var(--muted)",mono:1}); });
+  s += T(X(2026),310,"now",{fs:13,fill:"var(--muted)",mono:1,a:"end"});
+  s += T(X(2010)+6,276,"scale stretches →",{fs:13,fill:"var(--muted)",a:"start"});
+  // milestones: [year, label, target, row]
+  const ms = [[1943,"1943 neuron model","s4-origins",0],[1950,"1950 Turing’s test","s4-founders",1],[1956,"1956 Dartmouth","s4-origins",2],[1958,"1958 perceptron","s4-optimism",0],[1969,"1969 Perceptrons","s4-optimism",1],[1973,"1973 Lighthill","s4-winter1",2],[1982,"1982 Fifth Generation","s4-expert",0],[1986,"1986 backprop","c-backprop",1],[1990,"1990 statistical MT","s4-statistical",2],[1997,"1997 Deep Blue","s4-statistical",0],[2006,"2006 deep nets","s4-deeplearning",1],[2012,"2012 AlexNet","s4-deeplearning",2],[2016,"2016 AlphaGo","s4-deeplearning",0],[2017,"2017 transformer","c-transformer",1],[2020,"2020 GPT-3","c-llm",2],[2022,"2022 ChatGPT","s4-generative",3],[2024,"2024 Nobel Prizes","s4-builders",0]];
+  ms.forEach(([y,l,id,row])=>{
+    const x=X(y), ly=336+row*22;
+    s += `<g class="node" data-go="${id}"><line x1="${x}" y1="292" x2="${x}" y2="${ly-12}" stroke="var(--rule)" stroke-width="1.2"/><circle cx="${x}" cy="292" r="5" fill="var(--surface)" stroke="${C}" stroke-width="2"/>${T(x,ly,l,{fs:13})}</g>`;
+  });
+  // people & ideas
+  s += T(50,436,"KEY PEOPLE",{a:"start",fs:13,w:600,fill:"var(--muted)",mono:1});
+  s += T(530,436,"RECURRING IDEAS",{a:"start",fs:13,w:600,fill:"var(--muted)",mono:1});
+  s += box("s4-founders",50,448,138,40,"Founders",C,{fs:13.5});
+  s += box("s4-dlpioneers",196,448,138,40,"Deep learning\npioneers",C,{fs:13});
+  s += box("s4-builders",342,448,138,40,"Modern\nbuilders",C,{fs:13});
+  s += box("s4-hype",530,448,130,40,"Hype cycles",C,{fs:13.5});
+  s += box("s4-bitter",668,448,130,40,"Bitter lesson",C,{fs:13.5});
+  s += box("s4-moravec",806,448,144,40,"Moravec’s paradox",C,{fs:13.5});
+  s += `</svg>`;
+  const el = document.getElementById("map-s4"); el.innerHTML = s; wireMap(el);
 }
 
 /* Section 2: four-lens wheel with an example-system picker.
@@ -1334,9 +1546,9 @@ function vizVec(el){
   const pts={king:[70,40],queen:[200,40],man:[70,140],woman:[200,140],apple:[300,190],banana:[330,170]};
   let s=`<svg viewBox="0 0 380 222" style="width:100%;max-width:440px" role="img" aria-label="Word vectors on a 2D map">${DEFS}`;
   s+=`<path class="edge" d="M80,152 L190,152" marker-end="url(#ah)" style="stroke:var(--c7)"/><path class="edge" d="M80,52 L190,52" marker-end="url(#ah)" style="stroke:var(--c7)"/>`;
-  s+=`<text class="elabel" x="135" y="172" text-anchor="middle">“female” direction</text><text class="elabel" x="135" y="72" text-anchor="middle">same direction</text>`;
-  Object.entries(pts).forEach(([w,[x,y]])=>{ s+=`<circle cx="${x}" cy="${y}" r="5" fill="var(--c1)"/><text x="${x}" y="${y-10}" text-anchor="middle" font-size="12" style="fill:var(--ink)">${w}</text>`; });
-  s+=`<text class="elabel" x="315" y="212" text-anchor="middle">fruit: far away</text></svg><div class="cap">Illustrative 2D sketch. Real embeddings have hundreds of dimensions.</div>`;
+  s+=`<text class="elabel" style="font-size:16px" x="135" y="172" text-anchor="middle">“female” direction</text><text class="elabel" style="font-size:16px" x="135" y="72" text-anchor="middle">same direction</text>`;
+  Object.entries(pts).forEach(([w,[x,y]])=>{ s+=`<circle cx="${x}" cy="${y}" r="5" fill="var(--c1)"/><text x="${x}" y="${y-10}" text-anchor="middle" font-size="16" style="fill:var(--ink)">${w}</text>`; });
+  s+=`<text class="elabel" style="font-size:16px" x="315" y="212" text-anchor="middle">fruit: far away</text></svg><div class="cap">Illustrative 2D sketch. Real embeddings have hundreds of dimensions.</div>`;
   el.innerHTML=s;
 }
 function vizOpt(el){
@@ -1514,7 +1726,7 @@ document.getElementById("pathExit").onclick=exitPath;
    BOOT
    ========================================================= */
 document.getElementById("stagebar").innerHTML = SECTIONS.map(s=>`<span class="stage ${s.status==="built"?"done":""}">${s.n} ${esc(s.title)}${s.status==="built"?" ✓":""}</span>`).join("");
-renderSections(); renderNav(); masterMap(); mapS1(); mapS2(); renderViz(); renderGlossary(); renderMyths(); spy();
+renderSections(); renderNav(); masterMap(); mapS1(); mapS2(); mapS4(); renderViz(); renderGlossary(); renderMyths(); spy();
 if(location.hash){ const id=location.hash.slice(1); setTimeout(()=>{ const el=document.getElementById(id); if(el) el.scrollIntoView(); },60); }
 </script>
 </body>
