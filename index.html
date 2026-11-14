@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a field-guide reference. Sticky index on the left, a reading column on the right,
+   concept maps drawn from the same data as the cards, one muted colour per section. */
+:root{
+  --paper:#f3f5f4; --surface:#ffffff; --ink:#141c25; --muted:#48535f; --rule:#d9dfe2; --accent:#1d5b78;
+  --display:"Newsreader", Georgia, "Times New Roman", serif;
+  --body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --c1:#2b6f8e; --c2:#6a59a6; --c3:#8a6623; --c4:#8d4a5d; --c5:#3c7c58; --c6:#2c5ca6; --c7:#a3473a; --c8:#5c6c27; --c9:#476877;
+  --est:#8a5a00; --est-bg:#fff4dc; --op:#5a3f8f; --op-bg:#f1ecfb; --co:#8a3b2f; --co-bg:#fbeae6; --conf:#7a2d55; --conf-bg:#f9e7f0;
+  --hl:#fff3b0; --shadow:0 1px 2px rgba(20,30,40,.06),0 4px 14px rgba(20,30,40,.05);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#11171c; --surface:#182129; --ink:#e4e9ec; --muted:#9aa6b0; --rule:#2b3741; --accent:#7cc0de;
+    --c1:#6fb4d4; --c2:#a998e0; --c3:#d3a75a; --c4:#d58ea1; --c5:#7cc49a; --c6:#7ea6e8; --c7:#e48f80; --c8:#aab96a; --c9:#8fb0bf;
+    --est:#f1c26b; --est-bg:#3a2e14; --op:#c8b4f2; --op-bg:#2c2440; --co:#f0a596; --co-bg:#3c2420; --conf:#ef9fc6; --conf-bg:#3b2130;
+    --hl:#4a4220; --shadow:0 1px 2px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#11171c; --surface:#182129; --ink:#e4e9ec; --muted:#9aa6b0; --rule:#2b3741; --accent:#7cc0de;
+  --c1:#6fb4d4; --c2:#a998e0; --c3:#d3a75a; --c4:#d58ea1; --c5:#7cc49a; --c6:#7ea6e8; --c7:#e48f80; --c8:#aab96a; --c9:#8fb0bf;
+  --est:#f1c26b; --est-bg:#3a2e14; --op:#c8b4f2; --op-bg:#2c2440; --co:#f0a596; --co-bg:#3c2420; --conf:#ef9fc6; --conf-bg:#3b2130;
+  --hl:#4a4220; --shadow:0 1px 2px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:72px}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none!important; animation:none!important} }
+body{margin:0; background:var(--paper); color:var(--ink); font:17px/1.65 var(--body)}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px}
+h1,h2,h3,h4{font-family:var(--display); font-weight:600; line-height:1.2; text-wrap:balance; margin:0}
+button{font:inherit; color:inherit}
+
+/* Top bar */
+.top{position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:14px; height:58px; padding:0 18px;
+  background:color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--rule)}
+.brand{font-family:var(--display); font-size:21px; font-weight:600; white-space:nowrap; text-decoration:none; color:var(--ink)}
+.brand small{font-family:var(--mono); font-size:12px; color:var(--muted); font-weight:400; margin-left:8px; letter-spacing:.04em}
+.search{position:relative; flex:1; max-width:520px}
+.search input{width:100%; height:38px; padding:0 12px 0 34px; border:1px solid var(--rule); border-radius:8px; background:var(--surface); color:var(--ink); font:15px var(--body)}
+.search svg{position:absolute; left:10px; top:11px; color:var(--muted)}
+.search kbd{position:absolute; right:9px; top:9px; font:12px var(--mono); color:var(--muted); border:1px solid var(--rule); border-radius:4px; padding:1px 5px}
+.results{position:absolute; top:44px; left:0; right:0; background:var(--surface); border:1px solid var(--rule); border-radius:10px; box-shadow:var(--shadow); max-height:60vh; overflow:auto; display:none; padding:6px}
+.results.open{display:block}
+.res{display:block; width:100%; text-align:left; padding:8px 10px; border:0; background:none; border-radius:7px; cursor:pointer}
+.res[aria-selected="true"], .res:hover{background:color-mix(in srgb, var(--accent) 12%, transparent)}
+.res b{font-weight:600}
+.res span{display:block; font-size:14px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.res i{font-style:normal; font:12px var(--mono); padding:1px 6px; border-radius:10px; margin-left:6px; border:1px solid currentColor}
+.top select, .iconbtn{height:38px; border:1px solid var(--rule); border-radius:8px; background:var(--surface); color:var(--ink); padding:0 10px; font:14px var(--body); cursor:pointer}
+.menu{display:none}
+
+/* Shell */
+.shell{display:grid; grid-template-columns:270px minmax(0,1fr); max-width:1360px; margin:0 auto}
+nav.side{position:sticky; top:58px; height:calc(100vh - 58px); overflow:auto; padding:18px 14px 40px 18px; border-right:1px solid var(--rule); font-size:15px}
+.side h4{font:600 12px var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:14px 0 6px}
+.navsec{margin:2px 0}
+.navsec > a{display:flex; align-items:center; gap:8px; padding:5px 8px; border-radius:6px; text-decoration:none; color:var(--ink); font-weight:500}
+.navsec > a .dot{width:9px; height:9px; border-radius:50%; flex:none}
+.navsec > a .cnt{margin-left:auto; font:12px var(--mono); color:var(--muted)}
+.navsec > a.active{background:color-mix(in srgb, var(--accent) 12%, transparent)}
+.navsub{margin:0 0 6px 25px; padding:0; list-style:none; display:none}
+.navsec.open .navsub{display:block}
+.navsub a{display:block; padding:2px 8px; color:var(--muted); text-decoration:none; border-left:2px solid var(--rule)}
+.navsub a.active{color:var(--ink); border-left-color:var(--accent)}
+.navsub .soon{font:12px var(--mono); color:var(--muted); margin-left:4px}
+
+main{padding:28px clamp(16px,3vw,44px) 120px; min-width:0}
+.wrap{max-width:1000px}
+.prose{max-width:68ch}
+
+/* Hero */
+.hero h1{font-size:clamp(32px,4.4vw,48px); margin-bottom:10px}
+.hero p.lede{font-size:18px; color:var(--muted); max-width:62ch; margin:0 0 18px}
+.stagebar{display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 22px}
+.stage{font:13px var(--mono); padding:3px 9px; border-radius:20px; border:1px solid var(--rule); color:var(--muted)}
+.stage.done{border-color:var(--c5); color:var(--c5)}
+.panel{background:var(--surface); border:1px solid var(--rule); border-radius:12px; padding:18px 20px; box-shadow:var(--shadow)}
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px}
+.legend dl{display:grid; grid-template-columns:auto 1fr; gap:10px 14px; margin:8px 0 0; font-size:15px}
+.legend dt{white-space:nowrap}
+.legend dd{margin:0; color:var(--muted)}
+.paths button{display:block; width:100%; text-align:left; padding:10px 12px; margin-top:8px; border:1px solid var(--rule); border-radius:9px; background:var(--paper); cursor:pointer}
+.paths button:hover{border-color:var(--accent)}
+.paths button b{display:block}
+.paths button span{font-size:14px; color:var(--muted)}
+
+/* Maps */
+.map{margin:18px 0 6px; overflow-x:auto}
+.map svg{display:block; width:100%; min-width:900px; height:auto}
+.map .node{cursor:pointer}
+.map .node rect, .map .node circle.pill{transition:filter .15s}
+.map .node:hover rect, .map .node:focus rect{filter:brightness(1.08)}
+.map .node:focus{outline:none}
+.map .node:focus rect, .map .node:focus circle{stroke-width:3}
+.map text{font-family:var(--body); fill:var(--ink)}
+.map .edge{stroke:var(--muted); stroke-width:1.3; fill:none}
+.map .elabel, .viz .elabel{font:12px var(--mono); fill:var(--muted)}
+.viz text{fill:var(--ink); font-family:var(--body)}
+.viz .edge{stroke-width:1.6; fill:none}
+.map .colhead{font:600 12px var(--mono); letter-spacing:.08em; fill:var(--muted)}
+.maphint{font-size:14px; color:var(--muted); margin:4px 0 0}
+.tip{position:fixed; z-index:60; max-width:320px; background:var(--ink); color:var(--paper); font-size:14px; line-height:1.45; padding:8px 10px; border-radius:8px; pointer-events:none; opacity:0; transition:opacity .12s}
+.tip.on{opacity:1}
+.tip b{display:block; margin-bottom:2px}
+.pmap{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin:16px 0 4px}
+.pmap .grp{border:1px solid var(--rule); border-radius:10px; padding:10px; background:var(--surface)}
+.pmap .grp h5{margin:0 0 8px; font:600 13px var(--mono); color:var(--muted)}
+.chip{display:inline-block; margin:0 4px 5px 0; padding:3px 10px; border-radius:14px; font-size:14px; text-decoration:none; color:var(--ink); border:1px solid var(--rule); background:var(--paper)}
+.chip:hover{border-color:var(--accent)}
+
+/* Sections */
+section.sec{margin-top:70px; padding-top:10px; border-top:3px solid var(--sc)}
+.sechead{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 16px}
+.secnum{font:600 14px var(--mono); color:var(--sc); letter-spacing:.06em}
+.sechead h2{font-size:clamp(28px,3.4vw,38px); flex-basis:100%}
+.secq{font-size:17px; color:var(--muted); font-style:italic}
+.meta{font:13px var(--mono); color:var(--muted)}
+.meta b{color:var(--ink); font-weight:500}
+.status{font:12px var(--mono); padding:2px 8px; border-radius:12px; border:1px solid currentColor}
+.status.built{color:var(--c5)} .status.planned{color:var(--muted)}
+h3.sub{font-size:22px; margin:42px 0 4px; display:flex; gap:10px; align-items:baseline}
+h3.sub .n{font:500 14px var(--mono); color:var(--sc)}
+.subnote{color:var(--muted); font-size:16px; margin:0 0 12px; max-width:68ch}
+
+/* Cards */
+.card{background:var(--surface); border:1px solid var(--rule); border-left:4px solid var(--sc); border-radius:10px; padding:20px 22px; margin:16px 0; box-shadow:var(--shadow); max-width:820px}
+.card.flash{animation:flash 1.6s ease-out}
+@keyframes flash{0%{background:var(--hl)}100%{background:var(--surface)}}
+.chead{display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px}
+.chead h4{font-size:22px; margin-right:auto}
+.lvl{font:12px var(--mono); padding:2px 8px; border-radius:12px; border:1px solid var(--rule); color:var(--muted)}
+.lvl.Beginner{color:var(--c5); border-color:var(--c5)} .lvl.Intermediate{color:var(--c6); border-color:var(--c6)} .lvl.Deep{color:var(--c7); border-color:var(--c7)}
+.readtick{font:14px var(--body); color:var(--muted); display:flex; align-items:center; gap:5px; cursor:pointer}
+.def{font-size:17px; font-weight:500; margin:10px 0 12px; max-width:68ch}
+.body p{margin:0 0 10px; max-width:68ch}
+.body ul{margin:0 0 10px; padding-left:20px; max-width:68ch}
+.lbl{font:600 12px var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:14px 0 6px}
+.example{background:color-mix(in srgb, var(--sc) 8%, var(--surface)); border-radius:8px; padding:10px 14px; max-width:68ch}
+.example p{margin:0}
+.myth{display:grid; grid-template-columns:auto 1fr; gap:4px 10px; border:1px dashed var(--muted); border-radius:8px; padding:10px 14px; max-width:68ch; font-size:16px}
+.myth b{font:600 12px var(--mono); text-transform:uppercase; letter-spacing:.06em; padding-top:3px}
+.links{display:flex; flex-wrap:wrap; gap:6px}
+.link{display:inline-flex; align-items:center; gap:6px; padding:3px 10px 3px 8px; border-radius:16px; border:1px solid var(--rule); text-decoration:none; color:var(--ink); font-size:14px; background:var(--paper)}
+.link:hover{border-color:var(--accent)}
+.link .v{color:var(--muted); font-style:italic}
+.link .d{width:8px; height:8px; border-radius:50%}
+details.deeper{margin-top:14px; border-top:1px solid var(--rule); padding-top:10px}
+details.deeper summary{cursor:pointer; font-weight:600; color:var(--accent); list-style:none}
+details.deeper summary::before{content:"+ "; font-family:var(--mono)}
+details.deeper[open] summary::before{content:"− "}
+details.deeper .in{padding:8px 0 0; font-size:16px}
+details.deeper .in p{margin:0 0 8px; max-width:68ch}
+details.srcwrap{margin-top:12px; border-top:1px solid var(--rule); padding-top:8px}
+details.srcwrap summary{cursor:pointer; font-size:14px; font-weight:500; color:var(--muted); list-style:none}
+details.srcwrap summary::before{content:"+ "; font-family:var(--mono)}
+details.srcwrap[open] summary::before{content:"− "}
+.srcs{margin:8px 0 0; padding:0 0 0 22px; font-size:14px; color:var(--muted)}
+.srcs li{margin:3px 0}
+.srcs li:target{background:var(--hl)}
+.tier{font:12px var(--mono); padding:0 5px; border-radius:4px; border:1px solid currentColor; margin-right:4px}
+.tier.t1{color:var(--c5)} .tier.t2{color:var(--c6)} .tier.t3{color:var(--co)}
+sup.fn a{font:600 12px var(--mono); text-decoration:none; padding:0 2px}
+.claim{border-radius:4px; padding:0 3px}
+.claim .tag{font:600 12px var(--mono); letter-spacing:.03em; padding:1px 5px; border-radius:4px; margin-right:4px; white-space:nowrap; vertical-align:1px}
+.claim.est{background:var(--est-bg)} .claim.est .tag{color:var(--est); border:1px solid var(--est)}
+.claim.op{background:var(--op-bg)} .claim.op .tag{color:var(--op); border:1px solid var(--op)}
+.claim.co{background:var(--co-bg)} .claim.co .tag{color:var(--co); border:1px solid var(--co)}
+.claim.conf{background:var(--conf-bg)} .claim.conf .tag{color:var(--conf); border:1px solid var(--conf)}
+.asof{font:600 12px var(--mono); color:var(--muted); border:1px solid var(--rule); border-radius:4px; padding:0 4px; white-space:nowrap}
+.planned{display:flex; gap:10px; align-items:baseline; padding:8px 12px; border:1px dashed var(--rule); border-radius:8px; margin:6px 0; max-width:820px; background:color-mix(in srgb, var(--surface) 60%, transparent)}
+.planned b{font-weight:500}
+.planned span{font-size:14px; color:var(--muted)}
+.planned.flash{animation:flash 1.6s ease-out}
+.secsrc{margin-top:30px; max-width:820px}
+.secsrc summary{cursor:pointer; font-weight:600}
+.secsrc ol{font-size:14px; color:var(--muted)}
+
+/* Visuals */
+.viz{margin:12px 0; padding:12px; border:1px solid var(--rule); border-radius:8px; max-width:560px}
+.viz .cap{font:12px var(--mono); color:var(--muted); margin-top:6px}
+.bars{display:grid; grid-template-columns:70px 1fr 44px; gap:5px 8px; align-items:center; font-size:14px}
+.bars .bar{height:14px; border-radius:3px; background:var(--c1)}
+.bars .bar.pick{background:var(--c7)}
+.vbtn{border:1px solid var(--muted); background:var(--paper); color:var(--ink); border-radius:6px; padding:5px 12px; cursor:pointer; font-size:14px}
+.vrow{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:8px; font-size:14px}
+canvas{max-width:100%; display:block}
+
+/* Path bar */
+.pathbar{position:fixed; left:50%; bottom:16px; transform:translateX(-50%); z-index:50; display:none; align-items:center; gap:10px; background:var(--ink); color:var(--paper); padding:8px 10px 8px 16px; border-radius:30px; box-shadow:0 6px 24px rgba(0,0,0,.25); font-size:14px; max-width:calc(100vw - 24px)}
+.pathbar.on{display:flex}
+.pathbar button{background:transparent; color:var(--paper); border:1px solid color-mix(in srgb, var(--paper) 40%, transparent); border-radius:20px; padding:4px 12px; cursor:pointer}
+.pathbar .t{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:38vw}
+.tomap{position:fixed; right:18px; bottom:18px; z-index:45; border:1px solid var(--rule); background:var(--surface); color:var(--ink); border-radius:22px; padding:8px 14px; font-size:14px; cursor:pointer; box-shadow:var(--shadow)}
+.glossary dl{display:grid; grid-template-columns:minmax(140px,220px) 1fr; gap:8px 18px; max-width:900px}
+.glossary dt a{font-weight:600; text-decoration:none}
+.glossary dd{margin:0; color:var(--muted); font-size:16px}
+.mythlist .myth{margin:10px 0}
+footer{margin-top:80px; font-size:14px; color:var(--muted); max-width:68ch}
+
+@media (max-width: 900px){
+  .shell{grid-template-columns:1fr}
+  nav.side{position:fixed; left:0; top:58px; width:290px; z-index:35; background:var(--paper); transform:translateX(-100%); transition:transform .2s; box-shadow:var(--shadow)}
+  nav.side.open{transform:none}
+  .menu{display:inline-flex; align-items:center}
+  .brand small, .search kbd{display:none}
+  .pathbar .t{max-width:30vw}
+}
+@media (max-width: 560px){
+  .top{gap:8px; padding:0 10px}
+  .brand{font-size:17px}
+  #pathSel{max-width:96px}
+  .glossary dl{grid-template-columns:1fr}
+  .card{padding:16px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <button class="iconbtn menu" id="menuBtn" aria-label="Open section index" aria-expanded="false">☰</button>
+  <a class="brand" href="#start">AI Field Guide <small>a reference in nine parts</small></a>
+  <div class="search" role="search">
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6"/></svg>
+    <input id="q" type="search" placeholder="Search topics, terms, companies…" autocomplete="off" aria-label="Search the guide" aria-controls="results" aria-expanded="false">
+    <kbd>/</kbd>
+    <div class="results" id="results" role="listbox"></div>
+  </div>
+  <select id="pathSel" aria-label="Reading path">
+    <option value="">Reading path…</option>
+  </select>
+  <button class="iconbtn" id="themeBtn" aria-label="Switch colour theme">Theme</button>
+</header>
+
+<div class="shell">
+  <nav class="side" id="side" aria-label="Sections"></nav>
+  <main id="main">
+    <div class="wrap">
+      <section id="start" class="hero">
+        <h1>A field guide to artificial intelligence</h1>
+        <p class="lede">Nine sections, each answering one question about AI. Plain language up front, technical detail in the “Go deeper” panels, and a source for every factual claim.</p>
+        <div class="stagebar" id="stagebar"></div>
+        <div class="map" id="masterMap" aria-label="Concept map of the whole guide"></div>
+        <p class="maphint">Click a box to jump to that section. The band underneath is time: the past on the left, today in the middle, the future on the right.</p>
+
+        <div class="grid2" style="margin-top:26px">
+          <div class="panel legend">
+            <h3 style="font-size:19px">How to read the claims</h3>
+            <dl>
+              <dt><sup class="fn"><a href="#start" tabindex="-1">1</a></sup> plain text</dt><dd>Fact, verified. Sources stay hidden: click a number, or open “Sources” at the bottom of a card.</dd>
+              <dt><span class="claim est"><span class="tag">Estimate · who</span></span></dt><dd>A projection or estimate, named to whoever made it.</dd>
+              <dt><span class="claim op"><span class="tag">Debate · who</span></span></dt><dd>Contested. Each position is attributed to the people who hold it.</dd>
+              <dt><span class="claim co"><span class="tag">Company claim</span></span></dt><dd>Stated by the company itself and not independently verified.</dd>
+              <dt><span class="claim conf"><span class="tag">Sources conflict</span></span></dt><dd>Reliable sources disagree, so both figures are shown.</dd>
+              <dt><span class="asof">as of date</span></dt><dd>A fast-moving fact. Check the date before you rely on it.</dd>
+              <dt><span class="tier t1">T1</span><span class="tier t2">T2</span><span class="tier t3">T3</span></dt><dd>Source tier: research, filings or official bodies; reputable journalism; company material.</dd>
+            </dl>
+          </div>
+          <div class="panel paths">
+            <h3 style="font-size:19px">Where to start</h3>
+            <p style="margin:6px 0 0; color:var(--muted); font-size:14px">Pick a path to get Next/Back buttons that walk you through the guide in order.</p>
+            <div id="pathBtns"></div>
+          </div>
+        </div>
+      </section>
+
+      <div id="sections"></div>
+
+      <section id="glossary" class="sec glossary" style="--sc:var(--muted)">
+        <div class="sechead"><span class="secnum">INDEX</span><h2>Glossary</h2><span class="secq">Every term links to the one card that explains it.</span></div>
+        <dl id="glossList" style="margin-top:20px"></dl>
+      </section>
+
+      <section id="myths" class="sec mythlist" style="--sc:var(--muted)">
+        <div class="sechead"><span class="secnum">INDEX</span><h2>Myths vs facts</h2><span class="secq">Collected from the misconception boxes on each card, so each one still lives on its own topic card.</span></div>
+        <div id="mythList" style="margin-top:16px"></div>
+      </section>
+
+      <footer>
+        <p>Built in stages. Stage 1 (14 November 2026) covers the framework and Section 1. The other sections show their planned cards and preview maps until they are researched and written.</p>
+        <p>Your “read” ticks are saved in this browser only.</p>
+      </footer>
+    </div>
+  </main>
+</div>
+
+<div class="tip" id="tip" role="tooltip"></div>
+<div class="pathbar" id="pathbar" role="region" aria-label="Reading path navigation">
+  <span class="t" id="pathT"></span>
+  <button id="pathPrev">◀ Back</button>
+  <button id="pathNext">Next ▶</button>
+  <button id="pathExit" aria-label="Leave reading path">✕</button>
+</div>
+<button class="tomap" id="toMap">↑ Section map</button>
+
+<script>
+/* =========================================================
+   SOURCES  (tier 1 = research / filings / official; 2 = reputable journalism; 3 = company material)
+   ========================================================= */
+const SRC = {
+  oecdMemo:{t:1,a:"OECD (2024)",ti:"Explanatory memorandum on the updated OECD definition of an AI system",p:"OECD Artificial Intelligence Papers. Definition adopted by the OECD Council on 8 Nov 2023",u:"https://www.oecd.org/en/publications/explanatory-memorandum-on-the-updated-oecd-definition-of-an-ai-system_623da898-en.html"},
+  oecdai:{t:1,a:"OECD.AI Policy Observatory (2024)",ti:"Explainer on the updated OECD definition of an AI system",p:"OECD.AI blog",u:"https://oecd.ai/en/wonk"},
+  indiaai:{t:1,a:"IndiaAI, Government of India (2023)",ti:"OECD adopts a new definition of AI",p:"Reports the definition text and its link to the EU AI Act",u:"https://indiaai.gov.in/news/oecd-adopts-a-new-definition-of-ai"},
+  dartmouth:{t:1,a:"McCarthy, Minsky, Rochester & Shannon (1955)",ti:"A Proposal for the Dartmouth Summer Research Project on Artificial Intelligence",p:"Primary document, dated 31 August 1955"},
+  indiaaiDart:{t:1,a:"IndiaAI, Government of India",ti:"Exploring the significance of the Dartmouth workshop",p:"Gives 2 September 1955 as the formal proposal date",u:"https://indiaai.gov.in/article/exploring-the-significance-of-the-dartmouth-workshop"},
+  samuel59:{t:1,a:"Samuel, A. L. (1959)",ti:"Some Studies in Machine Learning Using the Game of Checkers",p:"IBM Journal of Research and Development 3(3):210–229",u:"https://doi.org/10.1147/rd.33.0210"},
+  rumelhart86:{t:1,a:"Rumelhart, Hinton & Williams (1986)",ti:"Learning representations by back-propagating errors",p:"Nature 323:533–536",u:"https://doi.org/10.1038/323533a0"},
+  lecun98:{t:1,a:"LeCun, Bottou, Bengio & Haffner (1998)",ti:"Gradient-based learning applied to document recognition",p:"Proceedings of the IEEE 86(11):2278–2324",u:"https://doi.org/10.1109/5.726791"},
+  lstm97:{t:1,a:"Hochreiter & Schmidhuber (1997)",ti:"Long Short-Term Memory",p:"Neural Computation 9(8):1735–1780",u:"https://doi.org/10.1162/neco.1997.9.8.1735"},
+  alexnet12:{t:1,a:"Krizhevsky, Sutskever & Hinton (2012)",ti:"ImageNet Classification with Deep Convolutional Neural Networks",p:"NeurIPS 25",u:"https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf"},
+  alexnetCacm:{t:1,a:"Krizhevsky, Sutskever & Hinton (2017)",ti:"ImageNet classification with deep convolutional neural networks (retrospective version)",p:"Communications of the ACM 60(6)",u:"https://doi.org/10.1145/3065386"},
+  szegedy13:{t:1,a:"Szegedy et al. (2013)",ti:"Intriguing properties of neural networks",p:"arXiv:1312.6199 (Google, NYU, U. Montreal)",u:"https://arxiv.org/abs/1312.6199"},
+  mikolov13:{t:1,a:"Mikolov, Chen, Corrado & Dean (2013)",ti:"Efficient Estimation of Word Representations in Vector Space",p:"arXiv:1301.3781 (Google)",u:"https://arxiv.org/abs/1301.3781"},
+  sennrich16:{t:1,a:"Sennrich, Haddow & Birch (2016)",ti:"Neural Machine Translation of Rare Words with Subword Units",p:"ACL 2016; arXiv:1508.07909",u:"https://arxiv.org/abs/1508.07909"},
+  vaswani17:{t:1,a:"Vaswani et al. (2017)",ti:"Attention Is All You Need",p:"arXiv:1706.03762 (Google)",u:"https://arxiv.org/abs/1706.03762"},
+  brown20:{t:1,a:"Brown et al. (2020)",ti:"Language Models are Few-Shot Learners",p:"arXiv:2005.14165 (OpenAI)",u:"https://arxiv.org/abs/2005.14165"},
+  kaplan20:{t:1,a:"Kaplan et al. (2020)",ti:"Scaling Laws for Neural Language Models",p:"arXiv:2001.08361 (OpenAI / Johns Hopkins)",u:"https://arxiv.org/abs/2001.08361"},
+  hoffmann22:{t:1,a:"Hoffmann et al. (2022)",ti:"Training Compute-Optimal Large Language Models (“Chinchilla”)",p:"arXiv:2203.15556 (DeepMind); NeurIPS 2022",u:"https://arxiv.org/abs/2203.15556"},
+  epochChin:{t:1,a:"Besiroglu, Erdil, Barnett & You (2024)",ti:"Chinchilla Scaling: A replication attempt",p:"Epoch AI; arXiv:2404.10102",u:"https://epoch.ai/publications/chinchilla-scaling-a-replication-attempt"},
+  effLLM:{t:1,a:"EfficientLLM survey (2025)",ti:"EfficientLLM: Efficiency in Large Language Models",p:"arXiv:2505.13840, section 4.2.2 summarising Chinchilla vs Gopher",u:"https://arxiv.org/abs/2505.13840"},
+  ho20:{t:1,a:"Ho, Jain & Abbeel (2020)",ti:"Denoising Diffusion Probabilistic Models",p:"NeurIPS 2020; arXiv:2006.11239",u:"https://arxiv.org/abs/2006.11239"},
+  ouyang22:{t:1,a:"Ouyang et al. (2022)",ti:"Training language models to follow instructions with human feedback",p:"arXiv:2203.02155 (OpenAI); NeurIPS 2022",u:"https://arxiv.org/abs/2203.02155"},
+  bai22:{t:1,a:"Bai et al. (2022)",ti:"Constitutional AI: Harmlessness from AI Feedback",p:"arXiv:2212.08073 (Anthropic)",u:"https://arxiv.org/abs/2212.08073"},
+  wei22:{t:1,a:"Wei et al. (2022)",ti:"Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",p:"arXiv:2201.11903 (Google)",u:"https://arxiv.org/abs/2201.11903"},
+  yao22:{t:1,a:"Yao et al. (2022)",ti:"ReAct: Synergizing Reasoning and Acting in Language Models",p:"arXiv:2210.03629 (Princeton / Google); ICLR 2023",u:"https://arxiv.org/abs/2210.03629"},
+  lewis20:{t:1,a:"Lewis et al. (2020)",ti:"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",p:"NeurIPS 2020; arXiv:2005.11401 (Facebook AI Research)",u:"https://arxiv.org/abs/2005.11401"},
+  liu23:{t:1,a:"Liu et al. (2024)",ti:"Lost in the Middle: How Language Models Use Long Contexts",p:"TACL 12:157–173; arXiv:2307.03172",u:"https://arxiv.org/abs/2307.03172"},
+  mirzadeh24:{t:1,a:"Mirzadeh et al. (2024)",ti:"GSM-Symbolic: Understanding the Limitations of Mathematical Reasoning in LLMs",p:"arXiv:2410.05229 (Apple); 25 models tested",u:"https://arxiv.org/abs/2410.05229"},
+  berglund23:{t:1,a:"Berglund et al. (2024)",ti:"The Reversal Curse: LLMs trained on “A is B” fail to learn “B is A”",p:"ICLR 2024; arXiv:2309.12288",u:"https://arxiv.org/abs/2309.12288"},
+  zhang24:{t:1,a:"Zhang et al. (2024)",ti:"A Careful Examination of Large Language Model Performance on Grade School Arithmetic",p:"NeurIPS 2024; arXiv:2405.00332 (Scale AI)",u:"https://arxiv.org/abs/2405.00332"},
+  kalai25:{t:1,a:"Kalai, Nachum, Vempala & Zhang (2025)",ti:"Why Language Models Hallucinate",p:"arXiv:2509.04664 (OpenAI and Georgia Tech)",u:"https://arxiv.org/abs/2509.04664"},
+  deepseekr1:{t:1,a:"Guo et al., DeepSeek-AI (2025)",ti:"DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning",p:"Nature 645:633–638 (peer reviewed)",u:"https://doi.org/10.1038/s41586-025-09422-z"},
+  sciam25:{t:2,a:"Gibney, E. (17 Sep 2025)",ti:"Secrets of DeepSeek AI Model Revealed in Landmark Paper",p:"Nature news, republished by Scientific American",u:"https://scientificamerican.com/article/secrets-of-chinese-ai-model-deepseek-revealed-in-landmark-paper"},
+  o1:{t:3,a:"OpenAI (12 Sep 2024)",ti:"Learning to reason with LLMs",p:"Company announcement",u:"https://openai.com/index/learning-to-reason-with-llms/"},
+  mcp:{t:3,a:"Anthropic (25 Nov 2024)",ti:"Introducing the Model Context Protocol",p:"Company announcement",u:"https://www.anthropic.com/news/model-context-protocol"},
+  gemini15:{t:3,a:"Google (16 Feb 2024)",ti:"What is a long context window?",p:"Company blog on Gemini 1.5 Pro",u:"https://blog.google/technology/ai/long-context-window-ai-models/"},
+  aiindex25:{t:1,a:"Stanford HAI (Apr 2025)",ti:"The 2025 AI Index Report",p:"Covers data to the end of 2024",u:"https://hai.stanford.edu/ai-index/2025-ai-index-report"},
+  spectrum25:{t:2,a:"IEEE Spectrum (Apr 2025)",ti:"Charts from the 2025 AI Index",p:"Summary of the AI Index, including Epoch AI cost estimates",u:"https://spectrum.ieee.org/ai-index-2025"},
+  toms25:{t:2,a:"Tom’s Hardware (Apr 2025)",ti:"AI costs drop 280-fold but harmful incidents rise 56% (Stanford 2025 AI report)",p:"Summary of AI Index findings",u:"https://www.tomshardware.com/tech-industry/artificial-intelligence/ai-costs-drop-280-fold-but-harmful-incidents-rise-56-percent-in-last-year-stanford-2025-ai-report-highlights-china-us-competition"},
+  epochTrends:{t:1,a:"Epoch AI (page updated 5 Feb 2026)",ti:"Trends in AI",p:"Training compute, compute efficiency and capability trend estimates",u:"https://epoch.ai/trends"},
+  epochData:{t:1,a:"Villalobos et al., Epoch AI (2024)",ti:"Will we run out of data? Limits of LLM scaling based on human-generated data",p:"Epoch AI; arXiv",u:"https://epoch.ai/blog/will-we-run-out-of-data-limits-of-llm-scaling-based-on-human-generated-data"},
+  cottier24:{t:1,a:"Cottier et al., Epoch AI (2024)",ti:"The rising costs of training frontier AI models",p:"arXiv:2405.21015",u:"https://arxiv.org/abs/2405.21015"},
+  metr25:{t:1,a:"Kwa, West et al., METR (2025)",ti:"Measuring AI Ability to Complete Long Tasks",p:"arXiv:2503.14499",u:"https://arxiv.org/abs/2503.14499"},
+  metrTH11:{t:1,a:"METR (29 Jan 2026)",ti:"Time Horizon 1.1",p:"Updated task suite for the time-horizon measurements",u:"https://metr.org/blog/2026-1-29-time-horizon-1-1"},
+  breiman01:{t:1,a:"Breiman, L. (2001)",ti:"Statistical Modeling: The Two Cultures",p:"Statistical Science 16(3):199–231",u:"https://www.jstor.org/stable/2676681"},
+  kass:{t:1,a:"Commentary in Observational Studies (2021)",ti:"The Two Cultures: Statistics and Machine Learning in Science",p:"Response to Breiman by a statistician who commented on the original",u:"https://muse.jhu.edu/article/799725"},
+  daoud21:{t:1,a:"Daoud & Dubhashi (2021)",ti:"Statistical modeling: the three cultures",p:"arXiv:2012.04570; Observational Studies",u:"https://arxiv.org/abs/2012.04570"}
+};
+
+/* =========================================================
+   CONTENT
+   Markup inside strings:
+   [[key]]                 footnote to SRC[key]
+   {{est:who|text}}        estimate badge
+   {{op:who|text}}         debate / opinion badge
+   {{co:who|text}}         company claim badge
+   {{conf:|text}}          sources conflict badge
+   {{asof:date}}           time-sensitive stamp
+   ========================================================= */
+const SECTIONS = [
+{ id:"s1", n:1, title:"How AI Works", q:"How does it work?", color:"var(--c1)", status:"built", updated:"14 Nov 2026",
+  intro:`What happens inside an AI system, from the basic idea of learning from examples to the large language models you use every day. The map shows two views. On the left, how the main ideas nest inside each other. On the right, the life of a model from raw data to an agent acting for you.`,
+  subs:[
+  { id:"s1-1", n:"1.1", title:"The core idea", note:"What AI is, and what it isn’t.",
+    cards:[
+    { id:"c-ai", title:"What counts as AI", level:"Beginner", terms:["artificial intelligence","AI system","definition of AI"],
+      def:`Software that works out, from the input it receives, how to produce outputs such as predictions, content, recommendations or decisions.`,
+      body:[`There is no single agreed definition. The one most widely used in policy comes from the OECD, whose member countries revised it on 8 November 2023 [[oecdMemo]]. In that wording, an AI system “infers, from the input it receives, how to generate outputs” [[indiaai]], and AI systems differ in how independently they act and how much they keep adapting after release [[indiaai]].`,
+            `The OECD timed the revision partly so it could inform the scope of the EU’s AI Act [[indiaai]]. The definition is deliberately broad. It covers machine learning and also older knowledge-based (rule-based) approaches [[oecdai]].`],
+      example:`A spam filter that has learned what junk looks like, a chatbot, a chess engine and a bank’s loan-scoring model all fit this definition. So do many systems you never notice.`,
+      links:[["c-ml","includes"],["c-auto","is distinct from"],["s2-lenses","is classified in"],["s7-eu","sets the scope of"]],
+      deeper:[`The term itself comes from a 1955 funding proposal by John McCarthy, Marvin Minsky, Nathaniel Rochester and Claude Shannon, for a summer workshop at Dartmouth College in 1956 [[dartmouth]]. {{conf:|The proposal document is dated 31 August 1955 [[dartmouth]]; some histories give 2 September 1955 as the formal proposal date [[indiaaiDart]].}}`,
+              `The OECD explainer describes “adaptiveness” as typical of machine-learning systems that keep changing their models after initial development [[oecdai]].`],
+      myth:[`AI means chatbots.`,`The standard policy definition covers any system that produces predictions, recommendations or decisions, not only ones that generate text [[indiaai]].`]
+    },
+    { id:"c-ml", title:"Machine learning", level:"Beginner", terms:["machine learning","ML","learning from data"],
+      def:`Getting a computer to improve at a task by learning patterns from examples, instead of following rules a programmer wrote by hand.`,
+      body:[`The first academic account of machine learning was Arthur Samuel’s 1959 paper about a checkers program that got better by playing [[samuel59]]. The basic loop has not changed: show the system examples, measure how wrong its answers are, adjust it, and repeat.`,
+            `By the late 1990s, researchers were arguing that recognition systems improve by leaning more on automatic learning and less on hand-designed rules [[lecun98]]. That shift, applied at much larger scale, underlies almost every AI product today.`],
+      example:`Rather than writing a rule for every spam trick, you give a system thousands of emails labelled “spam” or “not spam”. It works out for itself which features predict junk.`,
+      links:[["c-dl","includes"],["s2-supervised","comes in several kinds, such as"],["c-data","depends on"],["c-overfit","is at risk of"]],
+      deeper:[`Statistician Leo Breiman described two cultures of data analysis in 2001. One assumes a model of how the data were generated. The other treats that mechanism as unknown, uses algorithmic models, and judges them by how well they predict [[breiman01]]. Machine learning grew mostly from the second culture.`]
+    },
+    { id:"c-model", title:"Models & parameters", level:"Beginner", terms:["model","parameters","weights","parameter count"],
+      def:`A model is a mathematical function with adjustable numbers, called parameters or weights. Training tunes those numbers until the function’s outputs are useful.`,
+      body:[`Think of parameters as knobs. AlexNet, the 2012 image model that kicked off the deep learning boom, had 60 million [[alexnet12]]. GPT-3 in 2020 had 175 billion, ten times more than any earlier non-sparse language model [[brown20]].`,
+            `Many leading developers have since stopped publishing details of their training runs [[spectrum25]], so parameter counts for today’s frontier models are often unknown. {{asof:2025}}`],
+      example:`A simple house-price model might have one parameter for “value per square metre”. A large language model has billions, and no single one means anything on its own.`,
+      links:[["c-nn","is built from"],["c-scaling","grows according to"],["c-traininf","is created by training, used by"]],
+      deeper:[`Size alone does not decide quality. DeepMind’s Chinchilla (70 billion parameters, trained on 1.4 trillion tokens) used the same compute as its 280-billion-parameter Gopher, trained on about 300 billion tokens, and the smaller model performed better [[hoffmann22]][[effLLM]].`],
+      myth:[`More parameters always means a better model.`,`At a fixed compute budget, a smaller model trained on more data can outperform a much larger one [[hoffmann22]].`]
+    },
+    { id:"c-auto", title:"AI vs ordinary automation", level:"Beginner", terms:["automation","rule-based system"],
+      def:`Ordinary automation follows fixed steps that someone specified. An AI system works out how to respond from its input, usually after learning from data.`,
+      body:[`A spreadsheet macro or a timer does exactly what it was told. The OECD definition puts inference at the centre of what makes a system AI [[indiaai]].`,
+            `{{op:OECD and common usage|Where the line falls is a matter of definition. The OECD counts knowledge-based (rule-based) systems as AI [[oecdai]], so a large expert system qualifies, while a single if-this-then-that rule is rarely called AI in everyday use.}}`],
+      example:`Moving every email from your boss into a folder is automation. A filter that learns which emails you treat as important is AI.`,
+      links:[["s2-symbolic","overlaps with"],["c-ml","differs from"],["c-ai","sits at the edge of"]],
+      deeper:[`The OECD explainer singles out adaptiveness, a system that keeps evolving after it is built, as a feature usually tied to machine learning rather than fixed programs [[oecdai]].`]
+    },
+    { id:"c-ds", title:"AI vs data science & statistics", level:"Intermediate", terms:["data science","statistics","prediction vs inference"],
+      def:`Statistics and data science mostly aim to understand data. Much of modern AI aims to predict or act. They share tools but have different goals.`,
+      body:[`Breiman’s 2001 paper framed the split as data modelling, which tries to describe how nature produced the data, versus algorithmic modelling, which is judged by predictive accuracy [[breiman01]].`,
+            `{{op:Breiman vs his critics|Breiman argued statisticians should adopt the predictive approach [[breiman01]]. A later commentary argued he made prediction primary and mischaracterised the role of statistical modelling in science [[kass]].}}`],
+      example:`A statistician asks whether a drug lowers blood pressure, and by how much. A machine-learning engineer asks what a given patient’s blood pressure will be next month.`,
+      links:[["c-ml","shares methods with"],["s8-roles","leads to careers such as"]],
+      deeper:[`Some researchers describe a “hybrid” culture in which machine learning is used inside causal-inference studies, blurring the old split [[daoud21]].`]
+    }]
+  },
+  { id:"s1-2", n:"1.2", title:"Intuitions behind it all", note:"Four ideas that make everything after them easier. No equations, and each has a small interactive picture.",
+    cards:[
+    { id:"c-prob", title:"Probability & prediction", level:"Beginner", terms:["probability","next-token prediction","autoregressive","sampling"], visual:"prob",
+      def:`Most modern AI produces a probability-weighted guess: what word comes next, what is in a photo, which film you will like.`,
+      body:[`A language model like GPT-3 is “autoregressive”: it predicts the next piece of text from everything before it [[brown20]]. Internally it scores many possible continuations, then picks one. Because it can pick differently each time, the same question can get different answers.`,
+            `Researchers trace one of AI’s best-known failures, confident made-up answers, to the statistical pressures in this kind of training [[kalai25]].`],
+      example:`Your phone keyboard’s three suggested next words are this idea in miniature.`,
+      links:[["c-llm","is the core of"],["c-halluc","helps explain"],["c-tokens","operates on"]],
+      deeper:[`The model outputs a score for every token in its vocabulary; these are converted to probabilities that sum to one. Sampling settings decide whether it always takes the top choice or sometimes picks a less likely one. The chart above is illustrative and not taken from a real model.`]
+    },
+    { id:"c-vec", title:"Vectors: meaning as location", level:"Beginner", terms:["vector","embedding space","semantic similarity"], visual:"vec",
+      def:`AI represents words, images and users as lists of numbers called vectors. These act like map coordinates, and similar things end up close together.`,
+      body:[`A 2013 Google paper trained word vectors on billions of words and found striking structure: the vector for “King”, minus “Man”, plus “Woman”, landed closest to “Queen” [[mikolov13]]. Relationships between meanings had become directions on the map.`,
+            `The same idea powers search by meaning, recommendations, and the way language models represent text internally.`],
+      example:`A music app’s “more like this” finds songs whose vectors sit near the one you are playing.`,
+      links:[["c-tokens","is how models store"],["c-rag","lets machines search by"]],
+      deeper:[`Real embeddings have hundreds or thousands of dimensions, not two. Closeness is usually measured by the angle between vectors. Mikolov’s team learned high-quality vectors from a 1.6-billion-word dataset in under a day [[mikolov13]].`]
+    },
+    { id:"c-opt", title:"Optimisation: walking downhill in fog", level:"Beginner", terms:["gradient descent","optimisation","loss","learning rate"], visual:"opt",
+      def:`Training is a search for the parameter settings with the lowest error. It works by repeatedly taking a small step in whichever direction reduces the error most.`,
+      body:[`Picture standing on a hillside in thick fog, trying to reach the valley. You can only feel the slope under your feet, so you step downhill, check again, and step again. That is gradient descent.`,
+            `The 1986 paper that popularised training neural networks described a procedure that repeatedly adjusts connection weights to shrink the gap between the network’s output and the desired output [[rumelhart86]].`],
+      example:`Try the slider: steps that are too small take forever, and steps that are too big overshoot the valley.`,
+      links:[["c-backprop","is powered by"],["c-pretrain","is what happens during"]],
+      deeper:[`The size of each step is the learning rate. On bumpy error surfaces you can get stuck in a dip that is not the lowest point (a local minimum). LeCun’s team called this family of methods gradient-based learning [[lecun98]].`]
+    },
+    { id:"c-overfit", title:"Patterns, overfitting & generalisation", level:"Intermediate", terms:["overfitting","generalisation","test set","data contamination"],
+      def:`A model overfits when it memorises its training examples instead of learning patterns that carry over to new cases.`,
+      body:[`The standard check is to test on examples held back from training, and to judge a model by how well it predicts those [[breiman01]]. AlexNet used a technique called dropout specifically to reduce overfitting [[alexnet12]].`,
+            `For language models, the modern version is benchmark contamination: test questions leaking into training data. A 2024 study wrote fresh maths problems in the style of a popular benchmark and found some model families scored notably lower on them, while frontier models showed minimal signs of overfitting [[zhang24]]. {{conf:|The largest drop was reported as up to 13% in the first preprint and up to 8% in the NeurIPS version [[zhang24]].}}`],
+      example:`A student who memorised last year’s exam answers versus one who understands the subject. Change the questions and you find out which is which.`,
+      links:[["c-eval","undermines"],["s8-benchmarks","is why you should question"],["c-brittle","is related to"]],
+      deeper:[`Kaplan and colleagues found simple equations describing how overfitting depends on model size and dataset size [[kaplan20]].`]
+    }]
+  },
+  { id:"s1-3", n:"1.3", title:"Neural networks & deep learning", note:"The family of methods behind nearly all of today’s AI.",
+    cards:[
+    { id:"c-nn", title:"Neural networks", level:"Beginner", terms:["neural network","neuron","layer","hidden layer"],
+      def:`A network of simple units arranged in layers. Each unit takes in numbers, weights them, and passes a result on to the next layer.`,
+      body:[`The units are loosely inspired by brain cells; the 1986 backpropagation paper calls them “neurone-like units” [[rumelhart86]]. Every connection has a weight, which is one of the model’s parameters.`,
+            `The interesting part is the hidden layers in the middle. The same paper showed that during training, these hidden units come to represent useful features of the task without anyone specifying them [[rumelhart86]].`],
+      example:`To read handwritten digits: pixel brightness goes in at one end, and ten numbers come out the other, one score for each digit 0–9.`,
+      links:[["c-dl","becomes, when stacked deep,"],["c-backprop","is trained by"],["c-model","is a kind of"]],
+      deeper:[`Each unit applies a non-linear function to its weighted sum; without that, stacked layers would collapse into one. AlexNet found that a simple choice called ReLU trained several times faster than older options [[alexnet12]].`]
+    },
+    { id:"c-dl", title:"Deep learning", level:"Beginner", terms:["deep learning","deep neural network","feature learning"],
+      def:`Machine learning with neural networks that have many layers, which learn their own features straight from raw data.`,
+      body:[`Before deep learning, engineers hand-designed features such as edges or word counts. A 1998 paper argued that hand-crafted feature extraction could be replaced by learning machines working directly on pixels [[lecun98]].`,
+            `The breakthrough came in 2012. AlexNet won the ImageNet image-recognition contest with a top-5 error of 15.3%, against 26.2% for the next-best entry [[alexnet12]]. Its authors later wrote that deep networks had been waiting for “far more labeled data and hugely more computation” [[alexnetCacm]].`],
+      example:`Photo apps that group pictures of the same person, and voice assistants that understand speech, both run on deep learning.`,
+      links:[["c-cnnrnn","includes architectures like"],["s4-deeplearning","started the era of"],["s3-gpus","was made practical by"]],
+      deeper:[`AlexNet was trained across two consumer graphics cards with 3 GB of memory each, because it did not fit on one [[alexnet12]]. Graphics chips have powered AI ever since.`]
+    },
+    { id:"c-backprop", title:"Backpropagation", level:"Intermediate", terms:["backpropagation","backprop","chain rule"],
+      def:`The method that works out how much each weight contributed to an error, so every weight can be nudged in the right direction.`,
+      body:[`Rumelhart, Hinton and Williams described backpropagation in Nature in 1986 [[rumelhart86]]. The error at the output is passed backwards through the network, layer by layer, assigning each weight its share of the blame.`,
+            `Backpropagation works out which way to step; gradient descent takes the step. Together they are how virtually every neural network learns.`],
+      example:`If a network mistakes a 7 for a 1, backpropagation identifies which weights pushed it towards “1” and by how much.`,
+      links:[["c-opt","supplies the direction for"],["c-nn","trains"]],
+      deeper:[`Mathematically it is repeated use of the chain rule from calculus. In long chains the error signal can shrink to nothing. This “vanishing” problem motivated the LSTM design for sequences [[lstm97]].`]
+    },
+    { id:"c-cnnrnn", title:"Earlier architectures: CNNs & RNNs", level:"Deep", terms:["CNN","convolutional neural network","RNN","recurrent neural network","LSTM"],
+      def:`Convolutional networks (CNNs) specialise in images. Recurrent networks (RNNs) process sequences one step at a time.`,
+      body:[`CNNs slide small learned filters across an image. In 1998 they outperformed all other techniques tested on handwritten digits, and a cheque-reading system built on them was reading several million cheques a day [[lecun98]].`,
+            `RNNs carry a memory from one step to the next. The 1997 LSTM design let them hold on to information over long gaps [[lstm97]]. Transformers later dropped recurrence altogether [[vaswani17]] and largely took over language tasks.`],
+      example:`Before 2017, machine translation and speech recognition were dominated by recurrent networks.`,
+      links:[["c-transformer","were largely replaced by"],["s2-vision","still underpin much of"]],
+      deeper:[`AlexNet’s design had five convolutional layers followed by three fully connected layers [[alexnet12]]. RNNs are slow to train because each step depends on the previous one, which is the bottleneck transformers removed [[vaswani17]].`]
+    }]
+  },
+  { id:"s1-4", n:"1.4", title:"Modern architectures", note:"The designs behind chat assistants and image generators.",
+    cards:[
+    { id:"c-tokens", title:"Tokens & embeddings", level:"Beginner", terms:["token","tokenisation","embedding","byte pair encoding"],
+      def:`Text is chopped into pieces called tokens, and each token becomes a vector, its embedding, that the model can compute with.`,
+      body:[`Tokens are often pieces of words. A widely used method, byte pair encoding, was adapted in 2016 to split rare words into common sub-word units [[sennrich16]]. {{est:Epoch AI|A rough rule of thumb is one token for every 0.8 English words [[epochData]].}}`,
+            `Once split, each token is looked up as a vector (see “Vectors: meaning as location”). Prices, context limits and usage caps for AI tools are all counted in tokens.`],
+      example:`A long, rare word might be split into three or four tokens, while “the” is one. (Illustrative: the exact split depends on the model.)`,
+      links:[["c-vec","applies the idea of"],["c-context","sets the units for"],["c-transformer","are the input to"]],
+      deeper:[`Tokenisers are built from data before the model is trained, so a model’s vocabulary is fixed. Sub-word units let it handle names and new words it has never seen whole [[sennrich16]].`]
+    },
+    { id:"c-transformer", title:"Attention & the transformer", level:"Intermediate", terms:["transformer","attention","self-attention"],
+      def:`An architecture in which every token can look directly at every other token to work out what matters for its meaning in context.`,
+      body:[`The transformer was introduced by Google researchers in the 2017 paper “Attention Is All You Need”, which dropped recurrence and convolutions entirely [[vaswani17]].`,
+            `Because it processes all positions at once instead of in sequence, it trains far faster on modern chips. Its translation result was reached after 3.5 days of training on eight GPUs [[vaswani17]]. Almost every large language model since is built on it.`],
+      example:`In “The trophy didn’t fit in the suitcase because it was too big”, attention is what lets a model connect “it” with “trophy”. (Illustrative example.)`,
+      links:[["c-llm","is the basis of"],["c-cnnrnn","replaced"],["s4-deeplearning","is a milestone in"],["s3-gpus","is efficient on"]],
+      deeper:[`Each token produces a query, a key and a value. Attention compares a token’s query with every key using dot products, scales the result, turns it into weights, and takes a weighted average of the values. Several such “heads” run in parallel [[vaswani17]].`]
+    },
+    { id:"c-llm", title:"Large language models", level:"Beginner", terms:["LLM","large language model","GPT","few-shot learning"],
+      def:`Very large transformer models trained to predict the next token across vast amounts of text. Done at scale, this gives them broad language abilities.`,
+      body:[`GPT-3 (2020) showed that scaling up a language model greatly improves its ability to do new tasks from just a few examples in the prompt, sometimes rivalling specially trained systems [[brown20]].`,
+            `Raw models are not good assistants. Further training with human feedback made them follow instructions, and a version a hundred times smaller was preferred by human raters over the raw 175-billion-parameter model [[ouyang22]].`],
+      example:`Chat assistants, writing tools and coding helpers are all LLMs with extra training and tools wrapped around them.`,
+      links:[["c-pretrain","is created by"],["c-rlhf","is made helpful by"],["c-halluc","is prone to"],["s5-chat","powers"],["s3-labs","is built by"]],
+      deeper:[`LLMs generate one token at a time, feeding each new token back in. A “base” model has only been pre-trained; an “instruct” or “chat” model has been further tuned [[ouyang22]].`],
+      myth:[`LLMs look answers up in a database.`,`By default they generate from patterns stored in their parameters. Looking things up requires a separate retrieval system [[lewis20]].`]
+    },
+    { id:"c-diffusion", title:"Diffusion models", level:"Intermediate", terms:["diffusion model","image generation","denoising"],
+      def:`Generators that learn to turn random noise into an image, video or sound by removing the noise step by step.`,
+      body:[`During training, noise is added to real images and the model learns to reverse it. To generate, it starts from pure noise and repeatedly denoises, guided by a text prompt. A 2020 paper by Ho, Jain and Abbeel showed this approach could produce high-quality images [[ho20]].`,
+            `Most well-known image generators use this family of methods, which is why their outputs sharpen gradually as they appear.`],
+      example:`Typing “a lighthouse in a storm, oil painting” into an image tool and watching a blur resolve into a picture.`,
+      links:[["s2-vision","is the main method for generating"],["s7-misinfo","enables"],["s7-copyright","raises questions about"]],
+      deeper:[`The key trick in the 2020 paper was to train the network to predict the noise that was added at each step, rather than the clean image directly [[ho20]].`]
+    },
+    { id:"c-scaling", title:"Scaling laws", level:"Intermediate", terms:["scaling laws","Chinchilla","compute","FLOP"],
+      def:`The finding that model performance improves smoothly and predictably as you increase model size, training data and computing power.`,
+      body:[`In 2020, OpenAI researchers showed that a language model’s error falls as a power law as size, data or compute grow, with some trends holding over seven orders of magnitude [[kaplan20]]. In 2022 DeepMind revised the recipe: grow model size and training data at equal rates, roughly 20 training tokens per parameter [[hoffmann22]]. {{conf:|An Epoch AI replication found one of DeepMind’s three estimation methods inconsistent with the other two and with the 20-to-1 rule [[epochChin]].}}`,
+            `{{est:Epoch AI|Training compute for frontier language models has grown about 5× per year since 2020 [[epochTrends]].}} {{asof:Feb 2026}} The AI Index reports the same trend as compute doubling roughly every five months [[aiindex25]].`],
+      example:`This predictability is why companies commit billions to bigger training runs before they start them.`,
+      links:[["s6-hyperscaler-capex","justifies"],["s9-scaling","is debated in"],["c-data","is limited by"],["c-reasoning","was extended by"]],
+      deeper:[`{{est:Epoch AI|Separately from hardware, better algorithms cut the compute needed for a given pre-training result by roughly 3× per year [[epochTrends]].}} A power law looks like a straight line on a log-log chart, which is how these results are usually shown.`],
+      myth:[`Scaling laws guarantee AI will keep getting smarter.`,`They describe trends observed so far, measured as prediction error [[kaplan20]]. Whether they continue is an open question (see Section 9).`]
+    }]
+  },
+  { id:"s1-5", n:"1.5", title:"The model lifecycle", note:"From raw data to a model you can use.",
+    cards:[
+    { id:"c-data", title:"Data", level:"Beginner", terms:["training data","dataset","synthetic data"],
+      def:`The examples a model learns from. For language models that means mostly public web text, plus books, code and curated collections.`,
+      body:[`Training datasets are growing fast: the AI Index reports dataset sizes doubling about every eight months [[aiindex25]]. {{est:Epoch AI, 2024|The effective stock of quality public human-written text is about 300 trillion tokens (90% range: 100–1,000 trillion), and at current trends it would be fully used some time between 2026 and 2032 [[epochData]].}}`,
+            `Such forecasts move. Epoch’s own 2022 estimate expected high-quality text to run out by 2024; its 2024 update pushed that back after finding that filtered web data and repeated passes work better than assumed [[epochData]].`],
+      example:`Much of a chat assistant’s knowledge of cooking, law or history comes from what people wrote publicly online.`,
+      links:[["s7-copyright","raises disputes over"],["s7-privacy","raises concerns about"],["c-pretrain","feeds"],["s2-selfsup","is used without labels in"]],
+      deeper:[`AI-generated “synthetic” data is one proposed way around limits. Epoch notes it has so far been shown to reliably improve capabilities mainly in narrow domains such as maths and coding [[epochData]].`]
+    },
+    { id:"c-pretrain", title:"Pre-training", level:"Intermediate", terms:["pre-training","pretraining","training run","training cost"],
+      def:`The first and most expensive phase: training a model from scratch on huge amounts of data to predict the next token.`,
+      body:[`{{est:Epoch AI / Stanford AI Index|Google’s Gemini 1.0 Ultra cost about $192 million to train [[spectrum25]], and Meta’s Llama 3.1-405B about $170 million [[toms25]].}} The AI Index found companies spent on average 28 times more training their latest flagship model than its predecessor [[toms25]].`,
+            `{{conf:|Cost estimates depend on what is counted. An earlier Epoch analysis counting only the final training run put GPT-4 at $40 million and Gemini Ultra at $30 million [[cottier24]].}} The same analysis found research staff, including equity, made up 29–49% of the full cost of developing such models [[cottier24]].`],
+      example:`Pre-training is when a model reads its library. Everything after it is tutoring.`,
+      links:[["c-scaling","is planned using"],["s6-traincost","is the biggest line in"],["s3-gpus","runs on"],["s7-emissions","drives"]],
+      deeper:[`Pre-training is self-supervised: the “labels” are just the next words in the text, so no human labelling is needed. Many leading companies no longer publish details of their training runs, so outside estimates rely on hardware and duration clues [[spectrum25]].`]
+    },
+    { id:"c-finetune", title:"Fine-tuning", level:"Intermediate", terms:["fine-tuning","supervised fine-tuning","distillation"],
+      def:`Further training a pre-trained model on a smaller, targeted dataset to specialise it or change its behaviour.`,
+      body:[`Fine-tuning reuses what pre-training learned, so it needs far less data and compute. In OpenAI’s InstructGPT work, the first step was fine-tuning GPT-3 on examples written by human labellers showing the desired behaviour [[ouyang22]].`,
+            `Knowledge can also flow from a big model to a small one. DeepSeek showed that reasoning patterns from its large R1 model could be used to improve smaller models [[deepseekr1]].`],
+      example:`A legal-tech firm fine-tunes a general model on thousands of contracts so it uses the right terminology and format.`,
+      links:[["c-rlhf","is usually followed by"],["c-rag","is an alternative to"],["s8-apis","is offered through"]],
+      deeper:[`The retrieval-augmented generation paper presented its method as a general-purpose fine-tuning recipe, combining a model with a searchable document index [[lewis20]].`]
+    },
+    { id:"c-rlhf", title:"RLHF & alignment training", level:"Intermediate", terms:["RLHF","reinforcement learning from human feedback","Constitutional AI","RLAIF","reward model"],
+      def:`Training a model to prefer the responses people rate as better, using those ratings as a reward signal.`,
+      body:[`In InstructGPT, labellers ranked several model outputs; a separate reward model learned their preferences; and the language model was then trained with reinforcement learning to score well [[ouyang22]]. Outputs from the 1.3-billion-parameter result were preferred to those from the 175-billion-parameter GPT-3, despite it having 100 times fewer parameters [[ouyang22]].`,
+            `Anthropic’s Constitutional AI (2022) replaced most human harm labels with a written list of principles. The model critiques and revises its own answers, and AI-generated preferences provide the reward (“RL from AI feedback”) [[bai22]].`],
+      example:`Thumbs-up and thumbs-down buttons in chat apps are one way companies collect preference data.`,
+      links:[["s7-alignment","is a practical tool for"],["s7-bias","can introduce or reduce"],["s2-rl","is a form of"]],
+      deeper:[`The InstructGPT authors noted their models still made simple mistakes [[ouyang22]]. Preference training shapes behaviour and tone; it is not a way of adding knowledge.`],
+      myth:[`RLHF teaches a model facts.`,`It mainly shapes how a model behaves; InstructGPT models still made simple mistakes after it [[ouyang22]].`]
+    },
+    { id:"c-traininf", title:"Training vs inference", level:"Beginner", terms:["inference","training","cost per token"],
+      def:`Training is when a model learns: done once, and very expensive. Inference is every time the finished model is used to answer something.`,
+      body:[`The two have very different economics. Training a frontier model costs more each generation [[spectrum25]], but the price of using a given level of capability has collapsed. The AI Index found the cost of GPT-3.5-level performance fell from $20 to $0.07 per million tokens between November 2022 and October 2024, a drop of more than 280 times [[aiindex25]]. {{asof:Oct 2024}}`,
+            `Reasoning models shift more of the work to inference, because they think longer for each answer [[o1]].`],
+      example:`Training is writing a textbook. Inference is every student reading it, millions of times a day.`,
+      links:[["s6-infcost","drives"],["s3-dc","fills"],["c-reasoning","increases the weight of"]],
+      deeper:[`Falling inference prices came mostly from cheaper hardware, better energy efficiency and capable smaller models, according to the AI Index summary [[toms25]].`]
+    },
+    { id:"c-eval", title:"Evaluation & benchmarks", level:"Intermediate", terms:["benchmark","evaluation","MMLU","GPQA","SWE-bench","time horizon"],
+      def:`Standardised tests used to measure and compare what models can do.`,
+      body:[`Benchmarks go out of date quickly. Three hard tests introduced in 2023 saw scores rise by 18.8, 48.9 and 67.3 percentage points within a year (MMMU, GPQA and SWE-bench) [[aiindex25]].`,
+            `Scores need care. Test questions can leak into training data [[zhang24]], and most benchmarks reward a confident guess over “I don’t know”, which researchers argue encourages hallucination [[kalai25]].`],
+      example:`SWE-bench gives models real software bugs from public code projects and checks whether their fixes pass the tests.`,
+      links:[["c-overfit","is undermined by"],["s8-benchmarks","is explained for readers in"],["c-halluc","can encourage"]],
+      deeper:[`METR measures capability as the length of task, in human working time, that an AI agent completes half the time. That length doubled roughly every seven months from 2019 to 2025 [[metr25]]. METR revised its task suite in January 2026 [[metrTH11]].`]
+    }]
+  },
+  { id:"s1-6", n:"1.6", title:"Using models", note:"What happens when you actually use one.",
+    cards:[
+    { id:"c-context", title:"Prompts & context windows", level:"Beginner", terms:["prompt","context window","chain of thought","few-shot prompting"],
+      def:`The prompt is everything you give the model. The context window is the most text, counted in tokens, it can take into account at once.`,
+      body:[`Context windows have grown fast. {{co:Google|Google said in February 2024 that Gemini 1.5 Pro could handle up to 1 million tokens, against 32,000 for Gemini 1.0 [[gemini15]].}}`,
+            `More context does not mean equal attention to all of it. One study found models do best when the relevant information is at the start or end of a long input, and noticeably worse when it is buried in the middle [[liu23]]. How you ask matters too: showing worked, step-by-step examples improved reasoning in large models [[wei22]].`],
+      example:`Paste a 40-page report and ask about a detail on page 20, and the model is more likely to miss it than a detail on page 1.`,
+      links:[["c-tokens","is measured in"],["s8-prompting","is put into practice in"],["c-rag","complements"]],
+      deeper:[`GPT-3 introduced the idea of learning a task from examples placed in the prompt (“few-shot”) without changing the model [[brown20]]. Chain-of-thought prompting extended this by including the reasoning steps in those examples [[wei22]].`]
+    },
+    { id:"c-reasoning", title:"Reasoning models", level:"Intermediate", terms:["reasoning model","test-time compute","o1","DeepSeek-R1"],
+      def:`Models trained to work through a problem step by step before answering, spending more computing power at answer time.`,
+      body:[`{{co:OpenAI|OpenAI introduced o1 on 12 September 2024. It reported that performance improves with both more training and more “thinking” time, and that on the 2024 AIME maths exam o1 averaged 74% against 12% for GPT-4o [[o1]].}}`,
+            `DeepSeek’s R1, described in a peer-reviewed Nature paper, showed that reasoning ability can be developed through pure reinforcement learning, without human-written reasoning examples [[deepseekr1]]. {{co:DeepSeek|The company said R1’s reasoning training cost about $300,000 [[sciam25]].}}`],
+      example:`Ask a reasoning model a tricky logic puzzle and it may “think” for many seconds, working through options before replying.`,
+      links:[["c-traininf","shifts cost towards"],["c-scaling","adds a new axis to"],["s6-infcost","raises"],["c-reliab","partly addresses"]],
+      deeper:[`{{est:Epoch AI|Since the first reasoning models in September 2024, Epoch’s capability index has advanced about 14 points a year, against 6 for non-reasoning models [[epochTrends]].}} Spending more computing power at answer time is often called “test-time compute”.`]
+    },
+    { id:"c-rag", title:"Retrieval (RAG)", level:"Intermediate", terms:["RAG","retrieval-augmented generation","vector search","grounding"],
+      def:`Letting a model look up relevant documents and use them when answering, instead of relying only on what is stored in its parameters.`,
+      body:[`The 2020 paper that named the technique paired a language model with a searchable index of Wikipedia. It produced more specific and factual answers than the model alone, and its knowledge could be updated by swapping the index [[lewis20]].`,
+            `A related approach, ReAct, has the model alternate between reasoning and lookups. In tests it reduced the made-up facts and compounding errors seen with reasoning alone [[yao22]].`],
+      example:`A company assistant that answers questions about your HR policy by first finding the relevant policy page, then quoting it.`,
+      links:[["c-vec","finds documents using"],["c-halluc","reduces"],["s8-rag","is put into practice in"],["s3-retrievalinfra","runs on"]],
+      deeper:[`Documents are split into chunks, each chunk is turned into a vector, and the chunks closest to the question are added to the prompt. The original paper called the model’s built-in knowledge “parametric memory” and the index “non-parametric memory” [[lewis20]].`]
+    },
+    { id:"c-agents", title:"Tool use & agents", level:"Intermediate", terms:["agent","AI agent","tool use","MCP","Model Context Protocol"],
+      def:`An agent is a model in a loop: it decides on an action (search, run code, click), sees the result, and repeats until the goal is met.`,
+      body:[`The reason-then-act loop was set out in the 2022 ReAct paper [[yao22]]. {{co:Anthropic|In November 2024 Anthropic released the Model Context Protocol, an open standard for connecting AI assistants to tools and data sources [[mcp]].}}`,
+            `Agents handle short tasks far better than long ones. METR found models of the time succeeded almost always on tasks taking a human under four minutes, and less than 10% of the time on tasks over about four hours [[metr25]]. {{est:METR|Naively extending the trend gives agents a one-month task horizon some time between mid-2028 and mid-2031, though the authors flag doubts about how well this transfers to real work [[metr25]].}}`],
+      example:`“Find three flights under $400, check my calendar, and draft an email to my manager”: the agent searches, reads, compares and writes in a chain of steps.`,
+      links:[["s5-agents","powers products in"],["s7-security","opens new risks in"],["s7-jobs","affects"],["s9-agents","is extended in"]],
+      deeper:[`METR’s “80% horizon”, the task length an agent completes four times out of five, came out roughly five times shorter than its 50% horizon [[metr25]]. Reliability, not just capability, is the bottleneck.`]
+    }]
+  },
+  { id:"s1-7", n:"1.7", title:"Limitations", note:"What current AI still gets wrong, and why. Each claim carries the year of its study, because this list dates quickly.",
+    cards:[
+    { id:"c-halluc", title:"Hallucination", level:"Beginner", terms:["hallucination","confabulation","calibration"],
+      def:`When a model confidently produces information that is false.`,
+      body:[`A 2025 paper by researchers at OpenAI and Georgia Tech argues hallucinations arise from statistical pressures during training, and persist because most evaluations reward guessing over admitting uncertainty [[kalai25]].`,
+            `They give a vivid example: asked for one of the authors’ birthdays, a state-of-the-art open model gave three different wrong dates on three attempts [[kalai25]]. Their analysis suggests that if 20% of facts of a given type appear only once in training data, base models should be expected to get at least 20% of them wrong [[kalai25]].`],
+      example:`Ask for a niche statistic or an obscure citation and you may get one that looks perfect and does not exist.`,
+      links:[["c-rag","is reduced by"],["s8-checking","is why you need"],["s7-misinfo","contributes to"]],
+      deeper:[`The paper frames hallucination as a classification error: if a model cannot tell a valid statement from a plausible error, generating text will produce such errors [[kalai25]]. It recommends changing how benchmarks score “I don’t know”.`],
+      myth:[`Hallucinations are a bug that the next update will fix.`,`The analysis shows they arise even with error-free training data under standard training objectives [[kalai25]].`]
+    },
+    { id:"c-reliab", title:"Reliability & reasoning gaps", level:"Intermediate", terms:["robustness","reversal curse","GSM-Symbolic"],
+      def:`A model can solve a problem one way and fail a version with trivial changes.`,
+      body:[`Apple researchers found in 2024 that adding a single irrelevant sentence to grade-school maths problems cut performance by up to 65% across the state-of-the-art models they tested, and that changing only the numbers also lowered scores [[mirzadeh24]].`,
+            `The “reversal curse” (2023): GPT-4 answered “Who is Tom Cruise’s mother?” correctly 79% of the time, but the reverse question about her son only 33% of the time [[berglund23]].`,
+            `{{op:Researchers disagree|The Apple authors read their results as a lack of genuine logical reasoning [[mirzadeh24]]. Other work found frontier models generalise well to fresh maths problems [[zhang24]], and peer-reviewed reasoning models score far higher on competition maths [[deepseekr1]].}}`],
+      example:`A model that solves “Sophie has 31 apples…” may stumble when told some of the apples are smaller than average, a detail that changes nothing.`,
+      links:[["c-reasoning","is partly addressed by"],["c-eval","is hidden by fixed"],["s8-checking","calls for"]],
+      deeper:[`The reversal curse does not apply when the fact is given in the prompt; it concerns what the model learned in training [[berglund23]].`]
+    },
+    { id:"c-cutoff", title:"Knowledge cutoffs & memory", level:"Beginner", terms:["knowledge cutoff","training cutoff","memory"],
+      def:`A model’s built-in knowledge stops at the point its training data was collected, and it only “remembers” what is in its current context.`,
+      body:[`Knowledge stored in parameters cannot be updated without retraining. Retrieval was proposed partly to solve this, by letting a model consult a document index that can be swapped as the world changes [[lewis20]].`,
+            `Within a conversation, the model only works with what fits in its context window, and it uses long contexts unevenly [[liu23]].`],
+      example:`Ask about last week’s news without web search switched on, and the model either says it doesn’t know or guesses.`,
+      links:[["c-rag","is addressed by"],["c-context","is bounded by"]],
+      deeper:[`“Memory” features in AI apps generally work by saving notes and adding them back into the context, rather than changing the model itself. (General description; implementations vary by product.)`]
+    },
+    { id:"c-brittle", title:"Brittleness & distribution shift", level:"Deep", terms:["adversarial example","distribution shift","brittleness"],
+      def:`Models can fail badly on inputs that differ, sometimes invisibly, from what they were trained on.`,
+      body:[`In 2013, researchers found that tiny changes to an image, invisible to people, could make a high-performing network misclassify it. These “adversarial examples” often fooled other networks too, even ones trained on different data [[szegedy13]].`,
+            `The same sensitivity shows up in language models when only the numbers in a problem change [[mirzadeh24]].`],
+      example:`A self-driving system trained mostly on sunny roads performing worse in snow is distribution shift. (Illustrative example.)`,
+      links:[["s7-security","is exploited in"],["c-overfit","is related to"]],
+      deeper:[`The 2013 paper argued networks trained by backpropagation have “blind spots” connected to the data distribution in non-obvious ways [[szegedy13]].`]
+    },
+    { id:"c-cant", title:"What AI still can’t do well", level:"Intermediate", terms:["limitations"],
+      def:`A short, dated summary of current weak spots, each tied to its evidence.`,
+      body:[`<ul><li><b>Long tasks done reliably.</b> Success falls steeply with task length, and an agent’s 80%-reliability horizon is about five times shorter than its 50% one (2025) [[metr25]].</li><li><b>Rare facts.</b> Facts seen once in training are hallucinated at high rates (2025) [[kalai25]].</li><li><b>Saying “I don’t know”.</b> Most evaluations penalise abstaining (2025) [[kalai25]].</li><li><b>Using all of a long input.</b> Information mid-document is used less well (2023) [[liu23]].</li><li><b>Ignoring irrelevant detail.</b> Distractors cut maths accuracy in models tested in 2024 [[mirzadeh24]].</li></ul>`,
+            `{{asof:Nov 2026}} Several of these studies used models that have since been replaced. Treat this as a list of known failure types to test for, not a fixed verdict.`],
+      example:`Practical rule: the longer, rarer and less checkable the task, the more you should verify the output.`,
+      links:[["s9-agi","feeds into"],["s8-checking","is the reason for"],["c-reliab","summarises"]],
+      deeper:[`METR’s time-horizon measure is designed to track these limits over time rather than as a one-off snapshot [[metr25]].`]
+    }]
+  }]
+},
+/* ---------- PLANNED SECTIONS (cards listed, not yet researched) ---------- */
+{ id:"s2", n:2, title:"Types of AI", q:"What kinds are there?", color:"var(--c2)", status:"planned",
+  intro:`Four separate lenses for classifying AI systems. Each lens covers every system on its own terms; the same system can be described on all four.`,
+  subs:[
+  {id:"s2-0",n:"2.0",title:"Same system, four lenses",cards:[["s2-lenses","Same system, four lenses","Famous systems classified on every lens"]]},
+  {id:"s2-a",n:"2A",title:"By capability",cards:[["s2-narrow","Narrow AI"],["s2-agi","Artificial general intelligence"],["s2-asi","Superintelligence"]]},
+  {id:"s2-b",n:"2B",title:"By learning method",cards:[["s2-supervised","Supervised learning"],["s2-unsupervised","Unsupervised learning"],["s2-rl","Reinforcement learning"],["s2-selfsup","Self-supervised learning"]]},
+  {id:"s2-c",n:"2C",title:"By modality & field",cards:[["s2-language","Language & NLP"],["s2-vision","Vision & computer vision"],["s2-speech","Speech & audio"],["s2-video","Video"],["s2-code","Code"],["s2-multimodal","Multimodal"],["s2-predict","Prediction & recommendation systems"],["s2-robotics","Robotics & action"]]},
+  {id:"s2-d",n:"2D",title:"By approach",cards:[["s2-symbolic","Symbolic / rule-based"],["s2-neural","Statistical / neural"],["s2-hybrid","Hybrid / neuro-symbolic"]]}]},
+{ id:"s3", n:3, title:"The AI Industry: Stack & Players", q:"Who builds it, and from what?", color:"var(--c3)", status:"planned",
+  intro:`The physical and technical supply chain, from chips to apps, and the organisations at each layer.`,
+  subs:[
+  {id:"s3-0",n:"3.0",title:"Overview",cards:[["s3-stack","How the stack fits together"],["s3-vertical","Vertical integration"]]},
+  {id:"s3-1",n:"3.1",title:"Chips & hardware",cards:[["s3-gpus","GPUs & accelerators"],["s3-customchips","Custom AI chips"],["s3-litho","Lithography"],["s3-foundries","Foundries"],["s3-packaging","Advanced packaging"],["s3-hbm","High-bandwidth memory"]]},
+  {id:"s3-2",n:"3.2",title:"Data centres & energy",cards:[["s3-dc","AI data centres"],["s3-power","Power & the grid"],["s3-cooling","Cooling & water"]]},
+  {id:"s3-3",n:"3.3",title:"Cloud & compute",cards:[["s3-hyperscalers","Hyperscalers"],["s3-neoclouds","Neoclouds"],["s3-buycompute","How compute is bought"]]},
+  {id:"s3-4",n:"3.4",title:"Foundation models",cards:[["s3-labs","Frontier labs"],["s3-openclosed","Open vs closed: the trade-offs"],["s3-openmodels","Leading open-weight models"],["s3-propmodels","Leading proprietary models"],["s3-sizes","Model sizes"]]},
+  {id:"s3-5",n:"3.5",title:"Tooling & infrastructure",cards:[["s3-frameworks","Frameworks & developer software"],["s3-dataplat","Data & labelling platforms"],["s3-hosting","Model hosting & APIs"],["s3-retrievalinfra","Retrieval & agent infrastructure"],["s3-evalmon","Evaluation & monitoring"]]},
+  {id:"s3-6",n:"3.6",title:"Applications layer",cards:[["s3-wrapper","Horizontal vs vertical apps"],["s3-distribution","Distribution"]]},
+  {id:"s3-7",n:"3.7",title:"The players",cards:[["s3-bigtech","Big tech platforms"],["s3-oss","Open-source communities"],["s3-academia","Universities & research institutes"],["s3-nonprofits","Non-profits, safety institutes & standards bodies"]]}]},
+{ id:"s4", n:4, title:"History & Key Ideas", q:"How did we get here?", color:"var(--c4)", status:"planned",
+  intro:`Seven eras, the people behind them, and the patterns that keep recurring.`,
+  subs:[
+  {id:"s4-1",n:"4.1",title:"Eras",cards:[["s4-origins","Origins (1940s–1956)"],["s4-optimism","Early optimism"],["s4-winter1","First AI winter"],["s4-expert","Expert systems & the second winter"],["s4-statistical","The statistical turn"],["s4-deeplearning","Deep learning revolution"],["s4-generative","The generative era"]]},
+  {id:"s4-2",n:"4.2",title:"Key people",cards:[["s4-founders","Founders of the field"],["s4-dlpioneers","Deep learning pioneers"],["s4-builders","Builders of the modern era"]]},
+  {id:"s4-3",n:"4.3",title:"Recurring ideas",cards:[["s4-hype","Hype cycles & winters"],["s4-bitter","The bitter lesson"],["s4-moravec","Moravec’s paradox"]]}]},
+{ id:"s5", n:5, title:"Uses & Tools", q:"What is AI used for?", color:"var(--c5)", status:"planned",
+  intro:`What the world uses AI for: general-purpose tools, uses by industry, and the AI you never notice.`,
+  subs:[
+  {id:"s5-1",n:"5.1",title:"General-purpose tools",cards:[["s5-chat","Chat assistants"],["s5-coding","Coding assistants"],["s5-image","Image generators"],["s5-video","Video generators"],["s5-voice","Voice & audio tools"],["s5-search","Search & research tools"],["s5-office","Writing & office copilots"],["s5-agents","Agents & automation"]]},
+  {id:"s5-2",n:"5.2",title:"By industry",cards:[["s5-health","Healthcare & life sciences"],["s5-edu","Education"],["s5-law","Law & professional services"],["s5-media","Media & creative industries"],["s5-cx","Customer service, sales & marketing"],["s5-manuf","Manufacturing, logistics & robotics"],["s5-transport","Transport"],["s5-science","Science & research"],["s5-gov","Government & defence"],["s5-retail","Retail & e-commerce"],["s5-energyag","Energy & agriculture"],["s5-finance","Finance (see 6.5)"]]},
+  {id:"s5-3",n:"5.3",title:"Everyday & invisible AI",cards:[["s5-everyday","Everyday & invisible AI"]]}]},
+{ id:"s6", n:6, title:"Economics & Markets", q:"Where does the money go?", color:"var(--c6)", status:"planned",
+  intro:`The economics of AI, how to read AI company numbers, who is investing, AI inside finance, and the bubble debate presented from both sides. Includes Australian-listed exposure.`,
+  subs:[
+  {id:"s6-1",n:"6.1",title:"Unit economics",cards:[["s6-traincost","The cost of training"],["s6-infcost","The cost of inference"],["s6-revenue","Revenue models"],["s6-value","Who captures the value?"]]},
+  {id:"s6-2",n:"6.2",title:"Reading AI financials",cards:[["s6-capex-dep","Capex & depreciation"],["s6-margins","Gross margins"],["s6-perquery","Cost of compute per query"],["s6-metrics","Other metrics to watch"]]},
+  {id:"s6-3",n:"6.3",title:"Capex & the build-out",cards:[["s6-hyperscaler-capex","Hyperscaler capital spending"],["s6-financing","How the build-out is financed"],["s6-constraints","Physical constraints"]]},
+  {id:"s6-4",n:"6.4",title:"Companies & investment flows",cards:[["s6-public","Public companies by layer"],["s6-private","Private labs & valuations"],["s6-vc","Venture capital flows"],["s6-circular","Circular & strategic deals"],["s6-sovereign","Governments & sovereign funds"],["s6-etfs","AI-exposed ETFs & indices"],["s6-concentration","Concentration risk"],["s6-chokepoints","Chokepoints & market moves"]]},
+  {id:"s6-5",n:"6.5",title:"AI inside finance",cards:[["s6-quant","Algorithmic & quant trading"],["s6-credit","Credit & risk modelling"],["s6-fraud","Fraud detection & anti-money-laundering"],["s6-advice","Advice, research & operations"],["s6-systemic","Risks to the financial system"]]},
+  {id:"s6-6",n:"6.6",title:"Bubble or transformation?",cards:[["s6-bubble","The case for a bubble"],["s6-transform","The case for transformation"],["s6-railway","Parallel: the railway mania"],["s6-electric","Parallel: electrification"],["s6-dotcom","Parallel: the dot-com boom and bust"],["s6-indicators","Market indicators to watch"]]}]},
+{ id:"s7", n:7, title:"Ethics, Risks & Society", q:"What could go wrong, and who decides?", color:"var(--c7)", status:"planned",
+  intro:`Safety, fairness, work, information, environment, regulation (including Australia) and geopolitics.`,
+  subs:[
+  {id:"s7-1",n:"7.1",title:"Safety & security",cards:[["s7-alignment","The alignment problem"],["s7-interp","Interpretability"],["s7-misuse","Misuse"],["s7-security","AI security"],["s7-xrisk","Catastrophic & existential risk"],["s7-military","Military AI & autonomous weapons"]]},
+  {id:"s7-2",n:"7.2",title:"Fairness & rights",cards:[["s7-bias","Bias & discrimination"],["s7-privacy","Privacy & surveillance"],["s7-copyright","Copyright & training data"],["s7-transparency","Transparency & explainability"]]},
+  {id:"s7-3",n:"7.3",title:"Work & power",cards:[["s7-jobs","Jobs & automation"],["s7-power","Concentration of power & inequality"]]},
+  {id:"s7-4",n:"7.4",title:"Information & wellbeing",cards:[["s7-misinfo","Misinformation & deepfakes"],["s7-wellbeing","Dependence, companionship & wellbeing"]]},
+  {id:"s7-5",n:"7.5",title:"Environment",cards:[["s7-emissions","Energy & emissions"],["s7-water","Water use"],["s7-ewaste","Hardware, minerals & e-waste"]]},
+  {id:"s7-6",n:"7.6",title:"Regulation",cards:[["s7-eu","European Union: the AI Act"],["s7-us","United States"],["s7-china","China"],["s7-aus","Australia, the UK & others"],["s7-intl","International efforts"],["s7-selfgov","Industry self-governance"]]},
+  {id:"s7-7",n:"7.7",title:"Geopolitics",cards:[["s7-uschina","US–China competition"],["s7-europe","Europe & the middle powers"],["s7-export","Export controls"],["s7-compute","Compute as a strategic resource"],["s7-strategies","National AI strategies"]]}]},
+{ id:"s8", n:8, title:"AI in Practice", q:"How do I use it, build with it, and judge it?", color:"var(--c8)", status:"planned",
+  intro:`Hands-on skills for individuals: using AI well, building with it, working alongside it, careers, and judging claims.`,
+  subs:[
+  {id:"s8-1",n:"8.1",title:"Using AI well",cards:[["s8-prompting","Prompting"],["s8-choosing","Choosing the right tool"],["s8-checking","Checking outputs"],["s8-privacy","Privacy & data habits"]]},
+  {id:"s8-2",n:"8.2",title:"Building with AI",cards:[["s8-apis","Building on APIs"],["s8-nocode","No-code & low-code tools"],["s8-rag","RAG in practice"],["s8-agents","Agents in practice"],["s8-cost","What it costs to run"]]},
+  {id:"s8-3",n:"8.3",title:"AI at work",cards:[["s8-jobs","How jobs are changing"],["s8-skills","Skills that matter"],["s8-team","Bringing AI into a team"]]},
+  {id:"s8-4",n:"8.4",title:"Careers & learning",cards:[["s8-roles","Roles in AI"],["s8-waysin","Ways in"],["s8-learning","Learning resources"]]},
+  {id:"s8-5",n:"8.5",title:"Thinking critically",cards:[["s8-news","Reading AI news"],["s8-benchmarks","What benchmarks really measure"],["s8-redflags","Red flags in AI claims"]]}]},
+{ id:"s9", n:9, title:"Looking Ahead", q:"Where is it going?", color:"var(--c9)", status:"planned",
+  intro:`Open debates with each serious position presented, emerging frontiers, and scenarios with the signals that would point to each.`,
+  subs:[
+  {id:"s9-1",n:"9.1",title:"Open debates",cards:[["s9-agi","AGI timelines"],["s9-scaling","The limits of scaling"],["s9-consciousness","Consciousness & moral status"]]},
+  {id:"s9-2",n:"9.2",title:"Emerging frontiers",cards:[["s9-world","World models"],["s9-embodied","Embodied AI & humanoid robots"],["s9-science","AI for scientific discovery"],["s9-energy","Will energy limit AI?"],["s9-agents","Long-running autonomous agents"]]},
+  {id:"s9-3",n:"9.3",title:"Scenarios",cards:[["s9-slowdown","Scenario: slowdown"],["s9-steady","Scenario: steady transformation"],["s9-accel","Scenario: rapid acceleration"],["s9-signals","Signals to watch"]]}]}
+];
+
+/* Reading paths: card ids or section ids */
+const PATHS = {
+  core:{name:"Core path", desc:"About 2 hours. Starts with what you already use and works outward.",
+    steps:["c-ai","c-ml","c-model","c-prob","c-vec","c-opt","c-overfit","c-nn","c-dl","c-tokens","c-transformer","c-llm","c-context","c-reasoning","c-rag","c-agents","c-halluc","c-reliab","c-cant","s8-prompting","s8-checking","c-pretrain","c-finetune","c-rlhf","c-traininf","s2-lenses","s2-narrow","s4","s3-stack","s8-news","s7","s6","s9"]},
+  quick:{name:"Quick tour", desc:"20 minutes. One card from each section.",
+    steps:["c-ai","s2-lenses","s3-stack","s4-generative","s5-chat","s6-bubble","s7-alignment","s8-checking","s9-agi"]},
+  investor:{name:"Investor’s path", desc:"Chips, money, the bubble debate and scenarios.",
+    steps:["s3-stack","s3-litho","s3-packaging","s3-hbm","c-traininf","s6-traincost","s6-infcost","s6-revenue","s6-value","s6-capex-dep","s6-margins","s6-perquery","s6-metrics","s6-hyperscaler-capex","s6-etfs","s6-concentration","s6-chokepoints","s4-hype","s6-bubble","s6-transform","s6-railway","s6-electric","s6-dotcom","s7-uschina","s9-slowdown","s9-steady","s9-accel"]}
+};
+
+/* =========================================================
+   INDEXES
+   ========================================================= */
+const CARD = {};   // id -> {card, sec, sub, built}
+SECTIONS.forEach(s=>s.subs.forEach(sub=>sub.cards.forEach(c=>{
+  if(Array.isArray(c)){ CARD[c[0]] = {card:{id:c[0], title:c[1], scope:c[2]||""}, sec:s, sub, built:false}; }
+  else { CARD[c.id] = {card:c, sec:s, sub, built:true}; }
+})));
+const SECBYID = Object.fromEntries(SECTIONS.map(s=>[s.id,s]));
+
+const esc = s => String(s).replace(/[&<>"]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const strip = s => String(s).replace(/<[^>]+>/g,"").replace(/\[\[[^\]]+\]\]/g,"").replace(/\{\{(?:est|op|co|conf):[^|]*\|/g,"").replace(/\{\{asof:[^}]*\}\}/g,"").replace(/\}\}/g,"");
+
+/* Render markup tokens; ctx collects footnote order per card */
+function fmt(str, ctx){
+  let s = str;
+  const LBL = {est:"Estimate", op:"Debate", co:"Company claim", conf:"Sources conflict"};
+  s = s.replace(/\{\{(est|op|co|conf):([^|}]*)\|([\s\S]*?)\}\}/g, (m,t,who,txt)=>{
+    const lab = LBL[t] + (who ? " · " + esc(who) : "");
+    return `<span class="claim ${t}"><span class="tag">${lab}</span>${txt}</span>`;
+  });
+  s = s.replace(/\{\{asof:([^}]*)\}\}/g, (m,d)=>`<span class="asof" title="Time-sensitive fact">as of ${esc(d)}</span>`);
+  s = s.replace(/\[\[([a-zA-Z0-9]+)\]\]/g, (m,k)=>{
+    if(!SRC[k]){ console.warn("missing source", k); return ""; }
+    let i = ctx.order.indexOf(k); if(i<0){ ctx.order.push(k); i = ctx.order.length-1; }
+    return `<sup class="fn"><a href="#${ctx.id}-fn-${k}" aria-label="Source ${i+1}">${i+1}</a></sup>`;
+  });
+  return s;
+}
+function srcLine(k){
+  const r = SRC[k];
+  const tierTxt = r.t===3 ? "T3 · company claim" : "T"+r.t;
+  const title = r.u ? `<a href="${r.u}" target="_blank" rel="noopener">${esc(r.ti)}</a>` : esc(r.ti);
+  return `<span class="tier t${r.t}">${tierTxt}</span>${esc(r.a)}. ${title}. ${esc(r.p||"")}`;
+}
+
+/* Read ticks (this browser only) */
+let READ = {};
+try{ READ = JSON.parse(localStorage.getItem("aifg-read")||"{}"); }catch(e){ READ = {}; }
+function saveRead(){ try{ localStorage.setItem("aifg-read", JSON.stringify(READ)); }catch(e){} }
+
+/* =========================================================
+   RENDER SECTIONS & CARDS
+   ========================================================= */
+function linkChip(id, verb){
+  const t = CARD[id] || (SECBYID[id] && {card:{title:SECBYID[id].title}, sec:SECBYID[id], built:SECBYID[id].status==="built"});
+  if(!t){ console.warn("bad link", id); return ""; }
+  return `<a class="link" href="#${id}" data-go="${id}"><span class="d" style="background:${t.sec.color}"></span><span class="v">${esc(verb)}</span> ${esc(t.card.title)}${t.built?"":` <span class="v">(Section ${t.sec.n}, planned)</span>`}</a>`;
+}
+function renderCard(c, sec){
+  const ctx = {id:c.id, order:[]};
+  const body = c.body.map(p => p.trim().startsWith("<ul") ? fmt(p,ctx) : `<p>${fmt(p,ctx)}</p>`).join("");
+  const viz = c.visual ? `<div class="viz" data-viz="${c.visual}"></div>` : "";
+  const ex = `<div class="lbl">Example</div><div class="example"><p>${fmt(c.example,ctx)}</p></div>`;
+  const myth = c.myth ? `<div class="lbl">Common misconception</div><div class="myth"><b>Myth</b><span>${fmt(c.myth[0],ctx)}</span><b>Fact</b><span>${fmt(c.myth[1],ctx)}</span></div>` : "";
+  const links = `<div class="lbl">How it connects</div><div class="links">${c.links.map(l=>linkChip(l[0],l[1])).join("")}</div>`;
+  const deeper = `<details class="deeper"><summary>Go deeper</summary><div class="in">${c.deeper.map(p=>`<p>${fmt(p,ctx)}</p>`).join("")}</div></details>`;
+  const def = fmt(c.def, ctx);
+  const srcs = `<details class="srcwrap"><summary>Sources (${ctx.order.length})</summary><ol class="srcs" aria-label="Sources">${ctx.order.map(k=>`<li id="${c.id}-fn-${k}">${srcLine(k)}</li>`).join("")}</ol></details>`;
+  c._srcs = ctx.order.slice();
+  return `<article class="card" id="${c.id}" style="--sc:${sec.color}">
+    <div class="chead"><h4>${esc(c.title)}</h4><span class="lvl ${c.level}">${c.level}</span>
+      <label class="readtick"><input type="checkbox" data-read="${c.id}" ${READ[c.id]?"checked":""}> Read</label></div>
+    <p class="def">${def}</p>
+    <div class="body">${body}</div>${viz}${ex}${myth}${links}${deeper}${srcs}
+  </article>`;
+}
+function renderSections(){
+  const out = SECTIONS.map(s=>{
+    const built = s.status==="built";
+    const map = built ? `<div class="map" id="map-${s.id}"></div><p class="maphint">Click any node to jump to its card. Hover to see the one-line definition.</p>`
+      : `<div class="pmap">${s.subs.map(sub=>`<div class="grp"><h5>${sub.n} ${esc(sub.title)}</h5>${sub.cards.map(c=>`<a class="chip" href="#${c[0]}" data-go="${c[0]}">${esc(c[1])}</a>`).join("")}</div>`).join("")}</div><p class="maphint">Map preview. The full concept map is drawn when this section is researched and built.</p>`;
+    const subs = s.subs.map(sub=>{
+      const cards = built ? sub.cards.map(c=>renderCard(c,s)).join("")
+        : sub.cards.map(c=>`<div class="planned" id="${c[0]}"><b>${esc(c[1])}</b>${c[2]?`<span>${esc(c[2])}</span>`:""}<span style="margin-left:auto">planned</span></div>`).join("");
+      return `<h3 class="sub" id="${sub.id}"><span class="n">${sub.n}</span>${esc(sub.title)}</h3>${sub.note?`<p class="subnote">${esc(sub.note)}</p>`:""}${cards}`;
+    }).join("");
+    let secsrc = "";
+    if(built){
+      const keys = [...new Set(s.subs.flatMap(sub=>sub.cards.flatMap(c=>c._srcs||[])))];
+      const ord = keys.sort((a,b)=>SRC[a].a.localeCompare(SRC[b].a));
+      secsrc = `<details class="secsrc panel"><summary>All sources and further reading for this section (${ord.length})</summary><ol>${ord.map(k=>`<li>${srcLine(k)}</li>`).join("")}</ol></details>`;
+    }
+    return `<section class="sec" id="${s.id}" style="--sc:${s.color}">
+      <div class="sechead"><span class="secnum">SECTION ${s.n}</span><span class="status ${s.status}">${built?"built":"planned"}</span>
+        <span class="meta">Last updated: <b>${built? s.updated : "not yet researched"}</b></span>
+        <h2>${esc(s.title)}</h2><span class="secq">${esc(s.q)}</span></div>
+      <p class="prose" style="margin:12px 0 0">${esc(s.intro)}</p>${map}${subs}${secsrc}</section>`;
+  }).join("");
+  document.getElementById("sections").innerHTML = out;
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+function renderNav(){
+  const side = document.getElementById("side");
+  side.innerHTML = `<h4>Start</h4><div class="navsec"><a href="#start">Overview & map</a></div><h4>Sections</h4>` +
+    SECTIONS.map(s=>{
+      const total = s.subs.reduce((n,sub)=>n+sub.cards.length,0);
+      const done = s.status==="built" ? s.subs.reduce((n,sub)=>n+sub.cards.filter(c=>READ[c.id]).length,0) : 0;
+      return `<div class="navsec" data-sec="${s.id}"><a href="#${s.id}"><span class="dot" style="background:${s.color}"></span>${s.n}. ${esc(s.title)}<span class="cnt">${s.status==="built"?`${done}/${total}`:"soon"}</span></a>
+      <ul class="navsub">${s.subs.map(sub=>`<li><a href="#${sub.id}" data-sub="${sub.id}">${sub.n} ${esc(sub.title)}</a></li>`).join("")}</ul></div>`;
+    }).join("") + `<h4>Indexes</h4><div class="navsec"><a href="#glossary">Glossary</a></div><div class="navsec"><a href="#myths">Myths vs facts</a></div>`;
+}
+function updateCounts(){
+  SECTIONS.forEach(s=>{
+    if(s.status!=="built") return;
+    const total = s.subs.reduce((n,sub)=>n+sub.cards.length,0);
+    const done = s.subs.reduce((n,sub)=>n+sub.cards.filter(c=>READ[c.id]).length,0);
+    const el = document.querySelector(`.navsec[data-sec="${s.id}"] .cnt`); if(el) el.textContent = `${done}/${total}`;
+  });
+}
+
+/* =========================================================
+   MAPS
+   ========================================================= */
+const tip = document.getElementById("tip");
+function showTip(e, title, text){
+  tip.innerHTML = `<b>${esc(title)}</b>${esc(text||"")}`; tip.classList.add("on");
+  const x = Math.min(e.clientX+14, window.innerWidth-320), y = e.clientY+16;
+  tip.style.left = x+"px"; tip.style.top = y+"px";
+}
+function hideTip(){ tip.classList.remove("on"); }
+function tipFor(id){
+  const t = CARD[id]; if(t) return [t.card.title, t.built ? strip(t.card.def) : "Planned card. Coming in a later stage."];
+  const s = SECBYID[id]; if(s) return [`${s.n}. ${s.title}`, s.q + (s.status==="built"?"":"  (planned)")];
+  return [id,""];
+}
+function wireMap(el){
+  el.querySelectorAll(".node").forEach(n=>{
+    const id = n.dataset.go;
+    n.setAttribute("tabindex","0"); n.setAttribute("role","link");
+    const [t,d] = tipFor(id); n.setAttribute("aria-label", t);
+    n.addEventListener("mousemove", e=>showTip(e,t,d));
+    n.addEventListener("mouseleave", hideTip);
+    n.addEventListener("click", ()=>{ hideTip(); go(id); });
+    n.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); go(id); } });
+  });
+}
+function box(id,x,y,w,h,label,color,opts={}){
+  const fill = opts.solid ? color : `color-mix(in srgb, ${color} 14%, var(--surface))`;
+  const tc = opts.solid ? "var(--surface)" : "var(--ink)";
+  const lines = label.split("\n");
+  const fs = opts.fs || 13;
+  const ty = y + h/2 - (lines.length-1)*fs*0.6 + fs*0.35;
+  return `<g class="node" data-go="${id}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${opts.r??8}" fill="${fill}" stroke="${color}" stroke-width="1.5"/>
+    ${lines.map((l,i)=>`<text x="${x+w/2}" y="${ty+i*fs*1.2}" text-anchor="middle" font-size="${fs}" font-weight="${opts.bold?600:500}" style="fill:${tc}">${esc(l)}</text>`).join("")}</g>`;
+}
+function arrow(x1,y1,x2,y2,label,lx,ly,curve){
+  const d = curve ? `M${x1},${y1} Q${curve[0]},${curve[1]} ${x2},${y2}` : `M${x1},${y1} L${x2},${y2}`;
+  return `<path class="edge" d="${d}" marker-end="url(#ah)"/>${label?`<text class="elabel" x="${lx}" y="${ly}" text-anchor="middle">${esc(label)}</text>`:""}`;
+}
+const DEFS = `<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>`;
+
+function masterMap(){
+  const c = n => `var(--c${n})`;
+  const W=190,H=62;
+  let s = `<svg viewBox="0 0 1000 420" role="img" aria-label="Concept map of the nine sections">${DEFS}`;
+  s += `<text class="colhead" x="125" y="20" text-anchor="middle">THE TECHNOLOGY</text><text class="colhead" x="385" y="20" text-anchor="middle">THE INDUSTRY</text><text class="colhead" x="645" y="20" text-anchor="middle">THE CONTEXT</text><text class="colhead" x="895" y="20" text-anchor="middle">YOU</text>`;
+  s += arrow(125,96,125,146,"",0,0); s += `<text class="elabel" x="133" y="125">is classified by</text>`;
+  s += arrow(220,65,286,65,"runs on",253,55);
+  s += arrow(385,96,385,146,"",0,0); s += `<text class="elabel" x="393" y="125">delivers</text>`;
+  s += arrow(480,65,546,65,"drives",513,55);
+  s += arrow(480,181,546,181,"impacts",513,171);
+  s += arrow(600,150,470,97,"regulates",560,112,[560,110]);
+  s += arrow(385,212,816,150,"you use",640,252,[640,262]);
+  s += arrow(250,300,250,216,"",0,0); s += `<text class="elabel" x="258" y="262">explains</text>`;
+  s += arrow(740,300,740,216,"",0,0); s += `<text class="elabel" x="748" y="262">extends</text>`;
+  s += box("s1",30,34,W,H,"1  How AI works",c(1),{bold:true,fs:15});
+  s += box("s2",30,150,W,H,"2  Types of AI",c(2),{bold:true,fs:15});
+  s += box("s3",290,34,W,H,"3  The industry:\nstack & players",c(3),{bold:true,fs:14});
+  s += box("s5",290,150,W,H,"5  Uses & tools",c(5),{bold:true,fs:15});
+  s += box("s6",550,34,W,H,"6  Economics &\nmarkets",c(6),{bold:true,fs:14});
+  s += box("s7",550,150,W,H,"7  Ethics, risks &\nsociety",c(7),{bold:true,fs:14});
+  s += box("s8",820,92,150,H,"8  AI in practice",c(8),{bold:true,fs:14});
+  s += `<rect x="30" y="304" width="940" height="74" rx="10" fill="none" stroke="var(--rule)" stroke-dasharray="4 4"/>`;
+  s += box("s4",42,314,428,54,"4  History & key ideas   ← the past",c(4),{bold:true,fs:14});
+  s += box("s9",530,314,428,54,"the future →   9  Looking ahead",c(9),{bold:true,fs:14});
+  s += `<line x1="500" y1="300" x2="500" y2="384" stroke="var(--ink)" stroke-width="1.5"/><text x="500" y="400" text-anchor="middle" class="elabel" style="fill:var(--ink)">TODAY</text>`;
+  s += `</svg>`;
+  const el = document.getElementById("masterMap"); el.innerHTML = s; wireMap(el);
+}
+
+function mapS1(){
+  const C = "var(--c1)";
+  let s = `<svg viewBox="0 0 990 500" role="img" aria-label="Concept map for How AI Works">${DEFS}`;
+  s += `<text class="colhead" x="210" y="18" text-anchor="middle">HOW THE IDEAS NEST</text><text class="colhead" x="450" y="12">THE LIFE OF A MODEL</text>`;
+  // nested rings
+  const cx=210, cy=240, rings=[["c-ai",192,"Artificial intelligence"],["c-ml",152,"Machine learning"],["c-dl",112,"Deep learning"],["c-transformer",74,"Transformers"],["c-llm",40,"LLMs"]];
+  rings.forEach(([id,r,l],i)=>{
+    const op = 8 + i*7;
+    s += `<g class="node" data-go="${id}"><circle cx="${cx}" cy="${cy}" r="${r}" fill="color-mix(in srgb, ${C} ${op}%, var(--surface))" stroke="${C}" stroke-width="1.5"/><text x="${cx}" y="${i===4?cy+5:cy-r+19}" text-anchor="middle" font-size="${i===4?14:13}" font-weight="600">${l}</text></g>`;
+  });
+  const pill=(id,x,y,w,l)=>`<g class="node" data-go="${id}"><rect x="${x-w/2}" y="${y-12}" width="${w}" height="24" rx="12" fill="var(--surface)" stroke="${C}" stroke-dasharray="3 2"/><text x="${x}" y="${y+4}" text-anchor="middle" font-size="12.5">${l}</text></g>`;
+  s += pill("c-cnnrnn", cx-93, cy, 74, "CNNs · RNNs");
+  s += pill("c-diffusion", cx+93, cy, 70, "Diffusion");
+  s += pill("c-nn", cx-48, cy+132, 104, "Neural networks");
+  s += pill("c-backprop", cx+56, cy+132, 86, "Backprop");
+  s += pill("c-auto", cx-62, cy+172, 112, "vs automation");
+  s += pill("c-ds", cx+62, cy+172, 112, "vs data science");
+  // pipeline
+  const bw=112, bh=40;
+  const b=(id,x,y,l,solid)=>box(id,x,y,bw,bh,l,C,{fs:13.5,solid});
+  s += arrow(562,70,580,70,"",0,0); s += arrow(692,70,710,70,"",0,0); s += arrow(822,70,840,70,"",0,0);
+  s += arrow(896,90,896,152,"",0,0);
+  s += arrow(840,172,822,172,"",0,0);
+  s += arrow(766,192,506,256,"",0,0); s += arrow(766,192,636,256,"",0,0); s += arrow(766,192,766,256,"",0,0);
+  s += arrow(822,276,840,276,"",0,0);
+  s += b("c-data",450,50,"Data"); s += b("c-pretrain",580,50,"Pre-training"); s += b("c-finetune",710,50,"Fine-tuning"); s += b("c-rlhf",840,50,"RLHF");
+  s += b("c-model",840,152,"Trained model",true); s += b("c-traininf",710,152,"Inference");
+  s += b("c-context",450,256,"Prompts &\ncontext"); s += b("c-reasoning",580,256,"Reasoning"); s += b("c-rag",710,256,"Retrieval\n(RAG)"); s += b("c-agents",840,256,"Tools &\nagents",true);
+  s += `<text class="elabel" x="700" y="230" text-anchor="middle">each use draws on</text>`;
+  // side nodes
+  s += pill("c-tokens", 506, 35, 120, "Tokens & embeddings");
+  s += pill("c-scaling", 636, 35, 96, "Scaling laws");
+  s += pill("c-eval", 766, 35, 86, "Evaluation");
+    // limitations
+  s += `<text class="colhead" x="450" y="340">LIMITATIONS</text>`;
+  s += pill("c-halluc", 500, 362, 100, "Hallucination");
+  s += pill("c-reliab", 610, 362, 112, "Reliability gaps");
+  s += pill("c-cutoff", 724, 362, 108, "Cutoffs & memory");
+  s += pill("c-brittle", 830, 362, 96, "Brittleness");
+  s += pill("c-cant", 930, 362, 84, "Can’t do yet");
+  // intuitions band
+  s += `<rect x="440" y="398" width="540" height="92" rx="10" fill="none" stroke="var(--rule)" stroke-dasharray="4 4"/>`;
+  s += `<text class="colhead" x="452" y="418">INTUITIONS THAT UNDERPIN EVERYTHING</text>`;
+  s += box("c-prob",452,430,118,44,"Probability",C,{fs:12.5});
+  s += box("c-vec",582,430,118,44,"Vectors",C,{fs:12.5});
+  s += box("c-opt",712,430,118,44,"Optimisation",C,{fs:12.5});
+  s += box("c-overfit",842,430,128,44,"Overfitting",C,{fs:12.5});
+  s += `</svg>`;
+  const el = document.getElementById("map-s1"); el.innerHTML = s; wireMap(el);
+}
+
+/* =========================================================
+   INTERACTIVE VISUALS (illustrative, labelled as such)
+   ========================================================= */
+function vizProb(el){
+  const words=[["mat",0.42],["sofa",0.21],["floor",0.15],["windowsill",0.09],["roof",0.05],["keyboard",0.04],["moon",0.01]];
+  const draw = pick => {
+    el.innerHTML = `<div style="font-size:14px;margin-bottom:8px">“The cat sat on the <b>${pick?esc(pick):"…"}</b>”</div><div class="bars">${words.map(([w,p])=>`<span>${w}</span><div class="bar ${w===pick?"pick":""}" style="width:${p*100/0.42}%"></div><span style="font:12px var(--mono)">${Math.round(p*100)}%</span>`).join("")}</div>
+      <div class="vrow"><button class="vbtn" type="button">Sample a word</button><span>Run it a few times: likely words come up most, but not always.</span></div><div class="cap">Illustrative probabilities, not from a real model.</div>`;
+    el.querySelector("button").onclick = ()=>{ let r=Math.random(), a=0; for(const [w,p] of words){ a+=p; if(r<=a){ draw(w); return; } } draw("mat"); };
+  };
+  draw(null);
+}
+function vizVec(el){
+  const pts={king:[70,40],queen:[200,40],man:[70,140],woman:[200,140],apple:[300,190],banana:[330,170]};
+  let s=`<svg viewBox="0 0 380 222" style="width:100%;max-width:440px" role="img" aria-label="Word vectors on a 2D map">${DEFS}`;
+  s+=`<path class="edge" d="M80,152 L190,152" marker-end="url(#ah)" style="stroke:var(--c7)"/><path class="edge" d="M80,52 L190,52" marker-end="url(#ah)" style="stroke:var(--c7)"/>`;
+  s+=`<text class="elabel" x="135" y="172" text-anchor="middle">“female” direction</text><text class="elabel" x="135" y="72" text-anchor="middle">same direction</text>`;
+  Object.entries(pts).forEach(([w,[x,y]])=>{ s+=`<circle cx="${x}" cy="${y}" r="5" fill="var(--c1)"/><text x="${x}" y="${y-10}" text-anchor="middle" font-size="12" style="fill:var(--ink)">${w}</text>`; });
+  s+=`<text class="elabel" x="315" y="212" text-anchor="middle">fruit: far away</text></svg><div class="cap">Illustrative 2D sketch. Real embeddings have hundreds of dimensions.</div>`;
+  el.innerHTML=s;
+}
+function vizOpt(el){
+  el.innerHTML = `<canvas width="520" height="220" aria-label="Ball rolling down an error curve"></canvas>
+    <div class="vrow"><label for="lr">Step size</label><input id="lr" type="range" min="0.05" max="2.6" step="0.05" value="0.5"><span id="lrv" style="font:12px var(--mono)">0.50</span>
+    <button class="vbtn" type="button" id="stepB">Take a step</button><button class="vbtn" type="button" id="runB">Run 20 steps</button><button class="vbtn" type="button" id="resetB">Reset</button></div>
+    <div class="cap">The curve is the error. The dot is the model’s current setting. Illustrative.</div>`;
+  const cv = el.querySelector("canvas"), g = cv.getContext("2d");
+  const f = x=>0.05*x**4-0.4*x**2+0.3*x+2, df = x=>0.2*x**3-0.8*x+0.3;
+  let x=3.2, trail=[x];
+  const css = n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim()||"#555";
+  const X = v=>(v+3.6)/7.2*500+10, Y = v=>200-(v-0.5)*60;
+  function draw(){
+    g.clearRect(0,0,cv.width,cv.height);
+    g.strokeStyle=css("--rule"); g.beginPath(); g.moveTo(10,200); g.lineTo(510,200); g.stroke();
+    g.strokeStyle=css("--c1"); g.lineWidth=2; g.beginPath();
+    for(let i=0;i<=200;i++){ const v=-3.6+7.2*i/200; const px=X(v), py=Y(f(v)); i?g.lineTo(px,py):g.moveTo(px,py); } g.stroke();
+    g.fillStyle=css("--muted"); trail.slice(0,-1).forEach(t=>{ g.beginPath(); g.arc(X(t),Y(f(t)),3,0,7); g.fill(); });
+    g.fillStyle=css("--c7"); g.beginPath(); g.arc(X(x),Y(f(x)),7,0,7); g.fill();
+    g.fillStyle=css("--muted"); g.font="12px IBM Plex Mono, monospace"; g.fillText("error = "+f(x).toFixed(2)+"   steps = "+(trail.length-1),16,20);
+  }
+  const lr = el.querySelector("#lr"), lrv = el.querySelector("#lrv");
+  lr.oninput=()=>lrv.textContent=(+lr.value).toFixed(2);
+  const step=()=>{ x = Math.max(-3.6, Math.min(3.6, x - (+lr.value)*df(x))); trail.push(x); draw(); };
+  el.querySelector("#stepB").onclick=step;
+  el.querySelector("#runB").onclick=()=>{ for(let i=0;i<20;i++) step(); };
+  el.querySelector("#resetB").onclick=()=>{ x=3.2; trail=[x]; draw(); };
+  draw();
+  new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+}
+function renderViz(){
+  document.querySelectorAll(".viz").forEach(el=>{ ({prob:vizProb,vec:vizVec,opt:vizOpt})[el.dataset.viz]?.(el); });
+}
+
+/* =========================================================
+   GLOSSARY & MYTHS (generated from cards; no duplicate content)
+   ========================================================= */
+function renderGlossary(){
+  const items=[];
+  Object.values(CARD).forEach(t=>{ if(t.built) (t.card.terms||[]).forEach(term=>items.push([term,t])); });
+  items.sort((a,b)=>a[0].localeCompare(b[0],"en",{sensitivity:"base"}));
+  document.getElementById("glossList").innerHTML = items.map(([term,t])=>`<dt><a href="#${t.card.id}" data-go="${t.card.id}">${esc(term)}</a></dt><dd>${esc(strip(t.card.def))} <span style="font:13px var(--mono)">→ ${esc(t.card.title)}</span></dd>`).join("");
+}
+function renderMyths(){
+  const out=[];
+  Object.values(CARD).forEach(t=>{
+    if(!t.built||!t.card.myth) return;
+    const ctx={id:t.card.id+"-m", order:[]};
+    out.push(`<div class="myth" style="max-width:820px"><b>Myth</b><span>${fmt(t.card.myth[0],ctx)}</span><b>Fact</b><span>${fmt(t.card.myth[1],{id:t.card.id,order:t.card._srcs||[]})} <a href="#${t.card.id}" data-go="${t.card.id}" style="font-size:14px">See: ${esc(t.card.title)}</a></span></div>`);
+  });
+  document.getElementById("mythList").innerHTML = out.join("") || `<p>None yet.</p>`;
+}
+
+/* =========================================================
+   NAVIGATION HELPERS
+   ========================================================= */
+function go(id){
+  const el = document.getElementById(id); if(!el) return;
+  history.replaceState(null,"","#"+id);
+  el.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto":"smooth", block:"start"});
+  if(el.classList.contains("card")||el.classList.contains("planned")){ el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+  closeNav();
+}
+document.addEventListener("click", e=>{
+  const a = e.target.closest("[data-go]");
+  if(a && a.tagName==="A"){ e.preventDefault(); go(a.dataset.go); }
+});
+document.addEventListener("click", e=>{
+  const a = e.target.closest("sup.fn a"); if(!a) return;
+  const li = document.getElementById(a.getAttribute("href").slice(1)); if(!li) return;
+  e.preventDefault(); const d = li.closest("details"); if(d) d.open = true;
+  li.scrollIntoView({block:"center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto":"smooth"});
+  li.style.background="var(--hl)"; setTimeout(()=>li.style.background="",1600);
+});
+document.addEventListener("change", e=>{
+  const id = e.target.dataset && e.target.dataset.read;
+  if(id){ if(e.target.checked) READ[id]=1; else delete READ[id]; saveRead(); updateCounts(); }
+});
+
+/* Scrollspy */
+function spy(){
+  const secs = SECTIONS.map(s=>document.getElementById(s.id));
+  const subs = SECTIONS.flatMap(s=>s.subs.map(sub=>document.getElementById(sub.id)));
+  let cur=null, curSub=null; const y = 90;
+  secs.forEach(el=>{ if(el && el.getBoundingClientRect().top < y) cur = el.id; });
+  subs.forEach(el=>{ if(el && el.getBoundingClientRect().top < y+40) curSub = el.id; });
+  document.querySelectorAll(".navsec").forEach(n=>{
+    const on = n.dataset.sec===cur; n.classList.toggle("open", on);
+    n.querySelector(":scope > a").classList.toggle("active", on);
+  });
+  document.querySelectorAll(".navsub a").forEach(a=>a.classList.toggle("active", a.dataset.sub===curSub));
+}
+let spyT; window.addEventListener("scroll", ()=>{ cancelAnimationFrame(spyT); spyT=requestAnimationFrame(spy); }, {passive:true});
+
+/* Mobile nav */
+const side = document.getElementById("side"), menuBtn = document.getElementById("menuBtn");
+menuBtn.onclick = ()=>{ const o = side.classList.toggle("open"); menuBtn.setAttribute("aria-expanded", o); };
+function closeNav(){ side.classList.remove("open"); menuBtn.setAttribute("aria-expanded","false"); }
+
+/* Back to section map */
+document.getElementById("toMap").onclick = ()=>{
+  let target="start";
+  SECTIONS.forEach(s=>{ const el=document.getElementById(s.id); if(el && el.getBoundingClientRect().top<90) target=s.id; });
+  go(target);
+};
+
+/* Theme */
+const themeBtn = document.getElementById("themeBtn");
+themeBtn.onclick = ()=>{
+  const root = document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+};
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+const IDX = [
+  ...Object.values(CARD).map(t=>({id:t.card.id, title:t.card.title, sec:t.sec, built:t.built,
+     hay:(t.card.title+" "+(t.card.terms||[]).join(" ")+" "+(t.built?strip(t.card.def)+" "+strip(t.card.body.join(" ")):(t.card.scope||""))).toLowerCase(),
+     terms:(t.card.terms||[]).join(" ").toLowerCase(), sub:t.built?strip(t.card.def):"Planned card: coming in a later stage"})),
+  ...SECTIONS.map(s=>({id:s.id, title:`${s.n}. ${s.title}`, sec:s, built:s.status==="built", hay:(s.title+" "+s.q+" "+s.intro).toLowerCase(), terms:"", sub:s.q, isSec:true}))
+];
+const q = document.getElementById("q"), resEl = document.getElementById("results");
+let hits=[], sel=0;
+function search(){
+  const v = q.value.trim().toLowerCase();
+  if(!v){ resEl.classList.remove("open"); q.setAttribute("aria-expanded","false"); return; }
+  const words = v.split(/\s+/);
+  hits = IDX.map(it=>{
+    const t = it.title.toLowerCase(); let sc=0;
+    if(t===v) sc+=100; if(t.startsWith(v)) sc+=50; if(t.includes(v)) sc+=30;
+    if(it.terms.includes(v)) sc+=25;
+    if(words.every(w=>it.hay.includes(w))) sc+=10; else if(!t.includes(v)) sc=0;
+    if(it.built) sc+=3; if(it.isSec) sc+=2;
+    return [sc,it];
+  }).filter(x=>x[0]>0).sort((a,b)=>b[0]-a[0]).slice(0,12).map(x=>x[1]);
+  sel=0;
+  resEl.innerHTML = hits.length ? hits.map((h,i)=>`<button class="res" role="option" aria-selected="${i===0}" data-i="${i}"><b>${esc(h.title)}</b><i style="color:${h.sec.color}">${h.isSec?"section":h.sec.n}</i>${h.built?"":`<i style="color:var(--muted)">planned</i>`}<span>${esc(h.sub)}</span></button>`).join("")
+    : `<div style="padding:10px;color:var(--muted);font-size:14px">No matches. Try a broader word, such as “training” or “chips”.</div>`;
+  resEl.classList.add("open"); q.setAttribute("aria-expanded","true");
+}
+function pick(i){ const h=hits[i]; if(!h) return; resEl.classList.remove("open"); q.blur(); go(h.id); }
+q.addEventListener("input", search);
+q.addEventListener("keydown", e=>{
+  const opts=[...resEl.querySelectorAll(".res")];
+  if(e.key==="ArrowDown"||e.key==="ArrowUp"){ e.preventDefault(); if(!opts.length) return; sel=(sel+(e.key==="ArrowDown"?1:-1)+opts.length)%opts.length; opts.forEach((o,i)=>o.setAttribute("aria-selected", i===sel)); opts[sel].scrollIntoView({block:"nearest"}); }
+  else if(e.key==="Enter"){ e.preventDefault(); pick(sel); }
+  else if(e.key==="Escape"){ resEl.classList.remove("open"); q.blur(); }
+});
+resEl.addEventListener("click", e=>{ const b=e.target.closest(".res"); if(b) pick(+b.dataset.i); });
+document.addEventListener("click", e=>{ if(!e.target.closest(".search")) resEl.classList.remove("open"); });
+document.addEventListener("keydown", e=>{
+  if(e.key==="/" && document.activeElement!==q && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){ e.preventDefault(); q.focus(); }
+});
+
+/* =========================================================
+   READING PATHS
+   ========================================================= */
+const pathSel=document.getElementById("pathSel"), bar=document.getElementById("pathbar"), pathT=document.getElementById("pathT");
+let PATH=null, PI=0;
+Object.entries(PATHS).forEach(([k,p])=>{ pathSel.insertAdjacentHTML("beforeend", `<option value="${k}">${esc(p.name)}</option>`); });
+document.getElementById("pathBtns").innerHTML = Object.entries(PATHS).map(([k,p])=>`<button type="button" data-path="${k}"><b>${esc(p.name)} · ${p.steps.length} stops</b><span>${esc(p.desc)}</span></button>`).join("");
+document.getElementById("pathBtns").addEventListener("click", e=>{ const b=e.target.closest("[data-path]"); if(b) startPath(b.dataset.path); });
+function titleOf(id){ return CARD[id]?CARD[id].card.title : SECBYID[id] ? `Section ${SECBYID[id].n}: ${SECBYID[id].title}` : id; }
+function showStep(){ const id=PATH.steps[PI]; pathT.textContent = `${PATH.name} · ${PI+1}/${PATH.steps.length} · ${titleOf(id)}`; go(id); }
+function startPath(k){ PATH=PATHS[k]; PI=0; pathSel.value=k; bar.classList.add("on"); showStep(); }
+pathSel.onchange=()=>{ if(pathSel.value) startPath(pathSel.value); else exitPath(); };
+document.getElementById("pathNext").onclick=()=>{ if(PI<PATH.steps.length-1){ PI++; showStep(); } };
+document.getElementById("pathPrev").onclick=()=>{ if(PI>0){ PI--; showStep(); } };
+function exitPath(){ PATH=null; bar.classList.remove("on"); pathSel.value=""; }
+document.getElementById("pathExit").onclick=exitPath;
+
+/* =========================================================
+   BOOT
+   ========================================================= */
+document.getElementById("stagebar").innerHTML = SECTIONS.map(s=>`<span class="stage ${s.status==="built"?"done":""}">${s.n} ${esc(s.title)}${s.status==="built"?" ✓":""}</span>`).join("");
+renderSections(); renderNav(); masterMap(); mapS1(); renderViz(); renderGlossary(); renderMyths(); spy();
+if(location.hash){ const id=location.hash.slice(1); setTimeout(()=>{ const el=document.getElementById(id); if(el) el.scrollIntoView(); },60); }
+</script>
+</body>
+</html>
