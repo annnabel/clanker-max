@@ -110,9 +110,11 @@ main{padding:28px clamp(16px,3vw,44px) 120px; min-width:0}
 .map text{font-family:var(--body); fill:var(--ink)}
 .map .edge{stroke:var(--muted); stroke-width:1.3; fill:none}
 .map .elabel, .viz .elabel{font:13px var(--mono); fill:var(--muted)}
+#map-s2 .elabel{font-size:13.5px}
 .viz text{fill:var(--ink); font-family:var(--body)}
 .viz .edge{stroke-width:1.6; fill:none}
 .map .colhead{font:600 13px var(--mono); letter-spacing:.08em; fill:var(--muted)}
+#map-s2 .colhead{font-size:13.5px; letter-spacing:.06em}
 .maphint{font-size:14px; color:var(--muted); margin:4px 0 0}
 .tip{position:fixed; z-index:60; max-width:320px; background:var(--ink); color:var(--paper); font-size:14px; line-height:1.45; padding:8px 10px; border-radius:8px; pointer-events:none; opacity:0; transition:opacity .12s}
 .tip.on{opacity:1}
@@ -197,6 +199,13 @@ sup.fn a{font:600 12px var(--mono); text-decoration:none; padding:0 2px}
 .bars .bar{height:14px; border-radius:3px; background:var(--c1)}
 .bars .bar.pick{background:var(--c7)}
 .vbtn{border:1px solid var(--muted); background:var(--paper); color:var(--ink); border-radius:6px; padding:5px 12px; cursor:pointer; font-size:14px}
+.expick{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:0 0 8px; font-size:14px; color:var(--muted)}
+.expick .vbtn[aria-pressed="true"]{background:var(--c2); border-color:var(--c2); color:var(--surface)}
+.map .lens{font:600 13.5px var(--mono); letter-spacing:.06em; fill:var(--ink)}
+.map .node.on rect{fill:var(--c2)}
+.map .node.on text{fill:var(--surface) !important}
+.excap{font-size:15px; margin:6px 0 0; padding:10px 12px; border:1px solid var(--rule); border-radius:8px; background:var(--surface); color:var(--muted)}
+.excap b{color:var(--ink)} .excap ul{margin:4px 0 4px 18px; padding:0; color:var(--ink)} .excap span{font-size:13px}
 .vrow{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:8px; font-size:14px}
 canvas{max-width:100%; display:block}
 
@@ -290,7 +299,7 @@ footer{margin-top:80px; font-size:14px; color:var(--muted); max-width:68ch}
       </section>
 
       <footer>
-        <p>Built in stages. Stage 1 (14 November 2026) covers the framework and Section 1; Section 4 (History & Key Ideas) was added on 14 November 2026. The other sections show their planned cards and preview maps until they are researched and written.</p>
+        <p>Built in stages. Stage 1 (14 November 2026) covers the framework and Section 1; Sections 2 (Types of AI) and 4 (History & Key Ideas) were added on 14 November 2026. The other sections show their planned cards and preview maps until they are researched and written.</p>
         <p>Your “read” ticks are saved in this browser only.</p>
       </footer>
     </div>
@@ -384,7 +393,47 @@ const SRC = {
   schmid22:{t:2,a:"Schmidhuber, J. (Dec 2022)",ti:"Scientific Integrity and the History of Deep Learning: The 2021 Turing Lecture, and the 2018 Turing Award",p:"Technical Report IDSIA-77-21 (v5); author declares a conflict of interest",u:"https://people.idsia.ch/~juergen/scientific-integrity-turing-award-deep-learning.html"},
   ubs23:{t:2,a:"Bove, T. (2 Feb 2023)",ti:"ChatGPT is the fastest-growing app in history and it could disrupt market trading",p:"Fortune, reporting a UBS research note",u:"https://fortune.com/2023/02/02/chatgpt-fastest-growing-app-in-history-could-revolutionize-trading/"},
   aiindex26:{t:1,a:"Stanford HAI (2026)",ti:"The 2026 AI Index Report",p:"Top takeaways; covers data to early 2026",u:"https://hai.stanford.edu/ai-index/2026-ai-index-report"},
-  narayanan26:{t:2,a:"Narayanan, A. (29 Jan 2026)",ti:"Fact checking Moravec’s paradox",p:"AI as Normal Technology newsletter; quotes Moravec’s Mind Children (1988)",u:"https://normaltech.ai/p/fact-checking-moravecs-paradox"}
+  narayanan26:{t:2,a:"Narayanan, A. (29 Jan 2026)",ti:"Fact checking Moravec’s paradox",p:"AI as Normal Technology newsletter; quotes Moravec’s Mind Children (1988)",u:"https://normaltech.ai/p/fact-checking-moravecs-paradox"},
+  morris24:{t:1,a:"Morris et al., Google DeepMind (2024)",ti:"Levels of AGI for Operationalizing Progress on the Path to AGI",p:"ICML 2024 position paper; arXiv:2311.02462 (v5, Sep 2025)",u:"https://arxiv.org/abs/2311.02462"},
+  isr25:{t:1,a:"Bengio et al. (Jan 2025)",ti:"International AI Safety Report",p:"Report by 100 experts, mandated by the nations at the Bletchley AI Safety Summit; arXiv:2501.17805",u:"https://arxiv.org/abs/2501.17805"},
+  grace24:{t:1,a:"Grace et al. (2024)",ti:"Thousands of AI Authors on the Future of AI",p:"Survey of 2,778 researchers; arXiv:2401.02843",u:"https://arxiv.org/abs/2401.02843"},
+  bostrom98:{t:2,a:"Bostrom, N. (1997, revised 1998)",ti:"How Long Before Superintelligence?",p:"International Journal of Futures Studies, vol. 2",u:"https://nickbostrom.com/superintelligence"},
+  jumper21:{t:1,a:"Jumper et al. (2021)",ti:"Highly accurate protein structure prediction with AlphaFold",p:"Nature (DeepMind)",u:"https://www.nature.com/articles/s41586-021-03819-2"},
+  mnih15:{t:1,a:"Mnih et al. (2015)",ti:"Human-level control through deep reinforcement learning",p:"Nature (DeepMind)",u:"https://www.nature.com/articles/nature14236"},
+  devlin18:{t:1,a:"Devlin, Chang, Lee & Toutanova (2018)",ti:"BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",p:"arXiv:1810.04805 (Google)",u:"https://arxiv.org/abs/1810.04805"},
+  balestriero23:{t:1,a:"Balestriero et al. (2023)",ti:"A Cookbook of Self-Supervised Learning",p:"arXiv:2304.12210 (Meta AI and universities)",u:"https://arxiv.org/abs/2304.12210"},
+  russakovsky15:{t:1,a:"Russakovsky et al. (2015)",ti:"ImageNet Large Scale Visual Recognition Challenge",p:"arXiv:1409.0575 (Stanford and others)",u:"https://arxiv.org/abs/1409.0575"},
+  jain08:{t:1,a:"Jain, A. K. (2008)",ti:"Data Clustering: 50 Years Beyond K-means",p:"ECML PKDD 2008, Lecture Notes in Computer Science 5211 (Springer)",u:"https://link.springer.com/chapter/10.1007/978-3-540-87479-9_3"},
+  chandola09:{t:1,a:"Chandola, Banerjee & Kumar (2009)",ti:"Anomaly Detection: A Survey",p:"ACM Computing Surveys 41(3), article 15",u:"https://dl.acm.org/doi/10.1145/1541880.1541882"},
+  dosovitskiy20:{t:1,a:"Dosovitskiy et al. (2020)",ti:"An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale",p:"arXiv:2010.11929 (Google); ICLR camera-ready",u:"https://arxiv.org/abs/2010.11929"},
+  kirillov23:{t:1,a:"Kirillov et al. (2023)",ti:"Segment Anything",p:"arXiv:2304.02643 (Meta AI)",u:"https://arxiv.org/abs/2304.02643"},
+  nist19:{t:1,a:"Grother, Ngan & Hanaoka, NIST (Dec 2019)",ti:"Face Recognition Vendor Test Part 3: Demographic Effects (NISTIR 8280)",p:"US National Institute of Standards and Technology; with NIST news release of 19 Dec 2019",u:"https://www.nist.gov/news-events/news/2019/12/nist-study-evaluates-effects-race-age-sex-face-recognition-software"},
+  radford22:{t:1,a:"Radford et al. (2022)",ti:"Robust Speech Recognition via Large-Scale Weak Supervision (Whisper)",p:"arXiv:2212.04356 (OpenAI)",u:"https://arxiv.org/abs/2212.04356"},
+  oord16:{t:1,a:"van den Oord et al. (2016)",ti:"WaveNet: A Generative Model for Raw Audio",p:"arXiv:1609.03499 (Google DeepMind)",u:"https://arxiv.org/abs/1609.03499"},
+  fcc24:{t:1,a:"US Federal Communications Commission (8 Feb 2024)",ti:"FCC Makes AI-Generated Voices in Robocalls Illegal",p:"News release on a Declaratory Ruling under the Telephone Consumer Protection Act",u:"https://docs.fcc.gov/public/attachments/DOC-400393A1.pdf"},
+  ho22:{t:1,a:"Ho et al. (2022)",ti:"Video Diffusion Models",p:"arXiv:2204.03458 (Google)",u:"https://arxiv.org/abs/2204.03458"},
+  moviegen24:{t:1,a:"Polyak et al., Meta (2024)",ti:"Movie Gen: A Cast of Media Foundation Models",p:"arXiv:2410.13720 (Meta)",u:"https://arxiv.org/abs/2410.13720"},
+  chen21:{t:1,a:"Chen et al. (2021)",ti:"Evaluating Large Language Models Trained on Code (Codex)",p:"arXiv:2107.03374 (OpenAI)",u:"https://arxiv.org/abs/2107.03374"},
+  jimenez23:{t:1,a:"Jimenez et al. (2023)",ti:"SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",p:"ICLR 2024; arXiv:2310.06770 (Princeton)",u:"https://arxiv.org/abs/2310.06770"},
+  metrDev25:{t:1,a:"Becker, Rush et al., METR (Jul 2025)",ti:"Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity",p:"Randomised controlled trial; arXiv:2507.09089",u:"https://arxiv.org/abs/2507.09089"},
+  radford21:{t:1,a:"Radford et al. (2021)",ti:"Learning Transferable Visual Models From Natural Language Supervision (CLIP)",p:"arXiv:2103.00020 (OpenAI)",u:"https://arxiv.org/abs/2103.00020"},
+  gpt4:{t:1,a:"OpenAI (2023)",ti:"GPT-4 Technical Report",p:"arXiv:2303.08774",u:"https://arxiv.org/abs/2303.08774"},
+  gemini23:{t:1,a:"Gemini Team, Google (2023)",ti:"Gemini: A Family of Highly Capable Multimodal Models",p:"arXiv:2312.11805",u:"https://arxiv.org/abs/2312.11805"},
+  gomez15:{t:1,a:"Gomez-Uribe & Hunt, Netflix (2015)",ti:"The Netflix Recommender System: Algorithms, Business Value, and Innovation",p:"ACM Transactions on Management Information Systems 6(4), article 13. Written by Netflix staff",u:"https://dl.acm.org/doi/10.1145/2843948"},
+  covington16:{t:1,a:"Covington, Adams & Sargin, Google (2016)",ti:"Deep Neural Networks for YouTube Recommendations",p:"ACM RecSys 2016",u:"https://research.google/pubs/deep-neural-networks-for-youtube-recommendations/"},
+  naumov19:{t:1,a:"Naumov et al. (2019)",ti:"Deep Learning Recommendation Model for Personalization and Recommendation Systems",p:"arXiv:1906.00091 (Facebook)",u:"https://arxiv.org/abs/1906.00091"},
+  grinsztajn22:{t:1,a:"Grinsztajn, Oyallon & Varoquaux (2022)",ti:"Why do tree-based models still outperform deep learning on tabular data?",p:"arXiv:2207.08815",u:"https://arxiv.org/abs/2207.08815"},
+  lam23:{t:1,a:"Lam et al. (2023)",ti:"GraphCast: Learning skillful medium-range global weather forecasting",p:"arXiv:2212.12794 (Google DeepMind)",u:"https://arxiv.org/abs/2212.12794"},
+  brohan23:{t:1,a:"Brohan et al. (2023)",ti:"RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control",p:"arXiv:2307.15818 (Google DeepMind)",u:"https://arxiv.org/abs/2307.15818"},
+  black24:{t:1,a:"Black et al., Physical Intelligence (2024)",ti:"π0: A Vision-Language-Action Flow Model for General Robot Control",p:"RSS 2025; arXiv:2410.24164",u:"https://arxiv.org/abs/2410.24164"},
+  ifr26:{t:3,a:"International Federation of Robotics (12 Nov 2026)",ti:"Robot Density Highest in South Korea, Singapore and Germany",p:"Industry association press release (World Robotics data)",u:"https://ifr.org/ifr-press-releases/news/"},
+  trinh24:{t:1,a:"Trinh et al. (2024)",ti:"Solving olympiad geometry without human demonstrations (AlphaGeometry)",p:"Nature (Google DeepMind)",u:"https://www.nature.com/articles/s41586-023-06747-5"},
+  garcez20:{t:1,a:"d’Avila Garcez & Lamb (2020)",ti:"Neurosymbolic AI: The 3rd Wave",p:"arXiv:2012.05876",u:"https://arxiv.org/abs/2012.05876"},
+  marcus20:{t:2,a:"Marcus, G. (2020)",ti:"The Next Decade in AI: Four Steps Towards Robust Artificial Intelligence",p:"arXiv:2002.06177",u:"https://arxiv.org/abs/2002.06177"},
+  schick23:{t:1,a:"Schick et al. (2023)",ti:"Toolformer: Language Models Can Teach Themselves to Use Tools",p:"arXiv:2302.04761 (Meta AI)",u:"https://arxiv.org/abs/2302.04761"},
+  alphaproof:{t:3,a:"Google DeepMind (25 Jul 2024)",ti:"AI achieves silver-medal standard solving International Mathematical Olympiad problems",p:"Company blog (AlphaProof and AlphaGeometry 2)",u:"https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/"},
+  buchanan84:{t:1,a:"Buchanan & Shortliffe, eds. (1984)",ti:"Rule-Based Expert Systems: The MYCIN Experiments of the Stanford Heuristic Programming Project, ch. 1",p:"Addison-Wesley; chapters freely available from the editors",u:"https://www.shortliffe.net/Buchanan-Shortliffe-1984/MYCIN%20Book.htm"},
+  yu84:{t:1,a:"Yu, Fagan, Bennett et al. (1984)",ti:"An Evaluation of MYCIN’s Advice",p:"Chapter 31 of Buchanan & Shortliffe (eds.), Rule-Based Expert Systems",u:"https://www.shortliffe.net/Buchanan-Shortliffe-1984/Chapter-31.pdf"}
 };
 
 /* =========================================================
@@ -696,14 +745,220 @@ const SECTIONS = [
   }]
 },
 /* ---------- PLANNED SECTIONS (cards listed, not yet researched) ---------- */
-{ id:"s2", n:2, title:"Types of AI", q:"What kinds are there?", color:"var(--c2)", status:"planned",
-  intro:`Four separate lenses for classifying AI systems. Each lens covers every system on its own terms; the same system can be described on all four.`,
+{ id:"s2", n:2, title:"Types of AI", q:"What kinds are there?", color:"var(--c2)", status:"built", updated:"14 Nov 2026",
+  intro:`AI can be sorted in four separate ways, each answering a different question: how capable and general is it, how did it learn, what kind of data does it handle, and how is it built? Every system gets one answer on each lens, and the answers are independent. The map is a wheel of the four lenses. Pick an example system to see it classified on all four at once.`,
   subs:[
-  {id:"s2-0",n:"2.0",title:"Same system, four lenses",cards:[["s2-lenses","Same system, four lenses","Famous systems classified on every lens"]]},
-  {id:"s2-a",n:"2A",title:"By capability",cards:[["s2-narrow","Narrow AI"],["s2-agi","Artificial general intelligence"],["s2-asi","Superintelligence"]]},
-  {id:"s2-b",n:"2B",title:"By learning method",cards:[["s2-supervised","Supervised learning"],["s2-unsupervised","Unsupervised learning"],["s2-rl","Reinforcement learning"],["s2-selfsup","Self-supervised learning"]]},
-  {id:"s2-c",n:"2C",title:"By modality & field",cards:[["s2-language","Language & NLP"],["s2-vision","Vision & computer vision"],["s2-speech","Speech & audio"],["s2-video","Video"],["s2-code","Code"],["s2-multimodal","Multimodal"],["s2-predict","Prediction & recommendation systems"],["s2-robotics","Robotics & action"]]},
-  {id:"s2-d",n:"2D",title:"By approach",cards:[["s2-symbolic","Symbolic / rule-based"],["s2-neural","Statistical / neural"],["s2-hybrid","Hybrid / neuro-symbolic"]]}]},
+  { id:"s2-0", n:"2.0", title:"Same system, four lenses", note:"Start here: why one label is never enough.",
+    cards:[
+    { id:"s2-lenses", title:"Same system, four lenses", level:"Beginner", terms:["types of AI","taxonomy of AI","AI classification"],
+      def:`There is no single way to sort AI. This guide uses four independent questions: how capable and general is it, how did it learn, what kind of data does it handle, and how is it built?`,
+      body:[`Knowing a system’s answer on one lens tells you little about the others. GPT-4 is a general-purpose system. It was first trained to predict the next piece of text, then adjusted in a further training stage. It accepts images as well as text, and it is a Transformer neural network [[gpt4]][[isr25]].`,
+            `Even the first lens, capability, is disputed. Google DeepMind researchers proposed rating systems on two axes: performance, in five levels from “Emerging” to “Superhuman”, and generality, narrow or general [[morris24]]. On their scale, AlphaGo is “Exceptional” narrow AI. Chatbots such as ChatGPT were “Emerging AGI” when they wrote {{asof:Sep 2023}} [[morris24]].`],
+      example:`AlphaGo, the Go-playing program, gets a different answer on each lens. It is narrow: it plays one game. Its networks learned first from human expert games, then by playing against themselves. It reads board positions. And it pairs neural networks with a classical search algorithm, which makes it a hybrid [[silver16]].`,
+      links:[["c-ai","applies to every kind of"],["s2-narrow","lens 1, capability, starts with"],["s2-supervised","lens 2, learning method, starts with"],["s2-multimodal","lens 3, modality, includes"],["s2-hybrid","lens 4, approach, includes"],["s7-eu","regulators classify by use instead, as in"]],
+      deeper:[`How the map’s example systems are classified. <b>GPT-4 / ChatGPT</b>: general-purpose [[isr25]], rated Emerging AGI by one framework [[morris24]]; pre-trained to predict the next token (self-supervised), then aligned in post-training; takes text and images; a Transformer network [[gpt4]]. <b>AlphaGo</b>: narrow; supervised then reinforcement learning; neural networks plus tree search [[silver16]]. <b>Whisper</b>: narrow (speech recognition); trained on 680,000 hours of audio paired with internet transcripts, a form of supervised learning; learned from data rather than written as rules [[radford22]]. <b>YouTube recommendations</b>: deep neural networks trained to predict what you will watch, set up as a classification problem [[covington16]]. <b>MYCIN</b>: hand-written if-then rules, nothing learned from data [[buchanan84]].`,
+              `Other schemes exist. The International AI Safety Report draws its main line between general-purpose AI, which can do or be adapted to a wide variety of tasks, and narrow AI [[isr25]]. Under that report’s definition, a system does not need to handle several kinds of data to count as general-purpose [[isr25]].`],
+      myth:[`Every AI system is one of a handful of types, such as “generative AI” or “machine learning”.`,`Those labels answer different questions. One system can be narrow, trained by several methods and hybrid in design all at once, as AlphaGo shows [[silver16]].`]
+    }]
+  },
+  { id:"s2-a", n:"2A", title:"By capability", note:"How broad, and how good? Narrow AI exists everywhere; the other two are hypothetical and contested.",
+    cards:[
+    { id:"s2-narrow", title:"Narrow AI", level:"Beginner", terms:["narrow AI","specialised AI","task-specific AI"],
+      def:`AI built for one specific task or a small set of closely related tasks. Narrow does not mean weak: some narrow systems beat every human at their task.`,
+      body:[`The International AI Safety Report describes narrow AI as AI “specialised to perform one specific task or a few very similar tasks” [[isr25]].`,
+            `AlphaFold predicts a protein’s 3D shape from its amino-acid sequence, a problem open for more than 50 years. In the CASP14 assessment its accuracy was competitive with lab-determined structures in a majority of cases [[jumper21]]. Google DeepMind researchers rate it “Superhuman” narrow AI, because it does a single task better than the world’s top scientists [[morris24]].`,
+            `{{conf:|Where narrow ends is not settled. One framework classes AlphaFold (2021) as narrow [[morris24]]. The International AI Safety Report counts AlphaFold 3 as general-purpose, because it handles many distinct tasks within one field, structural biology [[isr25]]. The versions differ, but so do the definitions.}}`],
+      example:`Face unlock on your phone does one job: it checks that a face matches the one stored on the device, which NIST calls “one-to-one” matching [[nist19]]. It cannot tell you what else is in the photo.`,
+      links:[["s2-agi","is the opposite of"],["s2-predict","includes"],["s2-symbolic","includes older"],["c-brittle","shares the weakness of"]],
+      deeper:[`In the Levels of AGI framework, narrow systems appear at every performance level. Simple rule-based systems are “Emerging”. Smart speakers such as Siri and Alexa are “Competent”. Grammar checkers and image generators such as DALL·E 2 are “Expert”. Deep Blue and AlphaGo are “Exceptional”. AlphaFold, AlphaZero and the Stockfish chess engine are “Superhuman” [[morris24]].`,
+              `If a general-purpose model is adapted to focus on a narrower set of tasks, for example by fine-tuning, the safety report still counts it as general-purpose [[isr25]].`],
+      myth:[`Narrow AI is simple AI.`,`Narrow systems can outperform every human at their task. AlphaFold, AlphaZero and Stockfish are rated superhuman, yet narrow [[morris24]].`]
+    },
+    { id:"s2-agi", title:"Artificial general intelligence", level:"Intermediate", terms:["AGI","artificial general intelligence","general-purpose AI","human-level AI"],
+      def:`A hypothetical AI that can match people at most thinking tasks. There is no agreed definition or test, and whether any system has reached it is disputed.`,
+      body:[`The term first appeared in a 1997 article. Researchers popularised it among computer scientists in the early 2000s for a machine able to do the thinking tasks people typically do [[morris24]].`,
+            `Definitions differ in what they measure. OpenAI’s charter uses an economic test: “highly autonomous systems that outperform humans at most economically valuable work” [[morris24]]. Others stress flexibility and reliability, or the ability to learn new skills [[morris24]].`,
+            `{{op:Researchers disagree|In 2023, some researchers argued that the best language models already count as AGI, because they can discuss almost any topic and do many kinds of task. The Google DeepMind team behind the Levels framework replied that generality must be paired with performance. They rated those models only “Emerging AGI”, with “Competent AGI” not yet achieved [[morris24]].}}`,
+            `Do not confuse AGI with general-purpose AI. General-purpose AI is AI that can do, or be adapted to, a wide variety of tasks. The International AI Safety Report says several of today’s systems already meet that bar. It describes AGI as a potential future AI that equals or surpasses human performance on all or almost all cognitive tasks [[isr25]].`],
+      example:`Ask a chatbot to write a poem, debug code and plan a trip, and it will attempt all three. That breadth is why some call it general. The safety report notes that today’s systems are still unreliable at long tasks on computers and at acting in the physical world, which is why others say they are not [[isr25]].`,
+      links:[["s9-agi","the timeline debate is in"],["s2-narrow","contrasts with"],["s2-asi","would come before"],["c-llm","is claimed by some for"],["c-cant","is limited by"]],
+      deeper:[`{{est:Grace et al. survey of 2,778 AI researchers (2024)|Respondents put a 50% chance on unaided machines outperforming humans at every possible task by 2047, assuming science continues undisrupted. That is 13 years earlier than the same team’s survey a year before. Full automation of all occupations was put much later, at 50% by 2116 [[grace24]].}}`,
+              `Gary Marcus proposed five tests, including understanding a novel and working as a competent cook in any kitchen. That last test needs a robot body, unlike definitions that count only non-physical tasks [[morris24]].`],
+      myth:[`Experts agree on what AGI means.`,`Published definitions range from rivalling the human brain to beating people at most paid work, and none comes with an agreed test [[morris24]].`]
+    },
+    { id:"s2-asi", title:"Superintelligence", level:"Intermediate", terms:["superintelligence","ASI","artificial superintelligence"],
+      def:`A hypothetical AI far smarter than the best humans in practically every field. None exists. It matters because of debates about what it would mean if one were built.`,
+      body:[`Philosopher Nick Bostrom’s 1997 definition is the usual starting point: an intellect “much smarter than the best human brains in practically every field” [[bostrom98]]. The definition leaves open how it would be built and whether it would be conscious [[bostrom98]].`,
+            `In the Levels of AGI framework, superintelligence (ASI) is the top cell: general AI that outperforms 100% of humans across a wide range of tasks, which no system has achieved. Narrow systems such as AlphaFold already reach that level, but only on a single task [[morris24]].`,
+            `{{op:Expert views vary widely|The International AI Safety Report finds broad agreement that current general-purpose AI cannot cause a “loss of control” scenario. Expert views on whether one could happen within the next several years range from implausible to likely [[isr25]].}}`],
+      example:`A company or the scientific community can do things no single person can. Bostrom still excludes them, because they are not single intellects: you can’t hold a real-time conversation with the scientific community as a whole [[bostrom98]].`,
+      links:[["s2-agi","would go beyond"],["s7-xrisk","raises the questions in"],["s9-agi","is debated in"],["s7-uschina","is framed as a race in"]],
+      deeper:[`{{est:Bostrom (1997)|Bostrom’s paper argued that superhuman AI would probably arrive within the first third of the 21st century [[bostrom98]].}}`,
+              `The Levels of AGI authors argue that the first nation to reach ASI could gain a substantial geopolitical or military advantage. They see that as a structural risk if progress outpaces regulation and diplomacy [[morris24]].`],
+      myth:[`A superintelligence would have to be conscious.`,`Bostrom’s definition is about capability. It deliberately leaves open whether a superintelligence would have subjective experiences [[bostrom98]].`]
+    }]
+  },
+  { id:"s2-b", n:"2B", title:"By learning method", note:"How the system learned. Big systems often use several methods in sequence.",
+    cards:[
+    { id:"s2-supervised", title:"Supervised learning", level:"Beginner", terms:["supervised learning","labelled data","classification","regression"],
+      def:`Learning from examples that come with the right answer attached. The model learns to map each input to its label, then applies that mapping to new inputs.`,
+      body:[`The defining ingredient is the label. Computer scientist Anil Jain contrasts supervised learning, which uses known categories, with unsupervised clustering, which has none [[jain08]].`,
+            `Labels are expensive to collect. The ImageNet image-recognition challenge used about 1.2 million images labelled across 1,000 object classes. The annotation was crowdsourced through Amazon Mechanical Turk [[russakovsky15]].`,
+            `Labels can be rough and still useful at scale. OpenAI trained its Whisper speech recogniser on 680,000 hours of audio paired with transcripts found on the internet, an approach its authors call “weak supervision” [[radford22]].`],
+      example:`YouTube treats recommendation as a supervised problem. From your viewing history, its model predicts which video you will watch next, and its ranking model is tuned to expected watch time [[covington16]].`,
+      links:[["c-ml","is the most familiar form of"],["s2-unsupervised","differs from"],["c-data","depends on"],["c-finetune","is used in"],["s2-rl","is often followed by"]],
+      deeper:[`There are two main flavours. Classification predicts a category, such as spam or not spam. Regression predicts a number, such as a house price.`,
+              `Chatbots use supervised learning too. InstructGPT was first fine-tuned on example answers written by human labellers, before a reinforcement-learning stage [[ouyang22]].`]
+    },
+    { id:"s2-unsupervised", title:"Unsupervised learning", level:"Beginner", terms:["unsupervised learning","clustering","k-means","anomaly detection"],
+      def:`Learning from data with no answers attached. The aim is to find structure, such as natural groups or unusual cases.`,
+      body:[`Clustering is the classic task: grouping similar items without being told the categories. Jain writes that cluster analysis “does not use category labels” [[jain08]]. Its goal is a sensible organisation of the data, not rules for sorting new data [[jain08]].`,
+            `The best-known clustering method, k-means, is old. It was discovered independently by Steinhaus in 1955 and Lloyd in 1957, then twice more in the 1960s [[jain08]].`,
+            `Anomaly detection looks for patterns that do not fit normal behaviour. Uses include spotting credit-card fraud and cyber-intrusions [[chandola09]].`],
+      example:`A shop groups its customers by buying habits without deciding the groups in advance. Afterwards a marketer looks at each cluster and gives it a name, such as “weekend bulk buyers”.`,
+      links:[["s2-supervised","contrasts with"],["s2-selfsup","is closely related to"],["c-vec","often works on"],["s6-fraud","is used in"]],
+      deeper:[`The results depend on human choices. Jain notes there are thousands of clustering algorithms, and users must still pick the algorithm, the distance measure, the number of clusters and how to validate them [[jain08]].`],
+      myth:[`Unsupervised means the AI decides everything for itself.`,`People still choose the algorithm, how similarity is measured and how many clusters to look for, and those choices shape what is found [[jain08]].`]
+    },
+    { id:"s2-rl", title:"Reinforcement learning", level:"Intermediate", terms:["reinforcement learning","RL","reward","self-play"],
+      def:`Learning by trial and error. An agent takes actions, receives a reward or penalty, and gradually learns which actions pay off.`,
+      body:[`There is no answer key, only a score. DeepMind’s DQN agent learned 49 classic Atari games while receiving only the screen pixels and the game score. It reached a level comparable to a professional human games tester [[mnih15]].`,
+            `AlphaGo combined methods. Its networks first learned from human expert games, which is supervised learning, then improved by playing against themselves, which is reinforcement learning. It beat the European Go champion 5–0, the first computer win against a human professional at full-size Go [[silver16]].`,
+            `Reinforcement learning now shapes chatbots. InstructGPT was trained to produce answers that people ranked higher, a method called reinforcement learning from human feedback [[ouyang22]]. DeepSeek-R1 showed that reasoning skills can be developed through reinforcement learning alone, on tasks with checkable answers such as maths and coding [[deepseekr1]].`],
+      example:`A dog learning tricks for treats. Nobody shows it the exact movement. It tries things and repeats whatever earns the reward.`,
+      links:[["c-rlhf","is the basis of"],["c-reasoning","is used to train"],["c-agents","suits"],["s2-supervised","is often combined with"]],
+      deeper:[`The hard part is that rewards can be rare or delayed. An agent also has to balance trying new actions against repeating ones that already work.`,
+              `{{co:Google DeepMind|Its AlphaProof system reached silver-medal standard at the 2024 International Mathematical Olympiad, scoring 28 of 42 points with AlphaGeometry 2. AlphaProof coupled a pre-trained language model with the AlphaZero reinforcement learning algorithm [[alphaproof]].}}`],
+      myth:[`Reinforcement learning means robots learning in the real world.`,`Its best-known successes came in games such as Atari and Go [[mnih15]][[silver16]], and it is now a standard step in training chatbots [[ouyang22]].`]
+    },
+    { id:"s2-selfsup", title:"Self-supervised learning", level:"Intermediate", terms:["self-supervised learning","SSL","pretext task","masked language model"],
+      def:`Learning from unlabelled data by hiding part of each example and training the model to fill it in. The data supplies its own answers.`,
+      body:[`This is how large language models are pre-trained. Predicting the next word needs no human labels, because the next word is already in the text. GPT-4 was “pre-trained to predict the next token in a document” [[gpt4]].`,
+            `Google’s BERT (2018) learned from unlabelled text by using the words on both sides of each position. With small additions it then set new records on eleven language tasks [[devlin18]].`,
+            `The idea extends beyond text. Meta researchers call self-supervised learning “the dark matter of intelligence”, and published a cookbook of methods for training it, including on images [[balestriero23]].`],
+      example:`A fill-in-the-blank exercise you set yourself: take any sentence, cover a word, and guess it. Repeat that across trillions of words and you have the core of a language model’s pre-training.`,
+      links:[["c-pretrain","is the method behind"],["c-llm","is how we get"],["s2-supervised","avoids the labels needed by"],["s2-unsupervised","shares unlabelled data with"]],
+      deeper:[`Self-supervised learning sits between the two classic types. Like unsupervised learning, it uses unlabelled data. Like supervised learning, it trains on input–answer pairs, except that the answers are cut out of the data itself. The same Meta authors note that getting it to work involves many delicate choices, from the fill-in task to the training settings [[balestriero23]].`],
+      myth:[`Chatbots were trained by people labelling everything they read.`,`Most of a language model’s training predicts text that is already there [[gpt4]]. Human-written examples come later, in smaller fine-tuning steps [[ouyang22]].`]
+    }]
+  },
+  { id:"s2-c", n:"2C", title:"By modality & field", note:"What kind of data the system takes in or produces.",
+    cards:[
+    { id:"s2-language", title:"Language & NLP", level:"Beginner", terms:["natural language processing","NLP","machine translation","text generation"],
+      def:`AI that reads, writes, translates or answers questions in human language. Today the field is dominated by large language models.`,
+      body:[`The Transformer, the design behind today’s chatbots, was introduced in 2017 for machine translation. It beat the best previous English-to-German results by over 2 BLEU points, a standard translation score [[vaswani17]].`,
+            `GPT-3 (2020) showed that one model could translate, answer questions and do other tasks from a few examples typed into the prompt, with no task-specific retraining [[brown20]].`,
+            `Hard tests are falling quickly. On GPQA, a demanding benchmark introduced in 2023, top scores rose by 48.9 percentage points in a single year {{asof:2024}} [[aiindex25]].`],
+      example:`Translation apps, email autocomplete, customer-service chatbots and the “summarise” button in your documents are all language AI.`,
+      links:[["c-llm","is now led by"],["c-transformer","was transformed by"],["c-tokens","works on"],["s5-chat","powers"]],
+      deeper:[`Older language AI trained a separate model for each task. BERT pre-trained one model on unlabelled text, then adapted it to each task with one extra output layer [[devlin18]]. GPT-3 went further and skipped per-task training altogether [[brown20]].`]
+    },
+    { id:"s2-vision", title:"Vision & computer vision", level:"Beginner", terms:["computer vision","image recognition","object detection","segmentation","face recognition"],
+      def:`AI that interprets images and video: recognising objects, faces, text and scenes, and locating them within the picture.`,
+      body:[`The ImageNet challenge ran every year from 2010, asking systems to sort photos into 1,000 categories. Its organisers compared the best machine accuracy with human accuracy [[russakovsky15]].`,
+            `Vision has borrowed language AI’s designs. The 2020 Vision Transformer cuts an image into small patches and treats them like words, in a paper titled “An Image is Worth 16x16 Words” [[dosovitskiy20]].`,
+            `Meta’s Segment Anything (2023) outlines any object you point to. It was trained on more than 1 billion outlines (“masks”) drawn on 11 million images [[kirillov23]].`],
+      example:`Face recognition comes in two kinds. One-to-one matching checks you are who you claim to be, as when unlocking a phone or passing a passport gate. One-to-many matching searches a database for a face [[nist19]].`,
+      links:[["c-cnnrnn","was long led by"],["s2-multimodal","is combined with language in"],["s7-bias","raises the concerns in"],["s2-robotics","gives eyes to"]],
+      deeper:[`In 2019 NIST tested 189 face recognition algorithms from 99 developers. It found that false-positive rates often varied by factors of 10 to beyond 100 across demographic groups. The most equitable algorithms were also among the most accurate [[nist19]].`],
+      myth:[`Face recognition is equally accurate for everyone.`,`NIST found demographic differences in most of the algorithms it tested, though the size of the gap varied a lot from one algorithm to another [[nist19]].`]
+    },
+    { id:"s2-speech", title:"Speech & audio", level:"Beginner", terms:["speech recognition","text-to-speech","voice cloning","audio generation"],
+      def:`AI that turns speech into text, text into speech, or generates and edits other sound, including music.`,
+      body:[`OpenAI’s Whisper (2022) learned speech recognition from 680,000 hours of audio in many languages. Its authors report that it approaches human accuracy and robustness [[radford22]].`,
+            `Synthetic voices took a leap with DeepMind’s WaveNet (2016), which generates raw audio one sample at a time. Listeners rated it significantly more natural than the best existing systems in English and Mandarin, and it could also produce realistic music fragments [[oord16]].`,
+            `Realistic voices have been misused. In February 2024 the US Federal Communications Commission ruled that AI-generated voices count as “artificial” under its robocall law. It cited scam calls imitating family members, celebrities and political candidates [[fcc24]].`],
+      example:`Dictation on your phone, automatic captions on videos, voice assistants and audiobooks read by synthetic voices.`,
+      links:[["s5-voice","is used in"],["s7-misinfo","is misused for"],["c-prob","generates sound by"],["s2-multimodal","is part of"]],
+      deeper:[`WaveNet predicts each audio sample from all the samples before it, the same next-step idea language models use for words. It does this at tens of thousands of samples for every second of audio [[oord16]].`],
+      myth:[`If a voice on the phone sounds exactly like someone you know, it must be them.`,`US regulators acted in 2024 because cloned voices were being used to imitate family members, celebrities and candidates [[fcc24]].`]
+    },
+    { id:"s2-video", title:"Video", level:"Intermediate", terms:["video generation","text-to-video","video editing"],
+      def:`AI that generates, edits or understands moving images. Generation is the hardest part: every frame must stay consistent with the frames around it.`,
+      body:[`Google researchers called realistic, consistent video an important milestone. Their 2022 model extended image diffusion to video, training on still images and video clips together [[ho22]].`,
+            `Meta’s Movie Gen (2024) is a 30-billion-parameter model that generates 1080p video with synchronised sound, up to 16 seconds at 16 frames per second. It can also edit video from typed instructions [[moviegen24]].`,
+            `The 2025 AI Index found that AI made major strides in generating high-quality video during 2024 [[aiindex25]].`],
+      example:`Type “a paper boat drifting down a rainy street at dusk” and get a short clip. Or ask for an edit to footage you already have, such as changing the background.`,
+      links:[["c-diffusion","is mostly built on"],["s5-video","is offered as"],["s7-misinfo","feeds concerns about"],["s9-world","may lead toward"]],
+      deeper:[`Video is expensive to generate. Movie Gen’s 16-second limit comes from a working memory of about 73,000 “video tokens” [[moviegen24]].`]
+    },
+    { id:"s2-code", title:"Code", level:"Beginner", terms:["code generation","coding assistant","HumanEval","SWE-bench"],
+      def:`AI that writes, explains, fixes or reviews software. Code has one advantage over prose: you can run it to see whether it works.`,
+      body:[`OpenAI’s Codex (2021) was a language model fine-tuned on public code from GitHub, and a version of it powered GitHub Copilot. On a set of programming tasks checked by automatic tests, it solved 28.8%, where GPT-3 solved none [[chen21]].`,
+            `Benchmarks moved to real work. SWE-bench (2023) uses 2,294 real problems reported on GitHub across 12 popular Python projects. The best model at launch solved 1.96% of them [[jimenez23]]. A year later, top scores were 67.3 percentage points higher {{asof:2024}} [[aiindex25]].`,
+            `{{op:Evidence is mixed|Benchmark gains do not automatically mean faster work. In a 2025 randomised trial, 16 experienced developers completed 246 tasks on projects they knew well. With AI tools allowed, they took 19% longer. Before the study they expected a 24% speed-up, and economics and machine-learning experts predicted even larger gains [[metrDev25]].}}`],
+      example:`Autocomplete that suggests the next few lines as you type, or an agent you ask to “fix the failing test” that edits files and reruns the code itself.`,
+      links:[["s5-coding","is sold as"],["c-agents","is a leading use of"],["s8-benchmarks","shows why to question"],["s2-language","grew out of"]],
+      deeper:[`Generating many attempts helps. Codex’s success rate rose to 70.2% when it was allowed 100 attempts per problem [[chen21]].`,
+              `The METR authors note their result covers tools from February to June 2025, used by experienced developers on mature projects they had worked on for five years on average. They found the slowdown held up across their checks, but could not rule out effects from the study setup [[metrDev25]].`],
+      myth:[`If AI coding tools feel faster, they are faster.`,`In one randomised trial, developers estimated afterwards that AI had sped them up by 20%, when it had actually slowed them down by 19% [[metrDev25]].`]
+    },
+    { id:"s2-multimodal", title:"Multimodal", level:"Intermediate", terms:["multimodal AI","vision-language model","CLIP","modality"],
+      def:`AI that handles more than one kind of data, such as text, images, audio and video, within a single model.`,
+      body:[`OpenAI’s CLIP (2021) learned to match pictures with captions across 400 million image–text pairs from the internet. It could then recognise categories it was never explicitly trained on [[radford21]].`,
+            `Chatbots became multimodal next. GPT-4 (2023) accepts image and text inputs and produces text [[gpt4]]. Google’s Gemini models, described in a December 2023 report, were built to work across image, audio, video and text [[gemini23]].`,
+            `On MMMU, a multimodal benchmark introduced in 2023, top scores rose 18.8 percentage points in a year {{asof:2024}} [[aiindex25]].`],
+      example:`Photograph a strange warning light on your car’s dashboard and ask what it means. The model reads the image and your question together.`,
+      links:[["s2-vision","combines"],["s2-language","combines"],["s2-robotics","extends to actions in"],["c-tokens","converts each modality into"]],
+      deeper:[`CLIP matched the accuracy of a standard image classifier on ImageNet without using any of the 1.28 million labelled examples that classifier was trained on [[radford21]].`,
+              `{{co:Google|Gemini Ultra improved the state of the art on all 20 multimodal benchmarks the team examined [[gemini23]].}}`]
+    },
+    { id:"s2-predict", title:"Prediction & recommendation systems", level:"Beginner", terms:["recommendation system","recommender","predictive model","tabular data","forecasting"],
+      def:`AI that predicts a number, a choice or a ranking from structured data: what you will watch next, whether a payment is fraud, or tomorrow’s weather. It is often invisible.`,
+      body:[`Netflix staff reported in 2015 that its recommender influenced choice for about 80% of hours streamed; the other 20% came from search [[gomez15]]. {{co:Netflix|They estimated that personalisation and recommendations saved the company more than $1B a year, mainly by reducing cancellations [[gomez15]].}}`,
+            `YouTube’s recommender, which helps more than a billion users find videos, works in two stages. One network shortlists a few hundred candidates, then a second ranks them [[covington16]].`,
+            `Deep learning does not win everywhere. On spreadsheet-style data, a 2022 benchmark of 45 datasets found that tree-based methods such as XGBoost and random forests remained state of the art on medium-sized data, around 10,000 rows [[grinsztajn22]].`],
+      example:`Weather forecasting is prediction too. Google DeepMind’s GraphCast produces 10-day global forecasts in under a minute. It beat the most accurate traditional forecasting system on 90% of 1,380 test measures [[lam23]].`,
+      links:[["s5-everyday","is most of"],["s6-credit","is used in"],["s2-supervised","is usually trained by"],["c-ds","overlaps with"]],
+      deeper:[`Recommendation models differ from other neural networks because they handle huge numbers of categories, such as users and items. Each needs its own learned vector, so memory becomes a bottleneck [[naumov19]].`,
+              `What you optimise matters. YouTube ranks by expected watch time rather than clicks, because a click on a video you abandon (“clickbait”) is a poor signal [[covington16]].`],
+      myth:[`The newest kind of AI is best at everything.`,`On typical spreadsheet-style data, older tree-based methods still beat deep learning in a large 2022 benchmark [[grinsztajn22]].`]
+    },
+    { id:"s2-robotics", title:"Robotics & action", level:"Intermediate", terms:["robotics","embodied AI","vision-language-action model","industrial robot"],
+      def:`AI that controls a physical body or takes actions in the world, linking what it senses to how it moves.`,
+      body:[`{{co:International Federation of Robotics|Robot density in manufacturing reached a record global average of 152 robots per 10,000 workers. South Korea leads with 1,066 [[ifr26]].}} {{asof:Nov 2026}}`,
+            `Google DeepMind’s RT-2 (2023) adapted a vision-language model to output robot actions, written as text tokens. Training on web data as well as robot data let it handle new objects and follow commands absent from its robot training [[brohan23]].`,
+            `“Generalist” robot models now aim to do many physical tasks. Physical Intelligence’s π0 (2024) was trained on data from several types of robot and shown folding laundry, cleaning tables and assembling boxes [[black24]].`],
+      example:`Asked to pick up something it could use as an improvised hammer, RT-2 chose a rock [[brohan23]].`,
+      links:[["s9-embodied","looks ahead to"],["s4-moravec","is hard because of"],["s2-multimodal","builds on"],["s5-manuf","is used in"]],
+      deeper:[`Many definitions of AGI count only non-physical tasks. Tests such as “cook in any kitchen” would require a robot body [[morris24]].`],
+      myth:[`Robots are getting smarter as fast as chatbots.`,`Unreliability at acting in the physical world is one of the limits that experts disagree scaling will fix [[isr25]].`]
+    }]
+  },
+  { id:"s2-d", n:"2D", title:"By approach", note:"How the intelligence is built: written by people, learned from data, or both.",
+    cards:[
+    { id:"s2-symbolic", title:"Symbolic / rule-based", level:"Beginner", terms:["symbolic AI","rule-based system","expert system","GOFAI","knowledge base"],
+      def:`AI built from knowledge people write down explicitly: facts and if-then rules that a program reasons over. Nothing is learned from data unless someone adds it by hand.`,
+      body:[`MYCIN, a Stanford project for advising on infections, is a classic example. Its knowledge was mostly rules of the form “if A and B, then conclude C”, chained together to reach a conclusion [[buchanan84]].`,
+            `MYCIN was built for blood infections and later extended to meningitis. In a published evaluation, expert evaluators rated 65% of its antibiotic recommendations acceptable. The five faculty specialists it was compared with scored between 42.5% and 62.5% [[yu84]].`,
+            `Google DeepMind researchers place this “good old-fashioned AI” and simple rule-based systems at the lowest level of narrow AI, “Emerging” [[morris24]].`],
+      example:`Tax software applies the tax code’s rules to your numbers. Every result can be traced back to a specific rule, which is the approach’s great strength.`,
+      links:[["c-auto","shades into"],["s4-expert","boomed during"],["s2-hybrid","is combined with learning in"],["s7-transparency","is easy to explain, see"]],
+      deeper:[`MYCIN kept its medical rules separate from the program that reasoned with them, so experts could read, edit and explain the rules [[buchanan84]].`,
+              `The evaluation used ten meningitis cases. A majority of evaluators rated 70% of MYCIN’s therapies acceptable, against 30% to 50% for the faculty prescribers [[yu84]].`],
+      myth:[`Old rule-based AI never worked.`,`In a published evaluation, MYCIN’s antibiotic advice for meningitis was rated acceptable more often than that of five faculty specialists [[yu84]].`]
+    },
+    { id:"s2-neural", title:"Statistical / neural", level:"Beginner", terms:["statistical AI","neural approach","learned model"],
+      def:`AI that learns its behaviour from data, by adjusting numbers inside a model, instead of following rules people wrote. Nearly all of today’s headline AI is built this way.`,
+      body:[`Three pioneers summed up deep learning in 2015 as models with many processing layers that learn to represent data at multiple levels of abstraction. They noted big gains in speech recognition, object recognition, drug discovery and genomics [[lecun15]].`,
+            `The trade-off is understanding. The International AI Safety Report says developers still understand little about how their general-purpose models work, mainly because those models are not programmed in the traditional sense [[isr25]].`],
+      example:`A spam filter that has learned from millions of emails what junk looks like, rather than one built from a list of banned words.`,
+      links:[["c-nn","is built from"],["c-dl","is mostly"],["s4-bitter","is favoured by"],["s7-interp","is hard to inspect, see"]],
+      deeper:[`Statistical does not always mean neural. Tree-based methods such as random forests also learn from data, and still beat neural networks on many spreadsheet-style problems [[grinsztajn22]].`,
+              `How these models actually learn is covered in Section 1.`],
+      myth:[`Programmers write the rules that make a chatbot behave as it does.`,`General-purpose models are trained rather than programmed in the traditional sense, which is why even their developers understand little of how they work inside [[isr25]].`]
+    },
+    { id:"s2-hybrid", title:"Hybrid / neuro-symbolic", level:"Deep", terms:["neuro-symbolic AI","hybrid AI","tool use"],
+      def:`Systems that combine learned neural networks with explicit parts such as rules, logic, search or calculators, aiming to get the strengths of both.`,
+      body:[`Google DeepMind’s AlphaGeometry (2024) pairs a language model with a symbolic deduction engine. When the engine gets stuck, the language model adds a helpful extra point to the diagram, and the engine tries again. It solved 25 of 30 olympiad geometry problems, against 10 for the previous best method, approaching an average gold medallist [[trinh24]].`,
+            `Today’s chatbots are often hybrids too. Language models struggle with arithmetic and fact lookup. Meta’s Toolformer showed they can teach themselves to call tools such as a calculator, search engines and a calendar [[schick23]].`,
+            `{{op:Hybrid vs scaling|Gary Marcus has argued for a “hybrid, knowledge-driven, reasoning-based approach” as the route to robust AI [[marcus20]]. Neurosymbolic researchers say combining the two could improve trust, safety and interpretability [[garcez20]]. Several leading companies are instead betting that scaling up neural models will keep improving performance [[isr25]].}}`],
+      example:`Ask a chatbot for a precise calculation. If it writes and runs code to compute the answer rather than guessing, it is combining a neural model with an exact, rule-following tool.`,
+      links:[["s2-symbolic","borrows from"],["s2-neural","borrows from"],["c-agents","is the design of many"],["c-reasoning","aims to strengthen"]],
+      deeper:[`AlphaGeometry learned without human examples. It was trained on millions of theorems and proofs that it generated itself, and it produces proofs humans can read [[trinh24]].`,
+              `{{co:Google DeepMind|AlphaProof works in Lean, a formal language in which proofs can be checked by computer. Google DeepMind’s systems solved one 2024 Olympiad problem within minutes but took up to three days on others [[alphaproof]].}}`]
+    }]
+  }]},
 { id:"s3", n:3, title:"The AI Industry: Stack & Players", q:"Who builds it, and from what?", color:"var(--c3)", status:"planned",
   intro:`The physical and technical supply chain, from chips to apps, and the organisations at each layer.`,
   subs:[
@@ -1194,6 +1449,87 @@ function mapS4(){
   const el = document.getElementById("map-s4"); el.innerHTML = s; wireMap(el);
 }
 
+/* Section 2: four-lens wheel with an example-system picker.
+   Classifications match the sourced text in card s2-lenses (Go deeper). */
+const S2EX = {
+  gpt4:{name:"GPT-4 / ChatGPT", on:["s2-agi","s2-selfsup","s2-language","s2-multimodal","s2-neural"],
+    lines:["Capability: general-purpose; rated “Emerging AGI” by one framework","Learning: self-supervised pre-training, then further alignment training","Modality: text and images","Approach: neural (a Transformer)"]},
+  alphago:{name:"AlphaGo", on:["s2-narrow","s2-supervised","s2-rl","s2-hybrid"],
+    lines:["Capability: narrow, rated “Exceptional”","Learning: supervised from expert games, then reinforcement by self-play","Modality: Go board positions, which no media lens fits","Approach: hybrid, neural networks plus tree search"]},
+  whisper:{name:"Whisper", on:["s2-narrow","s2-supervised","s2-speech","s2-neural"],
+    lines:["Capability: narrow (speech recognition)","Learning: supervised, on 680,000 hours of transcribed audio","Modality: speech and audio","Approach: learned from data"]},
+  youtube:{name:"YouTube recommendations", on:["s2-narrow","s2-supervised","s2-predict","s2-neural"],
+    lines:["Capability: narrow","Learning: supervised, predicting what you will watch","Modality: prediction and recommendation","Approach: deep neural networks"]},
+  mycin:{name:"MYCIN", on:["s2-narrow","s2-symbolic"],
+    lines:["Capability: narrow (one medical task)","Learning: none; experts wrote its rules","Modality: typed-in patient facts, giving treatment advice","Approach: symbolic, if-then rules"]}
+};
+function mapS2(){
+  const C = "var(--c2)";
+  const cx=495, cy=270, r1=58, r2=132;
+  let s = `<svg viewBox="0 0 990 540" role="img" aria-label="Concept map for Types of AI: four lenses around one AI system">${DEFS}`;
+  // lens quadrants: [label, start angle deg (0 = up, clockwise), anchor dir]
+  const Q = [["LEARNING METHOD",0,"s2-b"],["MODALITY",90,"s2-c"],["APPROACH",180,"s2-d"],["CAPABILITY",270,"s2-a"]];
+  const pt = (r,a)=>[cx + r*Math.sin(a*Math.PI/180), cy - r*Math.cos(a*Math.PI/180)];
+  // chips per lens: [id, label, x, y, w]
+  const W=172, H=34;
+  const CH = {
+    "s2-a":[["s2-narrow","Narrow AI",70,62],["s2-agi","General (AGI)",70,112],["s2-asi","Superintelligence",70,162]],
+    "s2-b":[["s2-supervised","Supervised",748,40],["s2-unsupervised","Unsupervised",748,88],["s2-rl","Reinforcement",748,136],["s2-selfsup","Self-supervised",748,184]],
+    "s2-c":[["s2-language","Language",670,318],["s2-vision","Vision",670,362],["s2-speech","Speech & audio",670,406],["s2-video","Video",670,450],
+            ["s2-code","Code",826,318],["s2-multimodal","Multimodal",826,362],["s2-predict","Prediction",826,406],["s2-robotics","Robotics",826,450]],
+    "s2-d":[["s2-symbolic","Symbolic / rules",70,346],["s2-neural","Statistical / neural",70,396],["s2-hybrid","Hybrid",70,446]]
+  };
+  const anchor = {"s2-a":pt(r2,315),"s2-b":pt(r2,45),"s2-c":pt(r2,135),"s2-d":pt(r2,225)};
+  // connector lines (drawn first, under everything)
+  Object.entries(CH).forEach(([q,chips])=>{
+    const [ax,ay] = anchor[q];
+    if(q==="s2-c"){ // eight chips: one connector to a group frame
+      s += `<rect x="660" y="308" width="324" height="188" rx="12" fill="none" stroke="var(--c2)" stroke-dasharray="4 4"/>`;
+      s += `<path class="edge" d="M${ax.toFixed(1)},${ay.toFixed(1)} L660,402" style="stroke-dasharray:3 3"/>`;
+      return;
+    }
+    chips.forEach(([id,l,x,y])=>{
+      const ex = x < cx ? x+W : x, ey = y+H/2;
+      s += `<path class="edge" d="M${ax.toFixed(1)},${ay.toFixed(1)} L${ex},${ey}" style="stroke-dasharray:3 3"/>`;
+    });
+  });
+  // ring sectors
+  Q.forEach(([lab,a0,id],i)=>{
+    const a1=a0+90, [x1,y1]=pt(r2,a0), [x2,y2]=pt(r2,a1), [x3,y3]=pt(r1,a1), [x4,y4]=pt(r1,a0);
+    const op = 10 + (i%2)*8;
+    s += `<g class="node" data-go="${id}"><path d="M${x1},${y1} A${r2},${r2} 0 0 1 ${x2},${y2} L${x3},${y3} A${r1},${r1} 0 0 0 ${x4},${y4} Z" fill="color-mix(in srgb, ${C} ${op}%, var(--surface))" stroke="${C}" stroke-width="1.5"/>`;
+    const [tx,ty] = pt((r1+r2)/2, a0+45);
+    const words = lab.split(" ");
+    words.forEach((w,j)=>{ s += `<text x="${tx.toFixed(1)}" y="${(ty + 4 + (j-(words.length-1)/2)*15).toFixed(1)}" text-anchor="middle" class="lens">${w}</text>`; });
+    s += `</g>`;
+  });
+  // hub
+  s += `<g class="node" data-go="s2-lenses"><circle cx="${cx}" cy="${cy}" r="${r1-6}" fill="${C}" stroke="${C}"/><text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="14" font-weight="600" style="fill:var(--surface)">One AI</text><text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="14" font-weight="600" style="fill:var(--surface)">system</text></g>`;
+  // lens questions
+  s += `<text class="colhead" x="70" y="44">HOW CAPABLE AND GENERAL?</text>`;
+  s += `<text class="colhead" x="920" y="24" text-anchor="end">HOW DID IT LEARN?</text>`;
+  s += `<text class="colhead" x="984" y="298" text-anchor="end">WHAT DATA DOES IT HANDLE?</text>`;
+  s += `<text class="colhead" x="70" y="330">HOW IS IT BUILT?</text>`;
+  // chips
+  Object.entries(CH).forEach(([q,chips])=>chips.forEach(([id,l,x,y])=>{
+    const w = q==="s2-c" ? 148 : W;
+    s += box(id,x,y,w,H,l,C,{fs:14,r:17});
+  }));
+  s += `<text class="elabel" x="70" y="220">AGI and ASI are hypothetical</text>`;
+  s += `<text class="elabel" x="495" y="528" text-anchor="middle">Every system gets one answer per lens; the lenses are independent.</text>`;
+  s += `</svg>`;
+  const el = document.getElementById("map-s2");
+  const btns = Object.entries(S2EX).map(([k,e])=>`<button class="vbtn" type="button" data-ex="${k}" aria-pressed="false">${esc(e.name)}</button>`).join("");
+  el.innerHTML = `<div class="expick" role="group" aria-label="Example system picker"><span>Example system:</span>${btns}<button class="vbtn ghost" type="button" data-ex="" aria-pressed="false">Clear</button></div>${s}<div class="excap" aria-live="polite">Pick an example to light up its answer on each lens.</div>`;
+  wireMap(el);
+  el.querySelectorAll("[data-ex]").forEach(b=>b.addEventListener("click",()=>{
+    const k=b.dataset.ex, ex=S2EX[k];
+    el.querySelectorAll("[data-ex]").forEach(x=>x.setAttribute("aria-pressed", String(x===b && !!k)));
+    el.querySelectorAll(".node").forEach(n=>n.classList.toggle("on", !!ex && ex.on.includes(n.dataset.go)));
+    el.querySelector(".excap").innerHTML = ex ? `<b>${esc(ex.name)}</b><ul>${ex.lines.map(l=>`<li>${esc(l)}</li>`).join("")}</ul><span>Sources: “Same system, four lenses”, Go deeper.</span>` : "Pick an example to light up its answer on each lens.";
+  }));
+}
+
 /* =========================================================
    INTERACTIVE VISUALS (illustrative, labelled as such)
    ========================================================= */
@@ -1390,7 +1726,7 @@ document.getElementById("pathExit").onclick=exitPath;
    BOOT
    ========================================================= */
 document.getElementById("stagebar").innerHTML = SECTIONS.map(s=>`<span class="stage ${s.status==="built"?"done":""}">${s.n} ${esc(s.title)}${s.status==="built"?" ✓":""}</span>`).join("");
-renderSections(); renderNav(); masterMap(); mapS1(); mapS4(); renderViz(); renderGlossary(); renderMyths(); spy();
+renderSections(); renderNav(); masterMap(); mapS1(); mapS2(); mapS4(); renderViz(); renderGlossary(); renderMyths(); spy();
 if(location.hash){ const id=location.hash.slice(1); setTimeout(()=>{ const el=document.getElementById(id); if(el) el.scrollIntoView(); },60); }
 </script>
 </body>
