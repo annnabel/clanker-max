@@ -201,6 +201,7 @@ sup.fn a{font:600 12px var(--mono); text-decoration:none; padding:0 2px}
 .vbtn{border:1px solid var(--muted); background:var(--paper); color:var(--ink); border-radius:6px; padding:5px 12px; cursor:pointer; font-size:14px}
 .expick{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:0 0 8px; font-size:14px; color:var(--muted)}
 .expick .vbtn[aria-pressed="true"]{background:var(--c2); border-color:var(--c2); color:var(--surface)}
+#map-s3 .expick .vbtn[aria-pressed="true"]{background:var(--c3); border-color:var(--c3)}
 .map .lens{font:600 13.5px var(--mono); letter-spacing:.06em; fill:var(--ink)}
 .map .node.on rect{fill:var(--c2)}
 .map .node.on text{fill:var(--surface) !important}
@@ -433,7 +434,49 @@ const SRC = {
   schick23:{t:1,a:"Schick et al. (2023)",ti:"Toolformer: Language Models Can Teach Themselves to Use Tools",p:"arXiv:2302.04761 (Meta AI)",u:"https://arxiv.org/abs/2302.04761"},
   alphaproof:{t:3,a:"Google DeepMind (25 Jul 2024)",ti:"AI achieves silver-medal standard solving International Mathematical Olympiad problems",p:"Company blog (AlphaProof and AlphaGeometry 2)",u:"https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/"},
   buchanan84:{t:1,a:"Buchanan & Shortliffe, eds. (1984)",ti:"Rule-Based Expert Systems: The MYCIN Experiments of the Stanford Heuristic Programming Project, ch. 1",p:"Addison-Wesley; chapters freely available from the editors",u:"https://www.shortliffe.net/Buchanan-Shortliffe-1984/MYCIN%20Book.htm"},
-  yu84:{t:1,a:"Yu, Fagan, Bennett et al. (1984)",ti:"An Evaluation of MYCIN’s Advice",p:"Chapter 31 of Buchanan & Shortliffe (eds.), Rule-Based Expert Systems",u:"https://www.shortliffe.net/Buchanan-Shortliffe-1984/Chapter-31.pdf"}
+  yu84:{t:1,a:"Yu, Fagan, Bennett et al. (1984)",ti:"An Evaluation of MYCIN’s Advice",p:"Chapter 31 of Buchanan & Shortliffe (eds.), Rule-Based Expert Systems",u:"https://www.shortliffe.net/Buchanan-Shortliffe-1984/Chapter-31.pdf"},
+  /* ---- Section 3 sources (opened 14 Nov 2026) ---- */
+  aiindex26full:{t:1,a:"Stanford HAI (2026)",ti:"The 2026 AI Index Report (full report PDF)",p:"Chapters 1–3: notable models, compute, data centres, open source, Arena rankings, AI safety institutes",u:"https://hai.stanford.edu/assets/files/ai_index_report_2026.pdf"},
+  ai25tech:{t:1,a:"Stanford HAI (Apr 2025)",ti:"2025 AI Index Report: Technical Performance chapter",p:"Small-model, open-vs-closed and reasoning-cost findings",u:"https://hai.stanford.edu/ai-index/2025-ai-index-report/technical-performance"},
+  nvq4:{t:1,a:"NVIDIA (25 Feb 2026)",ti:"NVIDIA Announces Financial Results for Fourth Quarter and Fiscal 2026",p:"Earnings release; fiscal year ended 25 Jan 2026",u:"https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Fourth-Quarter-and-Fiscal-2026/default.aspx"},
+  cw10k:{t:1,a:"CoreWeave, Inc. (2 Mar 2026)",ti:"Annual Report on Form 10-K for the year ended 31 December 2025",p:"US SEC filing",u:"https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm"},
+  gq326:{t:1,a:"Pichai, S., Alphabet (28 Oct 2026)",ti:"Q3 2026 earnings call: Remarks from our CEO",p:"Edited transcript of earnings-call remarks; usage figures are company-reported",u:"https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q3-2026/"},
+  doelbnl:{t:1,a:"US Department of Energy (20 Dec 2024)",ti:"DOE Releases New Report Evaluating Increase in Electricity Demand from Data Centers",p:"Summary of the Berkeley Lab report",u:"https://www.energy.gov/articles/doe-releases-new-report-evaluating-increase-electricity-demand-data-centers"},
+  lbnl24:{t:1,a:"Shehabi et al., Lawrence Berkeley National Laboratory (Dec 2024)",ti:"2024 United States Data Center Energy Usage Report",p:"LBNL-2001637; energy, water and emissions 2014–2028",u:"https://escholarship.org/uc/item/32d6m0d1"},
+  ntiarisk:{t:1,a:"US NTIA (30 Jul 2024)",ti:"Dual-Use Foundation Models with Widely Available Model Weights: Risks and Benefits",p:"Report to the President",u:"https://www.ntia.gov/programs-and-initiatives/artificial-intelligence/open-model-weights-report/risks-benefits-of-dual-use-foundation-models-with-widely-available-model-weights"},
+  ntiarec:{t:1,a:"US NTIA (30 Jul 2024)",ti:"Dual-Use Foundation Models with Widely Available Model Weights: Recommendations",p:"Report to the President",u:"https://www.ntia.gov/programs-and-initiatives/artificial-intelligence/open-model-weights-report/policy-approaches-recommendations/recommendations"},
+  nistrmf:{t:1,a:"US NIST",ti:"AI Risk Management Framework",p:"Framework released 26 Jan 2023; Generative AI Profile (NIST-AI-600-1) 26 Jul 2024",u:"https://www.nist.gov/itl/ai-risk-management-framework"},
+  inspectai:{t:1,a:"UK AI Security Institute",ti:"Inspect: an open-source framework for large language model evaluations",p:"Project documentation",u:"https://inspect.aisi.org.uk/"},
+  nairr:{t:1,a:"US National Science Foundation",ti:"National Artificial Intelligence Research Resource (NAIRR)",p:"Programme page",u:"https://www.nsf.gov/focus-areas/artificial-intelligence/nairr"},
+  llama3:{t:1,a:"Grattafiori et al., Meta (2024)",ti:"The Llama 3 Herd of Models",p:"arXiv:2407.21783",u:"https://arxiv.org/abs/2407.21783"},
+  phi3:{t:1,a:"Abdin et al., Microsoft (2024)",ti:"Phi-3 Technical Report: A Highly Capable Language Model Locally on Your Phone",p:"arXiv:2404.14219",u:"https://arxiv.org/abs/2404.14219"},
+  csetchips:{t:2,a:"Khan & Mann, CSET Georgetown (Apr 2020)",ti:"AI Chips: What They Are and Why They Matter",p:"Center for Security and Emerging Technology report",u:"https://cset.georgetown.edu/publication/ai-chips-what-they-are-and-why-they-matter/"},
+  reutasml:{t:2,a:"Reuters (28 Jan 2026)",ti:"Explainer: The $250 million ASML ‘printer’ behind Nvidia’s chips",p:"Via Yahoo Finance",u:"https://finance.yahoo.com/news/explainer-250-million-asml-printer-050227041.html"},
+  tomsasml:{t:2,a:"Tom’s Hardware (Jan 2026)",ti:"ASML projects $71 billion in revenue by 2030 as demand for EUV lithography machines intensifies",p:"Reporting ASML’s full-year 2025 results",u:"https://www.tomshardware.com/tech-industry/semiconductors/asml-projects-usd71-billion-in-revenue-by-2030-as-demand-for-euv-lithography-machines-intensifies-due-to-ai-boom-china-sales-lag-behind-while-company-cashes-in-on-high-end-twinscan-systems"},
+  tomstsmc:{t:2,a:"Tom’s Hardware (15 Jan 2026)",ti:"TSMC ‘very nervous’ about AI bubble concerns despite another record-setting quarter",p:"Reporting TSMC’s full-year 2025 results",u:"https://www.tomshardware.com/tech-industry/semiconductors/tsmc-very-nervous-about-ai-bubble-concerns-despite-another-record-setting-quarter-but-assured-of-demand-ceo-says-careless-investment-would-be-a-disaster-for-tsmc-for-sure-company-will-invest-usd52-usd56-billion-in-capex"},
+  nprtsmc:{t:2,a:"NPR (1 Dec 2025)",ti:"As political winds shift, top chipmaker TSMC looks beyond Taiwan",p:"",u:"https://www.npr.org/2025/12/01/nx-s1-5620992/tsmc-chipmaker-expands-beyond-taiwan"},
+  rpackaging:{t:2,a:"Reuters (6 Nov 2026)",ti:"AI boom turns chip packaging into the next battleground for semiconductors",p:"Via The Standard (Hong Kong)",u:"https://www.thestandard.com.hk/world/article/347734/AI-boom-turns-chip-packaging-into-the-next-battleground-for-semiconductors"},
+  khanhbm:{t:2,a:"Kyunghyang Shinmun (28 Oct 2026)",ti:"SK hynix “HBM Sold Out for Three Years”… Dismisses Memory ‘Peak-Out’",p:"Report on SK hynix’s Q3 2026 earnings call (English edition)",u:"https://www.khan.co.kr/en/article/202610281734027"},
+  sciamiea:{t:2,a:"Chen, S., Nature / Scientific American (10 Apr 2025)",ti:"Data Centers Will Use Twice as Much Energy by 2030, Driven by AI",p:"Reports the IEA’s Energy and AI report (the IEA site could not be opened this session)",u:"https://www.scientificamerican.com/article/ai-will-drive-doubling-of-data-center-energy-demand-by-2030/"},
+  srg26:{t:2,a:"Synergy Research Group (30 Jul 2026)",ti:"Q2 Cloud Market Passes $143 Billion; Highest Growth Rate in Eight Years",p:"Market research release",u:"https://www.srgresearch.com/articles/q2-cloud-market-passes-143-billion-highest-growth-rate-in-eight-years"},
+  hlcapex:{t:2,a:"Lee, L., Business Insider (Oct 2026)",ti:"AI hyperscalers are expected to finish the year spending a whopping $828 billion on capex",p:"Via Hargreaves Lansdown",u:"https://www.hl.co.uk/news/ai-hyperscalers-are-expected-to-finish-the-year-spending-a-whopping-828-billion-on-capex"},
+  tomscapex:{t:2,a:"Tom’s Hardware (2026)",ti:"Google, Microsoft, Meta, and Amazon capex spending to hit $725 billion in 2026",p:"Summarises Financial Times reporting on Q1 2026 earnings",u:"https://www.tomshardware.com/tech-industry/big-tech/big-techs-ai-spending-plans-reach-725-billion"},
+  tomsoracle:{t:2,a:"Tom’s Hardware (Sep 2025)",ti:"OpenAI signs contract to buy $300 billion worth of Oracle computing power over the next five years",p:"Reporting the Wall Street Journal",u:"https://www.tomshardware.com/tech-industry/openai-signs-contract-to-buy-usd300-billion-worth-of-oracle-computing-power-over-the-next-five-years-company-needs-4-5-gigawatts-of-power-enough-to-power-four-million-homes"},
+  rmsftoai:{t:2,a:"Reuters (28 Oct 2025)",ti:"Microsoft, OpenAI reach new deal to allow OpenAI to restructure",p:"Via The Standard (Hong Kong)",u:"https://www.thestandard.com.hk/innovation/article/315378/Microsoft-OpenAI-reach-new-deal-to-allow-OpenAI-to-restructure"},
+  rscale:{t:2,a:"Reuters (13 Jun 2025)",ti:"Meta finalizes $14.3 billion investment in Scale AI, sources say, poaching CEO Wang",p:"Via The Star",u:"https://www.thestar.com.my/tech/tech-news/2025/06/13/meta-finalizes-investment-in-scale-ai-valuing-startup-at-29-billion"},
+  time23:{t:2,a:"Perrigo, B., TIME (Jan 2023)",ti:"OpenAI Used Kenyan Workers on Less Than $2 Per Hour to Make ChatGPT Less Toxic",p:"",u:"https://time.com/6247678/openai-chatgpt-kenya-workers/"},
+  regcuda:{t:2,a:"The Register (17 Dec 2024)",ti:"Just how deep is Nvidia’s CUDA moat really?",p:"",u:"https://www.theregister.com/2024/12/17/nvidia_cuda_moat/"},
+  apgoogle:{t:2,a:"Associated Press (2 Sep 2025)",ti:"Judge orders search shakeup in Google monopoly case, but keeps hands off Chrome and default deals",p:"Via Yahoo News",u:"https://www.yahoo.com/news/articles/google-avoids-breakup-search-monopoly-205329360.html"},
+  tcchatgpt:{t:2,a:"TechCrunch (27 Feb 2026)",ti:"ChatGPT reaches 900M weekly active users",p:"Reports OpenAI’s announcement",u:"https://techcrunch.com/2026/02/27/chatgpt-reaches-900m-weekly-active-users"},
+  tnwcursor:{t:2,a:"The Next Web (18 Apr 2026)",ti:"Cursor is raising $2 billion at a $50 billion valuation as AI coding tools become the fastest-growing software category",p:"Revenue figures are company-reported",u:"https://thenextweb.com/news/cursor-anysphere-2-billion-funding-50-billion-valuation-ai-coding"},
+  itpromcp:{t:2,a:"ITPro (Dec 2025)",ti:"Anthropic says MCP will stay ‘open, neutral, and community-driven’ after donating project to Linux Foundation",p:"",u:"https://www.itpro.com/software/open-source/anthropic-says-mcp-will-stay-open-neutral-and-community-driven-after-donating-project-to-linux-foundation"},
+  osaid:{t:2,a:"Open Source Initiative (2024)",ti:"The Open Source AI Definition 1.0",p:"",u:"https://opensource.org/ai/open-source-ai-definition"},
+  acsaisi:{t:2,a:"Williams, T., ACS Information Age (25 Nov 2025)",ti:"‘Bravo’: Australia to establish AI Safety Institute",p:"",u:"https://ia.acs.org.au/article/2025/-bravo----australia-to-establish-ai-safety-institute.html"},
+  itnews25:{t:2,a:"iTnews (25 Nov 2025)",ti:"Labor bets on agency to monitor AI companies",p:"",u:"https://www.itnews.com.au/news/labor-bets-on-agency-to-monitor-ai-companies-622040"},
+  anttpu:{t:3,a:"Anthropic (23 Oct 2025)",ti:"Expanding our use of Google Cloud TPUs and services",p:"Company announcement",u:"https://www.anthropic.com/news/expanding-our-use-of-google-cloud-tpus-and-services"},
+  ironwood:{t:3,a:"Google (Apr 2025)",ti:"Ironwood: The first Google TPU for the age of inference",p:"Company blog",u:"https://blog.google/products/google-cloud/ironwood-tpu-age-of-inference/"},
+  mcpaaif:{t:3,a:"Model Context Protocol project (9 Dec 2025)",ti:"MCP joins the Agentic AI Foundation",p:"Project blog",u:"https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/"},
+  bedrock:{t:3,a:"Amazon Web Services",ti:"Amazon Bedrock",p:"Product page, accessed 14 Nov 2026",u:"https://aws.amazon.com/bedrock/"},
 };
 
 /* =========================================================
@@ -959,17 +1002,345 @@ const SECTIONS = [
               `{{co:Google DeepMind|AlphaProof works in Lean, a formal language in which proofs can be checked by computer. Google DeepMind’s systems solved one 2024 Olympiad problem within minutes but took up to three days on others [[alphaproof]].}}`]
     }]
   }]},
-{ id:"s3", n:3, title:"The AI Industry: Stack & Players", q:"Who builds it, and from what?", color:"var(--c3)", status:"planned",
-  intro:`The physical and technical supply chain, from chips to apps, and the organisations at each layer.`,
+{ id:"s3", n:3, title:"The AI Industry: Stack & Players", q:"Who builds it, and from what?", color:"var(--c3)", status:"built", updated:"14 Nov 2026",
+  intro:`The physical and technical supply chain behind AI, from chips at the bottom to apps at the top, and the organisations at each layer. The map is a layer cake: each band is one layer, its cards sit inside it, and example companies are listed on the right as tags. A “!” badge marks a chokepoint, where one or a few suppliers dominate. Switch the right-hand column to “Players” to see which kinds of organisation work at which layers.`,
   subs:[
-  {id:"s3-0",n:"3.0",title:"Overview",cards:[["s3-stack","How the stack fits together"],["s3-vertical","Vertical integration"]]},
-  {id:"s3-1",n:"3.1",title:"Chips & hardware",cards:[["s3-gpus","GPUs & accelerators"],["s3-customchips","Custom AI chips"],["s3-litho","Lithography"],["s3-foundries","Foundries"],["s3-packaging","Advanced packaging"],["s3-hbm","High-bandwidth memory"]]},
-  {id:"s3-2",n:"3.2",title:"Data centres & energy",cards:[["s3-dc","AI data centres"],["s3-power","Power & the grid"],["s3-cooling","Cooling & water"]]},
-  {id:"s3-3",n:"3.3",title:"Cloud & compute",cards:[["s3-hyperscalers","Hyperscalers"],["s3-neoclouds","Neoclouds"],["s3-buycompute","How compute is bought"]]},
-  {id:"s3-4",n:"3.4",title:"Foundation models",cards:[["s3-labs","Frontier labs"],["s3-openclosed","Open vs closed: the trade-offs"],["s3-openmodels","Leading open-weight models"],["s3-propmodels","Leading proprietary models"],["s3-sizes","Model sizes"]]},
-  {id:"s3-5",n:"3.5",title:"Tooling & infrastructure",cards:[["s3-frameworks","Frameworks & developer software"],["s3-dataplat","Data & labelling platforms"],["s3-hosting","Model hosting & APIs"],["s3-retrievalinfra","Retrieval & agent infrastructure"],["s3-evalmon","Evaluation & monitoring"]]},
-  {id:"s3-6",n:"3.6",title:"Applications layer",cards:[["s3-wrapper","Horizontal vs vertical apps"],["s3-distribution","Distribution"]]},
-  {id:"s3-7",n:"3.7",title:"The players",cards:[["s3-bigtech","Big tech platforms"],["s3-oss","Open-source communities"],["s3-academia","Universities & research institutes"],["s3-nonprofits","Non-profits, safety institutes & standards bodies"]]}]},
+  { id:"s3-0", n:"3.0", title:"Overview", note:"Start here: the layers, and the companies that try to own several at once.",
+    cards:[
+    { id:"s3-stack", title:"How the stack fits together", level:"Beginner", terms:["AI stack","AI supply chain","AI infrastructure"],
+      def:`Every AI answer depends on a chain of layers: chips, the data centres that house them, cloud services that rent them out, the models trained on them, the software tools around the models, and the apps people actually use.`,
+      body:[`The 2026 AI Index describes AI infrastructure as a stack. Chips such as GPUs and Google’s TPUs do the calculations. High-bandwidth memory holds the data they work on. Fast fibre-optic networks link thousands of chips together during training [[aiindex26full]].`,
+            `Each layer depends on very few suppliers. Chip designers such as Nvidia send their designs to foundries, mainly TSMC and Samsung Foundry, and companies such as ASE and Amkor package and test the finished chips [[aiindex26full]]. The Index calls TSMC a single point of dependency, because it makes virtually every leading AI chip, and notes high barriers to entry at every layer [[aiindex26full]].`,
+            `Money flows the other way, from the top of the stack down. Amazon, Alphabet, Meta, Microsoft and SpaceX are on track to spend $803–828 billion on capital investment in 2026 {{asof:Oct 2026}}. That is all their capital spending, not only AI, but their executives point to AI infrastructure as the main driver [[hlcapex]]. Section 6 follows that money.`],
+      example:`When you ask a chatbot a question, the app (3.6) sends your words through an API (3.5) to a model (3.4). The model runs on rented cloud servers (3.3) in a data centre drawing power from the grid (3.2), on chips made by a handful of companies (3.1). (Illustrative.)`,
+      links:[["c-traininf","does the two jobs described in"],["s3-vertical","is spanned end to end by"],["s3-gpus","rests on"],["s6-hyperscaler-capex","is paid for by"],["s7-compute","is treated as strategic in"]],
+      deeper:[`{{est:AI Index 2026, from Epoch AI data|Global AI computing capacity has grown about 3.3 times a year since 2022, to roughly 17.1 million H100-equivalents (a common unit based on one Nvidia chip). Nvidia chips account for over 60% of it, Google and Amazon for much of the rest, and Huawei for a small but growing share. These figures are inferred from revenue data, financial filings and analyst reports [[aiindex26full]].}}`,
+              `The United States hosts 5,427 data centres, more than ten times any other country. Germany (529), the UK (523) and China (449) follow. Counts like these ignore differences in size and computing capacity [[aiindex26full]].`],
+      myth:[`AI is just software.`,`It rests on physical machinery: chips, memory, networks, buildings and power. AI data-centre power capacity reached about 29.6 gigawatts by late 2025, comparable to New York State at peak demand [[aiindex26full]].`]
+    },
+    { id:"s3-vertical", title:"Vertical integration", level:"Intermediate", terms:["vertical integration","full-stack AI"],
+      def:`When one company owns several layers of the stack, from its own chips up to the apps, instead of buying each layer from someone else.`,
+      body:[`Google is the clearest example. {{co:Google|Its own AI chips, TPUs, have run its most demanding training and serving work for more than a decade [[ironwood]].}} It also runs data centres and a cloud business, trains the Gemini models and sells apps. Google Cloud’s chief credited building custom chips, models and products in-house with giving the company a cost and research advantage [[tomscapex]]. Alphabet’s CEO calls this its “full-stack approach” [[gq326]].`,
+            `Others integrate partly through deals. Microsoft holds about 27% of OpenAI, and OpenAI agreed to buy $250 billion of Microsoft’s Azure cloud services. In return, Microsoft gave up its right of first refusal to supply OpenAI’s computing [[rmsftoai]]. {{co:Anthropic|Anthropic, which makes no chips, says it uses three chip platforms: Google’s TPUs, Amazon’s Trainium and Nvidia’s GPUs [[anttpu]].}}`,
+            `Owning more layers can cut costs and reduce dependence on suppliers. The concern on the other side is market power. In the US search case, a judge barred Google from exclusive deals that would lock its Gemini app into phones and computers [[apgoogle]].`],
+      example:`Even the most integrated companies depend on outside factories. TSMC fabricates virtually every leading AI chip, whoever designs it [[aiindex26full]].`,
+      links:[["s3-stack","spans"],["s3-customchips","starts with"],["s3-bigtech","is the strategy of"],["s6-circular","overlaps with"],["s7-power","raises questions about"]],
+      deeper:[`Google now sells the bottom layers to others as well. Alphabet reported Google Cloud revenue growth of 103% in the third quarter of 2026 and strong demand for its TPU systems from a wide range of customers [[gq326]] {{asof:Oct 2026}}.`,
+              `Microsoft’s earlier agreement with OpenAI gave it rights to OpenAI’s technology until 2030, or until OpenAI achieved artificial general intelligence [[rmsftoai]].`]
+    }]
+  },
+  { id:"s3-1", n:"3.1", title:"Chips & hardware", note:"The bottom of the stack, and the narrowest. Several layers have one or a few suppliers.",
+    cards:[
+    { id:"s3-gpus", title:"GPUs & accelerators", level:"Beginner", terms:["GPU","AI accelerator","AI chip","CUDA"],
+      def:`Chips built to do huge numbers of simple calculations at once, which is exactly what training and running neural networks needs.`,
+      body:[`AI chips include graphics processing units (GPUs), field-programmable gate arrays (FPGAs) and application-specific chips (ASICs) specialised for AI. For AI work they are tens or even thousands of times faster and more efficient than ordinary processors (CPUs) [[csetchips]]. GPUs have mostly been used for training [[csetchips]].`,
+            `Being on the latest generation matters. Georgetown’s Center for Security and Emerging Technology (CSET) found that using older AI chips means costs and slowdowns at least ten times greater, largely because of energy costs [[csetchips]].`,
+            `Nvidia dominates. In its financial year to January 2026, its data-centre revenue was $193.7 billion, up 68%, out of total revenue of $215.9 billion [[nvq4]]. Nvidia chips make up over 60% of the world’s AI computing capacity [[aiindex26full]] {{asof:early 2026}}.`],
+      example:`A CPU is like a few expert chefs. A GPU is like a huge kitchen of cooks, each doing one simple step at the same time. AI training is mostly simple steps repeated billions of times, so the big kitchen wins. (Illustrative analogy.)`,
+      links:[["c-traininf","does both jobs in"],["s3-customchips","competes with"],["s3-hbm","depends on"],["s3-foundries","is manufactured by"],["s7-export","is restricted by"]],
+      deeper:[`Software is part of Nvidia’s lead. So much code has been written and tuned for its CUDA platform that people call it the “CUDA moat”. Moving low-level code to AMD’s or Intel’s platforms takes real porting work [[regcuda]].`,
+              `Nvidia’s gross margin for the 2026 financial year was 71.1% on standard accounting (GAAP) [[nvq4]].`],
+      myth:[`GPUs are graphics cards for gamers.`,`Gaming is now a small part of Nvidia’s business. Data centres brought in $193.7 billion of its $215.9 billion revenue in the 2026 financial year [[nvq4]].`]
+    },
+    { id:"s3-customchips", title:"Custom AI chips", level:"Intermediate", terms:["TPU","ASIC","Trainium","custom silicon"],
+      def:`Chips that big cloud companies design for their own AI workloads, as an alternative to buying Nvidia GPUs.`,
+      body:[`Most are ASICs: chips designed for one kind of task. They can be built for training models or for running them (inference) [[csetchips]].`,
+            `{{co:Google|Google’s Tensor Processing Units (TPUs) have powered its own training and serving for over a decade. The seventh generation, Ironwood, announced in April 2025, is the first designed specifically for inference. It links up to 9,216 liquid-cooled chips, drawing nearly 10 megawatts [[ironwood]].}}`,
+            `Outside customers are buying in. {{co:Anthropic|In October 2025 Anthropic said it would expand to up to one million Google TPUs, in a deal worth tens of billions of dollars, bringing well over a gigawatt of capacity online in 2026. Amazon, maker of the Trainium chip, remains its primary training partner [[anttpu]].}} Google and Amazon chips supply much of the world’s AI computing capacity that is not Nvidia’s [[aiindex26full]].`],
+      example:`When Anthropic’s Claude answers you, it may be running on chips from any of three companies. {{co:Anthropic|The company says it uses Google TPUs, Amazon Trainium and Nvidia GPUs [[anttpu]].}}`,
+      links:[["s3-gpus","competes with"],["s3-vertical","is the base of"],["s3-hyperscalers","is designed by"],["s3-foundries","is still manufactured by"]],
+      deeper:[`Alphabet reported strong demand for its TPU systems from a wide range of customers in the third quarter of 2026 [[gq326]].`,
+              `China’s Huawei also designs AI chips. The AI Index estimates it holds a small but growing share of global AI computing capacity [[aiindex26full]].`],
+      myth:[`Nvidia makes all AI chips.`,`Nvidia has over 60% of AI computing capacity. Google’s and Amazon’s own chips supply much of the rest [[aiindex26full]].`]
+    },
+    { id:"s3-litho", title:"Lithography", level:"Intermediate", terms:["lithography","EUV","extreme ultraviolet","chip printing"],
+      def:`The chipmaking step that uses light to print circuit patterns onto silicon. Only one company makes the machines for the most advanced version, extreme ultraviolet (EUV).`,
+      body:[`Reuters describes ASML’s machines as huge “chip printing” systems costing about $250 million each. ASML has a monopoly on the EUV machines needed for the most advanced chips, though rivals in China and the US are trying to develop alternatives [[reutasml]] {{asof:Jan 2026}}.`,
+            `EUV light has a wavelength of 13 nanometres. The machines make it by firing powerful lasers, built by Germany’s Trumpf, at tin droplets 50,000 times a second. Mirrors made by Zeiss guide the light inside a vacuum [[reutasml]]. Each machine ships in about 40 containers to chipmakers such as TSMC, Samsung, SK Hynix, Intel and Micron [[reutasml]].`,
+            `AI demand is driving sales. ASML’s 2025 revenue was €32.7 billion, up 15%, and EUV systems made up 48% of its system revenue [[tomsasml]]. Its sales to China fell because of US and Dutch export rules [[tomsasml]].`],
+      example:`Think of a slide projector shrinking a picture onto paper. Here the picture is a circuit and the paper is a silicon wafer. The light’s wavelength is 13 nanometres; a human hair is 80,000 to 100,000 nanometres thick [[reutasml]].`,
+      links:[["s3-foundries","supplies"],["s6-chokepoints","is a classic example in"],["s7-export","is controlled by"],["s3-stack","sits at the bottom of"]],
+      deeper:[`{{conf:|Reuters reported in January 2026 that ASML shipped 44 EUV systems “last year” [[reutasml]]. Tom’s Hardware, reporting ASML’s full-year results, gave 48 EUV systems in 2025 and 44 in 2024 [[tomsasml]]. The Reuters figure may refer to 2024.}}`,
+              `Logic chipmakers, which build processors, accounted for 66% of ASML’s 2025 system sales, and memory makers for 34% [[tomsasml]].`],
+      myth:[`Chip leadership is all about designers like Nvidia.`,`Designers depend on manufacturers, and the most advanced manufacturers depend on one Dutch company’s EUV machines [[reutasml]].`]
+    },
+    { id:"s3-foundries", title:"Foundries", level:"Intermediate", terms:["foundry","fab","TSMC","contract chipmaker"],
+      def:`Factories that manufacture chips designed by other companies. Almost every leading AI chip is made by one of them: TSMC in Taiwan.`,
+      body:[`Companies like Nvidia design chips but do not manufacture them. They send designs to foundries, mainly TSMC and Samsung Foundry [[aiindex26full]]. TSMC fabricates virtually every leading AI chip, including Nvidia’s Blackwell GPUs and AMD’s MI300X, which the AI Index calls a single point of dependency for the global AI supply chain [[aiindex26full]].`,
+            `By some estimates, TSMC makes over 90% of the world’s most advanced chips. Its headquarters and much of its manufacturing sit less than 100 miles from China, across the Taiwan Strait [[nprtsmc]]. It is expanding abroad. Its Arizona plans include six chip plants, two advanced-packaging plants and a research centre, and it is also building in Japan and Germany [[nprtsmc]].`,
+            `TSMC’s 2025 revenue was about $122 billion. High-performance computing, a broad category that includes AI chips, made up 58% [[tomstsmc]]. It planned $52–56 billion of capital spending for 2026, and its CEO said he was “very nervous” when asked whether AI demand is real [[tomstsmc]].`],
+      example:`Nvidia’s Blackwell GPU is an Nvidia design, but TSMC fabricates it [[aiindex26full]].`,
+      links:[["s3-litho","depends on"],["s3-packaging","hands chips on to"],["s7-uschina","is central to"],["s6-chokepoints","is the biggest of the"]],
+      deeper:[`TSMC’s chief financial officer told NPR that 70% of the company’s revenue comes from US customers [[nprtsmc]].`,
+              `The AI Index notes that TSMC’s US expansion began operating in 2025, a first step away from total dependence on Taiwan [[aiindex26]].`],
+      myth:[`Chips are made by the companies whose names are on them.`,`Nvidia and AMD design their AI chips. TSMC fabricates virtually all of the leading ones [[aiindex26full]].`]
+    },
+    { id:"s3-packaging", title:"Advanced packaging", level:"Deep", terms:["advanced packaging","CoWoS","chiplets"],
+      def:`Joining several chips, such as a processor and its memory, into one package so they can work together at high speed. It has become a bottleneck for AI chips.`,
+      body:[`Packaging used to mean protecting a chip and connecting it to a circuit board. Advanced packaging links separate pieces of silicon, such as processors and memory chips, on a shared base [[rpackaging]]. Some processors now combine 10 or more chips, sometimes as many as 20 [[rpackaging]].`,
+            `It matters for AI for two reasons. AI chips shuffle vast amounts of data between processors and nearby memory. And performance gains from shrinking transistors are getting harder and costlier [[rpackaging]]. TSMC dominates the most sophisticated technology, called chip-on-wafer-on-substrate (CoWoS) [[rpackaging]].`,
+            `Demand for AI chips is outstripping packaging capacity [[rpackaging]] {{asof:Nov 2026}}. {{est:Pat Gelsinger, former Intel CEO|Packaging could eventually account for as much as half the value of a chip product [[rpackaging]].}} {{est:Yole Group|Advanced-packaging revenue will overtake traditional packaging for the first time in 2026, with capital spending nearing $28 billion [[rpackaging]].}}`],
+      example:`Imagine moving a factory’s warehouse right next door so goods no longer travel across town. Advanced packaging puts memory right beside the processor for the same reason. (Illustrative analogy.)`,
+      links:[["s3-hbm","connects"],["s3-foundries","follows"],["s6-chokepoints","is one of the"],["s3-gpus","is essential to"]],
+      deeper:[`TSMC plans to spend 10–20% of its 2026 capital budget on advanced packaging [[tomstsmc]].`,
+              `Reuters reported, citing one anonymous industry executive, that Nvidia is financing a CoWoS capacity expansion at SPIL, part of Taiwan’s ASE. Nvidia did not respond, and ASE said it does not comment on rumours [[rpackaging]]. TSMC is also piloting a panel-based method meant to fit larger chip packages [[rpackaging]].`]
+    },
+    { id:"s3-hbm", title:"High-bandwidth memory", level:"Deep", terms:["HBM","high-bandwidth memory","DRAM"],
+      def:`Stacks of memory chips placed right next to an AI processor, so data can flow in and out fast enough to keep the processor busy.`,
+      body:[`All the data AI chips process is held in high-bandwidth memory (HBM), which can move large volumes of data in and out efficiently [[aiindex26full]]. The leading makers are SK Hynix and Samsung in South Korea and Micron in the US [[aiindex26full]].`,
+            `Supply is tight. {{co:SK hynix|In October 2026 SK hynix said its DRAM and HBM output is effectively sold out through 2029, that customers ask for more than twice the HBM it can supply, and that it has long-term contracts with 14 major customers [[khanhbm]].}}`,
+            `Memory prices feed through the whole stack. Microsoft attributed $25 billion of its 2026 spending plan to rising memory and component costs, and Meta also cited memory prices [[tomscapex]] {{asof:Apr 2026}}.`],
+      example:`A world-class chef is no use if ingredients arrive one at a time. HBM is the wide conveyor belt that keeps the chef, the processor, cooking. (Illustrative analogy.)`,
+      links:[["s3-packaging","is attached by"],["s3-gpus","feeds"],["s6-chokepoints","is one of the"],["c-traininf","is stressed by"]],
+      deeper:[`SK hynix reported third-quarter 2026 revenue of 104.6 trillion won and operating profit of 83.3 trillion won, its sixth record quarter in a row [[khanhbm]].`,
+              `{{co:SK hynix|The company forecast that memory shortages will last through 2030 [[khanhbm]].}}`],
+      myth:[`Faster AI only needs faster processors.`,`Processors need memory that keeps up. HBM is so scarce that its biggest maker says its output is sold out years ahead [[khanhbm]].`]
+    }]
+  },
+  { id:"s3-2", n:"3.2", title:"Data centres & energy", note:"Where the chips live, and what they consume.",
+    cards:[
+    { id:"s3-dc", title:"AI data centres", level:"Beginner", terms:["data centre","hyperscale data centre","gigawatt"],
+      def:`Warehouse-sized buildings full of servers, networking and cooling equipment. AI data centres pack in power-hungry chips and are now measured in gigawatts.`,
+      body:[`Data centres used about 1.5% of the world’s electricity in 2024 (415 terawatt-hours), according to the International Energy Agency (IEA) [[sciamiea]]. The US alone has 5,427 of them, more than ten times any other country [[aiindex26full]].`,
+            `AI is a growing share. The IEA estimated that AI servers used 24% of server electricity and 15% of all data-centre energy in 2024 [[sciamiea]]. AI data-centre power capacity reached about 29.6 gigawatts by late 2025. The chips themselves account for about 11.8 gigawatts; the rest goes to cooling, networking and other equipment [[aiindex26full]].`,
+            `Operators are growing fast. CoreWeave ran 43 data centres with over 850 megawatts of active power at the end of 2025, up from 10 data centres and about 70 megawatts two years earlier [[cw10k]].`],
+      example:`OpenAI’s computing deal with Oracle calls for 4.5 gigawatts of capacity, which Tom’s Hardware compared to the power needs of four million homes [[tomsoracle]].`,
+      links:[["s3-power","draws on"],["s3-cooling","needs"],["s3-neoclouds","is built by"],["c-traininf","houses"],["s7-emissions","drives"]],
+      deeper:[`The AI Index estimates data-centre power from the rated power of the AI chips sold, multiplied by about 2.5 to cover the rest of the building’s equipment [[aiindex26full]].`,
+              `The IEA found that the US, Europe and China together account for 85% of data-centre electricity use [[sciamiea]].`],
+      myth:[`“The cloud” is weightless.`,`It is buildings, chips and power lines. AI data centres alone had about 29.6 gigawatts of capacity in late 2025 [[aiindex26full]].`]
+    },
+    { id:"s3-power", title:"Power & the grid", level:"Intermediate", terms:["data centre electricity","grid connection","terawatt-hour"],
+      def:`AI data centres need large, steady supplies of electricity. Getting connected to the grid is becoming one of the main limits on how fast they can be built.`,
+      body:[`{{est:IEA, Energy and AI (Apr 2025)|In its base case, data-centre electricity use roughly doubles to about 945 terawatt-hours by 2030, about as much as Japan uses today [[sciamiea]].}}`,
+            `In the US, Lawrence Berkeley National Laboratory estimated that data centres used 4.4% of electricity in 2023 (176 terawatt-hours, up from 58 in 2014). {{est:Berkeley Lab (Dec 2024)|By 2028 they could use 6.7–12% [[doelbnl]].}} The wide range reflects uncertainty about how many AI chips are shipped and how they are used and cooled [[lbnl24]].`,
+            `Grids are a bottleneck. The IEA estimated that 20% of planned data centres could face delays getting connected, and because data centres cluster together, they can strain local grids [[sciamiea]]. Two-thirds of planned new electricity capacity for them is set to be renewable, but new gas plants in the US are expanding too [[sciamiea]].`],
+      example:`{{co:Anthropic|Anthropic’s TPU expansion alone is meant to bring well over a gigawatt online in 2026 [[anttpu]].}} For scale, all the world’s AI data centres had about 29.6 gigawatts at the end of 2025 [[aiindex26full]].`,
+      links:[["s3-dc","powers"],["s7-emissions","is examined in"],["s9-energy","may limit AI, as discussed in"],["s6-constraints","is one of the"]],
+      deeper:[`{{op:How big is AI’s share?|Researcher Alex de Vries, who was not involved in the IEA report, thinks it underestimates AI and calls it vague on AI specifically [[sciamiea]]. The IEA itself says its projections are uncertain, partly because future AI use is unclear and data centres report their energy use only to a limited extent [[sciamiea]].}}`,
+              `Berkeley Lab’s 2028 range is 325 to 580 terawatt-hours. The spread depends on GPU shipments, how intensively the chips are used, and the choice of cooling systems [[lbnl24]].`],
+      myth:[`AI already uses a big share of the world’s electricity.`,`All data centres together used about 1.5% in 2024, and AI was about 15% of that. The concern is how fast it is growing [[sciamiea]].`]
+    },
+    { id:"s3-cooling", title:"Cooling & water", level:"Intermediate", terms:["liquid cooling","evaporative cooling","data centre water use"],
+      def:`Chips turn electricity into heat, which has to be removed. Some cooling methods evaporate water on site, and the power stations supplying the electricity use water too.`,
+      body:[`Of the 29.6 gigawatts of AI data-centre capacity in late 2025, only about 11.8 went to the chips. The rest covered cooling, networking and other equipment [[aiindex26full]]. Berkeley Lab treats cooling choices, such as moving to liquid cooling or away from evaporative cooling, as a major swing factor in future US energy use [[lbnl24]].`,
+            `Cooling towers that evaporate water raise local concerns about water supplies [[lbnl24]]. US data centres used about 66 billion litres of water directly in 2023, up from 21.2 billion in 2014. {{est:Berkeley Lab (Dec 2024)|Hyperscale data centres alone could use 60–124 billion litres in 2028 [[lbnl24]].}}`,
+            `The bigger footprint is indirect. Generating the electricity US data centres used in 2023 consumed nearly 800 billion litres of water [[lbnl24]].`],
+      example:`{{co:Google|Google’s Ironwood TPU pods link up to 9,216 chips, all liquid-cooled [[ironwood]].}}`,
+      links:[["s3-dc","is needed by"],["s7-water","is examined in"],["s3-power","uses part of"],["s3-customchips","shapes the design of"]],
+      deeper:[`{{est:AI Index 2026, citing outside research|A year of GPT-4o inference alone may use more water than the drinking-water needs of 1.2 million people [[aiindex26full]].}}`,
+              `Company-owned (“internal”) data centres fell from 64% of US direct data-centre water use in 2014 to 12% in 2023, which Berkeley Lab links to water-efficiency improvements. Hyperscale and rented (“colocation”) facilities now account for 84% [[lbnl24]].`],
+      myth:[`Data centres’ water use is mostly the cooling on site.`,`In the US, the water used to generate their electricity, nearly 800 billion litres in 2023, dwarfs the 66 billion litres used on site [[lbnl24]].`]
+    }]
+  },
+  { id:"s3-3", n:"3.3", title:"Cloud & compute", note:"Who rents out the chips, and on what terms.",
+    cards:[
+    { id:"s3-hyperscalers", title:"Hyperscalers", level:"Beginner", terms:["hyperscaler","cloud provider","AWS","Azure","Google Cloud"],
+      def:`The three giant cloud companies, Amazon Web Services, Microsoft Azure and Google Cloud, which build data centres worldwide and rent out computing.`,
+      body:[`In the second quarter of 2026, Amazon had 28% of the worldwide cloud infrastructure market, Microsoft 20% and Google 15% {{asof:Q2 2026}}. The market was worth $143.4 billion that quarter and grew 43% from a year earlier, its fastest growth in eight years [[srg26]]. Synergy Research says generative AI has been the main driver; cloud services built specifically for generative AI grew 165% [[srg26]].`,
+            `They spend heavily to keep up. Microsoft expects to spend about $170 billion on capital investment in calendar 2026, less than it had planned, because of delays in third-party data-centre capacity. Amazon has held its forecast at about $220 billion [[hlcapex]] {{asof:Oct 2026}}.`,
+            `They also sell AI models as a service. {{co:AWS|Amazon Bedrock says it offers hundreds of models from leading AI companies [[bedrock]].}}`],
+      example:`Google Cloud’s revenue grew 103% in the third quarter of 2026, which Alphabet put down mainly to AI infrastructure and services [[gq326]].`,
+      links:[["s3-neoclouds","compete with"],["s3-customchips","design"],["s6-hyperscaler-capex","spend as described in"],["s3-hosting","offer"],["s3-bigtech","are owned by"]],
+      deeper:[`{{conf:|Totals depend on who is counted. The Financial Times’ April tally for Google, Amazon, Microsoft and Meta was $725 billion for 2026, up 77% from $410 billion in 2025 [[tomscapex]]. Business Insider’s October tally adds SpaceX and gives $803–828 billion [[hlcapex]]. Microsoft’s own outlook moved from $190 billion in April [[tomscapex]] to about $170 billion in October [[hlcapex]].}}`,
+              `In public cloud, the top three companies hold 67% of the market [[srg26]].`]
+    },
+    { id:"s3-neoclouds", title:"Neoclouds", level:"Intermediate", terms:["neocloud","GPU cloud","CoreWeave"],
+      def:`Newer cloud companies that specialise in renting out AI chips, mainly GPUs, rather than offering the full range of cloud services.`,
+      body:[`Synergy Research counts nine “neocloud” companies among the world’s top 40 cloud providers. The fastest-growing smaller providers include CoreWeave, Crusoe, Nebius and Nscale, alongside OpenAI, Oracle and Anthropic [[srg26]] {{asof:Q2 2026}}.`,
+            `CoreWeave, the biggest listed example, earned about 67% of its 2025 revenue from one customer: Microsoft [[cw10k]]. Over 98% of its revenue came from multi-year “take-or-pay” contracts, where customers pay whether or not they use the capacity [[cw10k]]. It pays for new data centres mainly with debt backed by those contracts [[cw10k]].`],
+      example:`Microsoft runs one of the world’s biggest clouds, yet it is CoreWeave’s largest customer [[cw10k]]. Demand for AI chips has outrun even the hyperscalers’ own building.`,
+      links:[["s3-hyperscalers","compete with and supply"],["s3-buycompute","sell through"],["s6-financing","are financed as described in"],["s3-gpus","rent out"]],
+      deeper:[`CoreWeave’s contracts typically run one to six years [[cw10k]].`,
+              `Its customers are concentrated: two customers made up about 77% of its 2024 revenue [[cw10k]].`],
+      myth:[`Only Amazon, Microsoft and Google rent out AI computing.`,`Nine specialist neoclouds are now among the top 40 cloud providers [[srg26]].`]
+    },
+    { id:"s3-buycompute", title:"How compute is bought", level:"Intermediate", terms:["take-or-pay","on-demand computing","compute contract"],
+      def:`AI developers rent computing either by the hour when they need it, or through long contracts that commit them to pay for capacity years ahead.`,
+      body:[`CoreWeave sells both ways: committed take-or-pay contracts and on-demand, pay-as-you-go access. Committed contracts typically last one to six years, and customers pay regardless of how much they use [[cw10k]].`,
+            `Big AI labs now sign enormous multi-year deals. OpenAI agreed to buy about $300 billion of Oracle computing over roughly five years from 2027, needing 4.5 gigawatts, as the Wall Street Journal reported [[tomsoracle]]. It also agreed to buy $250 billion of Microsoft Azure services [[rmsftoai]]. {{co:Anthropic|Anthropic’s deal for up to one million Google TPUs is worth tens of billions of dollars [[anttpu]].}}`,
+            `These commitments are large compared with revenue. The Oracle contract was close to 100 times OpenAI’s 2024 revenue, and Oracle was expected to need substantial borrowing to buy the hardware [[tomsoracle]].`],
+      example:`It is like office space. A start-up rents a desk by the day; an established firm signs a ten-year lease to be sure of the floor it needs. (Illustrative analogy.)`,
+      links:[["s3-neoclouds","is how they sell"],["s6-circular","can become part of"],["s6-financing","is paid for as described in"],["s3-hyperscalers","is sold by"]],
+      deeper:[`The shift to long contracts shows in CoreWeave’s results: committed contracts made up 88% of its revenue in 2023, 96% in 2024 and over 98% in 2025 [[cw10k]].`,
+              `Oracle’s shares rose more than 43% when the OpenAI deal was reported [[tomsoracle]].`]
+    }]
+  },
+  { id:"s3-4", n:"3.4", title:"Foundation models", note:"Who trains the models, open or closed, big or small.",
+    cards:[
+    { id:"s3-labs", title:"Frontier labs", level:"Beginner", terms:["frontier lab","AI lab","foundation model developer"],
+      def:`The handful of organisations training the most capable AI models. Almost all are companies, mostly in the United States and China.`,
+      body:[`Industry produced over 90% of notable AI models in 2025. Epoch AI counted 93 from industry and two from universities [[aiindex26full]]. The most prolific were OpenAI (20), Google (14) and Alibaba (11). The US produced 59 notable models and China 35 [[aiindex26full]] {{asof:2025}}.`,
+            `The top is crowded. On the Arena leaderboard, where people vote between two anonymous answers, the top four companies were within 25 points of each other in March 2026: Anthropic, xAI, Google and OpenAI, with Alibaba and DeepSeek close behind [[aiindex26full]]. The AI Index expects competition to shift towards cost, speed, reliability and specialised performance [[aiindex26full]].`,
+            `The leading labs also say less than they used to. OpenAI, Anthropic and Google no longer disclose parameter counts, training data sizes or training time for their most resource-intensive models [[aiindex26full]].`],
+      example:`In early 2023 OpenAI had a clear lead on Arena, scoring 1,322 to Google’s 1,117. By March 2026 the top four models were separated by fewer than 25 points [[aiindex26full]].`,
+      links:[["c-llm","build"],["s3-propmodels","release"],["s3-openmodels","also release"],["s6-private","are valued in"],["s3-buycompute","sign deals described in"]],
+      deeper:[`Since 2014, Google has produced the most notable models, followed by Meta and OpenAI [[aiindex26full]].`,
+              `Chinese labs have caught up. In February 2025 DeepSeek-R1 briefly matched the top US model on Arena [[aiindex26]].`],
+      myth:[`One company is far ahead of the rest.`,`In March 2026 the top four labs’ best models were within 25 Arena points of each other [[aiindex26full]].`]
+    },
+    { id:"s3-openclosed", title:"Open vs closed: the trade-offs", level:"Intermediate", terms:["open weights","open-source AI","closed model","model weights"],
+      def:`An open-weight model lets anyone download its trained parameters to run or modify it. A closed model is available only through its developer’s app or API. Each choice has benefits and costs.`,
+      body:[`“Open weights” is not the same as open source. The Open Source Initiative’s definition requires the freedom to use, study, modify and share the system. It also requires enough information about the training data for a skilled person to build a substantially equivalent system [[osaid]].`,
+            `The main benefit is access. The US National Telecommunications and Information Administration (NTIA) found that open weights let a wider range of people build and deploy AI, including the public sector, non-profits, academics and independent developers [[ntiarisk]].`,
+            `The risks are harder to pin down. In 2024 the NTIA concluded there was not enough evidence about the extra risks of open weights to justify restricting them, nor to rule out restrictions in future. It recommended that government monitor risks and set criteria for testing models before release [[ntiarec]].`,
+            `Closed models still lead, but by less than before. On Arena, the top closed model led the top open one by 15.2% in May 2023, 0.5% in August 2024 and 3.4% in March 2026 [[aiindex26full]].`],
+      example:`A hospital could run an open-weight model on its own servers, so patient records never leave the building. With a closed model it would send the data to the developer’s service. (Illustrative.)`,
+      links:[["s3-openmodels","are illustrated by"],["s3-propmodels","contrast with"],["s7-misuse","are weighed against"],["s3-oss","depend on"]],
+      deeper:[`The NTIA report noted a limitation. Many capable open models have fewer than 10 billion parameters, which put them outside the scope it was asked to cover [[ntiarisk]].`,
+              `The previous year’s AI Index recorded the gap shrinking from 8.04% in January 2024 to 1.70% in February 2025, before new closed frontier models widened it again [[ai25tech]][[aiindex26full]].`],
+      myth:[`Open-weight models are far behind the best closed ones.`,`In March 2026 the gap on Arena was 3.4% [[aiindex26full]].`]
+    },
+    { id:"s3-openmodels", title:"Leading open-weight models", level:"Intermediate", terms:["Llama","DeepSeek","Qwen","GLM"],
+      def:`Models whose weights anyone can download. The strongest now come from Chinese labs as well as American ones.`,
+      body:[`The top open-weight model on Arena in March 2026 was GLM-5, 3.4% behind the top closed model [[aiindex26full]] {{asof:Mar 2026}}. Alibaba, maker of the Qwen models, and DeepSeek are both in Arena’s top tier [[aiindex26full]].`,
+            `Meta’s Llama 3.1 family, released in 2024, included a model with 405 billion parameters that could read 128,000 tokens at once [[llama3]]. It was one of the releases that narrowed the open–closed gap to 0.5% by August 2024 [[aiindex26full]]. Meta’s Arena performance has flattened since early 2025 [[aiindex26full]].`],
+      example:`A developer can download an open model and fine-tune it on their own data, something a closed model’s owner controls. (Illustrative.)`,
+      links:[["s3-openclosed","illustrate"],["s3-oss","are shared through"],["s7-uschina","feature in"],["c-finetune","can be adapted by"]],
+      deeper:[`Data quality can beat size. The AI Index highlights OLMo 3.1 Think 32B, which matched the far larger Grok 4 on several benchmarks with nearly 90 times fewer parameters, through careful data curation [[aiindex26full]].`,
+              `DeepSeek-R1 briefly matched the top US model on Arena in February 2025 [[aiindex26]].`]
+    },
+    { id:"s3-propmodels", title:"Leading proprietary models", level:"Intermediate", terms:["GPT","Claude","Gemini","Grok","proprietary model"],
+      def:`Models available only through their makers’ apps and APIs. In early 2026 the strongest came from Anthropic, xAI, Google and OpenAI.`,
+      body:[`In March 2026 the top Arena scores by company were Anthropic (1,503), xAI (1,495), Google (1,494) and OpenAI (1,481) [[aiindex26full]] {{asof:Mar 2026}}. The single top closed model was Anthropic’s Claude Opus 4.6 [[aiindex26full]].`,
+            `The lead changes hands often. {{co:Alphabet|In October 2026 Google announced Gemini 4 “Carbon”, calling it its strongest frontier model and saying it ranked first on one independent index [[gq326]].}}`,
+            `Comparing them is getting harder. Benchmarks designed to stay hard for years are being saturated in months, labs disclose less, and independent testing does not always confirm what developers report [[aiindex26full]].`],
+      example:`Ask the same question in ChatGPT, Claude and Gemini and you will often get answers of similar quality. Differences show up in price, speed, tone and specialised tasks. (Illustrative.)`,
+      links:[["s3-labs","are released by"],["s3-openclosed","contrast with"],["c-eval","are compared through"],["s8-benchmarks","are judged by"]],
+      deeper:[`Arena rankings come from human votes and measure preference, not correctness. The AI Index cites research suggesting a model’s Arena standing may partly reflect tuning for the platform rather than general ability [[aiindex26full]].`,
+              `Reasoning models cost more to run. The 2025 AI Index found OpenAI’s o1 was nearly six times more expensive and 30 times slower than GPT-4o [[ai25tech]].`]
+    },
+    { id:"s3-sizes", title:"Model sizes", level:"Intermediate", terms:["parameters","small language model","on-device AI"],
+      def:`A model’s size is usually measured in parameters, the adjustable numbers it learns in training. Bigger is not always better, and small models have improved fastest.`,
+      body:[`Reported parameter counts rose steeply until 2022, then levelled off around a trillion. That probably understates real growth, because OpenAI, Anthropic and Google stopped disclosing them [[aiindex26full]]. Leading models were trained on tens of trillions of tokens over more than 100 days [[aiindex26full]].`,
+            `Small models have improved dramatically. In 2022 the smallest model to score over 60% on the MMLU knowledge test was PaLM, with 540 billion parameters. In 2024 Microsoft’s Phi-3-mini did it with 3.8 billion, a 142-fold reduction [[ai25tech]]. Phi-3-mini is small enough to run on a phone [[phi3]].`],
+      example:`A model with a few billion parameters can now run on a modern smartphone without sending anything to the cloud [[phi3]].`,
+      links:[["c-scaling","is the subject of"],["c-model","measures the size of"],["s3-labs","is a choice made by"],["s8-cost","affects"]],
+      deeper:[`Running models has become far cheaper. The cost of a system performing at GPT-3.5’s level fell more than 280-fold between November 2022 and October 2024, driven by capable small models [[aiindex25]].`,
+              `Phi-3-mini was trained on 3.3 trillion tokens of heavily filtered web data and synthetic data [[phi3]].`],
+      myth:[`The biggest model is always the best.`,`A 3.8-billion-parameter model reached a test score that took 540 billion parameters two years earlier [[ai25tech]].`]
+    }]
+  },
+  { id:"s3-5", n:"3.5", title:"Tooling & infrastructure", note:"The software and services between a raw model and a working product.",
+    cards:[
+    { id:"s3-frameworks", title:"Frameworks & developer software", level:"Intermediate", terms:["PyTorch","CUDA","JAX","TensorFlow","framework"],
+      def:`The software layers that let people write AI code once and run it on chips: from low-level chip programming, such as Nvidia’s CUDA, to high-level frameworks, such as PyTorch.`,
+      body:[`Nvidia has spent the better part of two decades building CUDA, its software for programming its GPUs. So much code is tuned for it that people call it the “CUDA moat” [[regcuda]].`,
+            `PyTorch sits above CUDA, AMD’s ROCm and Intel’s oneAPI, and calls whichever one matches the hardware. In theory, code written in PyTorch runs on any chip that supports it [[regcuda]]. Other high-level frameworks include TensorFlow and JAX [[regcuda]].`,
+            `Intel told The Register that most developers now program at the PyTorch level rather than directly in CUDA [[regcuda]]. {{co:MCP project|PyTorch is looked after by the Linux Foundation, a neutral non-profit that also hosts Kubernetes and Node.js [[mcpaaif]].}}`],
+      example:`A researcher writes training code in PyTorch on an Nvidia GPU, then runs it on AMD chips in the cloud with few changes. That is the promise; low-level, hand-tuned code is harder to move. (Illustrative.)`,
+      links:[["s3-gpus","help lock in"],["s3-oss","are maintained by"],["c-backprop","automate"],["s8-apis","sit beneath"]],
+      deeper:[`AMD and Intel offer translation tools. AMD’s HIPIFY converts CUDA code, and Intel says its SYCL tools handle up to 95% of the porting work, though both still need manual fixes [[regcuda]].`,
+              `Open-source AI software is vast: the AI Index counts 5.6 million AI projects on GitHub [[aiindex26full]].`],
+      myth:[`Writing in PyTorch frees you from Nvidia completely.`,`For everyday code it largely does. For low-level, hand-tuned code, the CUDA moat is very real [[regcuda]].`]
+    },
+    { id:"s3-dataplat", title:"Data & labelling platforms", level:"Intermediate", terms:["data labelling","annotation","Scale AI","training data"],
+      def:`Companies and workforces that collect, clean and label the data models learn from, including the human feedback used to fine-tune chatbots.`,
+      body:[`In June 2025 Meta paid $14.3 billion for 49% of Scale AI, valuing it at $29 billion, and hired its CEO [[rscale]]. Scale supplies labelled data to many AI labs. It recruits and manages gig workers, who label data by hand, through platforms such as Remotasks and Outlier [[rscale]]. Reuters noted the deal could give Meta insight into rivals’ priorities around data [[rscale]].`,
+            `The human work can be hard and poorly paid. A TIME investigation found that OpenAI used outsourced workers in Kenya, earning less than $2 an hour, to label toxic content so ChatGPT would produce less of it [[time23]].`,
+            `Real data still matters. The AI Index finds that synthetic data is not yet replacing real data in pre-training, though data quality and post-training methods are showing promise [[aiindex26full]].`],
+      example:`When a chatbot asks you which of two responses you prefer, you are doing a small version of this labelling work. (Illustrative.)`,
+      links:[["c-data","supplies"],["c-rlhf","provides the human feedback for"],["s7-copyright","raises questions covered in"],["s3-labs","serves"]],
+      deeper:[`Scale AI was founded in 2016 and was valued at nearly $14 billion in May 2024 [[rscale]].`,
+              `Dataset uploads to Hugging Face grew fourfold between 2023 and 2025 [[aiindex26full]].`]
+    },
+    { id:"s3-hosting", title:"Model hosting & APIs", level:"Beginner", terms:["API","model hosting","inference provider","Hugging Face"],
+      def:`Services that run models on their own servers and let developers send requests over the internet, paying per use, or that host models for others to download.`,
+      body:[`Most apps reach a model through an API. Alphabet said its own model APIs were processing nearly 32 billion tokens a minute in the third quarter of 2026, more than four times a year earlier [[gq326]] {{asof:Oct 2026}}.`,
+            `Clouds act as model marketplaces. {{co:AWS|Amazon Bedrock offers hundreds of models from many companies and says more than 100,000 organisations use it [[bedrock]].}}`,
+            `Hugging Face is the main hub for open models. Model uploads more than tripled between 2023 and 2025. Big companies such as Google and Meta now account for a relatively small share of downloads [[aiindex26full]].`],
+      example:`A travel app that adds a “plan my trip” button usually does not train its own model. It sends each request to a hosted model’s API and pays per token. (Illustrative.)`,
+      links:[["c-tokens","charges by"],["s8-apis","is used in"],["s3-hyperscalers","is offered by"],["s3-wrapper","powers"]],
+      deeper:[`API prices have fallen fast. The cost of GPT-3.5-level performance dropped more than 280-fold in under two years [[aiindex25]].`,
+              `Downloads on Hugging Face are spread widely. A large share falls outside the most popular sources, though the most downloaded models come from a small number of developers [[aiindex26full]].`]
+    },
+    { id:"s3-retrievalinfra", title:"Retrieval & agent infrastructure", level:"Deep", terms:["vector database","MCP","Model Context Protocol","agent framework"],
+      def:`The plumbing that lets models look things up and use tools: search indexes and vector databases for retrieval, and standard connectors such as MCP for agents.`,
+      body:[`Retrieval systems store documents as vectors so a model can find relevant passages before it answers. Section 1 explains how this works in “Retrieval (RAG)” and “Vectors: meaning as location”.`,
+            `Anthropic released the Model Context Protocol (MCP) in November 2024 as an open standard for connecting AI apps to tools and data [[itpromcp]]. {{co:MCP project|A year later it reported over 97 million monthly downloads of its software kits and 10,000 active servers, with support in ChatGPT, Claude, Cursor, Gemini, Microsoft Copilot and VS Code [[mcpaaif]].}}`,
+            `In December 2025 Anthropic donated MCP to the new Agentic AI Foundation, part of the Linux Foundation, which it co-founded with Block and OpenAI. OpenAI contributed AGENTS.md and Block contributed goose [[itpromcp]].`],
+      example:`When a chatbot reads your calendar or searches your company’s files, it is usually going through a connector like this rather than having the data built into the model. (Illustrative.)`,
+      links:[["c-rag","runs"],["c-agents","connects"],["s8-agents","is used in"],["s3-oss","is governed through"]],
+      deeper:[`{{co:MCP project|Under the foundation, the governing board decides budgets and new projects, while each project keeps control of its own technical direction [[mcpaaif]].}}`,
+              `The foundation is supported by Google, Microsoft, AWS, Cloudflare and Bloomberg as well as its three founders [[mcpaaif]].`]
+    },
+    { id:"s3-evalmon", title:"Evaluation & monitoring", level:"Intermediate", terms:["evals","benchmark","AI Risk Management Framework","Inspect"],
+      def:`Tools and organisations that test what models can do and how safely they behave, before and after release.`,
+      body:[`Testing is struggling to keep up. The AI Index finds benchmarks are saturating, labs are disclosing less, and independent testing does not always confirm what developers report [[aiindex26full]]. Reporting on responsible-AI benchmarks remains patchy [[aiindex26]].`,
+            `Governments build testing tools. The UK AI Security Institute’s open-source Inspect framework evaluates coding, agentic tasks, reasoning, knowledge and behaviour. It runs untrusted model code in sandboxes and comes with over 200 ready-made benchmarks [[inspectai]].`,
+            `Standards guide the process. The US National Institute of Standards and Technology (NIST) released its AI Risk Management Framework in January 2023 for voluntary use. A Generative AI Profile followed in July 2024 [[nistrmf]].`],
+      example:`Before a company lets a chatbot answer customers, it might run hundreds of test questions with known answers and check how often it errs. (Illustrative.)`,
+      links:[["c-eval","is explained in"],["s8-benchmarks","is examined critically in"],["s3-nonprofits","is done by"],["s7-alignment","checks progress on"]],
+      deeper:[`Evaluations meant to stay challenging for years are now saturated within months, shortening the time a benchmark stays useful [[aiindex26full]].`,
+              `Inspect can also test external coding agents such as Claude Code, Codex CLI and Gemini CLI [[inspectai]].`]
+    }]
+  },
+  { id:"s3-6", n:"3.6", title:"Applications layer", note:"The products people use, and how they reach them.",
+    cards:[
+    { id:"s3-wrapper", title:"Horizontal vs vertical apps", level:"Intermediate", terms:["AI wrapper","horizontal app","vertical app"],
+      def:`Horizontal apps serve everyone for many tasks, like a general chatbot. Vertical apps target one job or industry, like coding. Critics call thin apps built on other companies’ models “wrappers”.`,
+      body:[`General chat assistants are horizontal. {{co:OpenAI|ChatGPT reached 900 million weekly users in February 2026 [[tcchatgpt]].}} {{co:Alphabet|Google’s Gemini app reached one billion users by October 2026 [[gq326]].}}`,
+            `Cursor, an AI code editor built on Microsoft’s VS Code, is a vertical example. It was valued at $29.3 billion in November 2025 and was reported in April 2026 to be raising money at about $50 billion [[tnwcursor]]. {{co:Cursor|It reported $2 billion in annualised revenue by February 2026 [[tnwcursor]].}}`,
+            `The “wrapper” risk is competing with your own suppliers. Cursor uses lower-cost outside models alongside its own Composer model, and its rivals include GitHub Copilot and Anthropic’s Claude Code [[tnwcursor]].`],
+      example:`A legal-research app built on a general model, with law-specific documents and checks added, is a vertical app. Whether it lasts depends on whether that added layer is hard to copy. (Illustrative.)`,
+      links:[["s3-distribution","depends on"],["s3-hosting","is built on"],["s5-coding","includes"],["s6-value","decides"]],
+      deeper:[`Building its own model helped Cursor reach slight gross-margin profitability, according to The Next Web. Enterprise customers make up about 60% of its revenue [[tnwcursor]].`,
+              `Funding has followed vertical apps. Cursor’s Series A in August 2024 valued it at $400 million [[tnwcursor]].`]
+    },
+    { id:"s3-distribution", title:"Distribution", level:"Intermediate", terms:["distribution","default settings","pre-installed AI"],
+      def:`How AI products reach people: through apps they already use, devices, default settings and work software. Owning distribution can matter as much as having the best model.`,
+      body:[`Companies that already reach billions of people have a head start. {{co:Alphabet|Alphabet calls the Gemini app, at one billion users, the fastest-growing product in Google’s history, and is building AI agents into Search, Chrome, Android and Workspace [[gq326]].}}`,
+            `Stand-alone apps can grow too. {{co:OpenAI|ChatGPT had 900 million weekly users and 50 million paying subscribers in February 2026, up from 800 million weekly users in October 2025 [[tcchatgpt]].}}`,
+            `Defaults are now regulated. In September 2025 a US judge barred Google from exclusive contracts for its search engine, Gemini app, Play Store and assistant on devices. He did not ban the default deals themselves, which involve payments of more than $26 billion a year [[apgoogle]]. AI “answer engines” reshaped his approach to the case [[apgoogle]].`],
+      example:`An assistant that comes pre-installed as a phone’s default gets used by people who never went looking for one. That is why exclusive default deals were central to the Google case [[apgoogle]].`,
+      links:[["s3-wrapper","decides the fate of"],["s3-bigtech","is the advantage of"],["s7-power","concentrates"],["s5-chat","delivers"]],
+      deeper:[`{{co:Alphabet|Google says queries in its AI Mode are on average three times longer than traditional searches [[gq326]].}}`,
+              `The judge also ordered Google to share some of its search data with rivals, and rejected the government’s demand that it sell the Chrome browser [[apgoogle]].`]
+    }]
+  },
+  { id:"s3-7", n:"3.7", title:"The players", note:"The kinds of organisation that shape the stack. Companies appear as tags, not cards.",
+    cards:[
+    { id:"s3-bigtech", title:"Big tech platforms", level:"Beginner", terms:["big tech","platform companies"],
+      def:`The largest technology companies, such as Alphabet, Amazon, Microsoft, Meta and, in chips, Nvidia. They fund and run much of the stack and own the biggest channels to users.`,
+      body:[`Their spending sets the pace. Amazon, Alphabet, Meta, Microsoft and SpaceX are forecast to invest $803–828 billion in 2026, and Alphabet expects its spending to rise significantly in 2027 [[hlcapex]] {{asof:Oct 2026}}.`,
+            `They also buy into the rest of the stack. Microsoft holds about 27% of OpenAI [[rmsftoai]]. Meta bought 49% of Scale AI [[rscale]]. In OpenAI’s February 2026 funding round, Amazon put in $50 billion and Nvidia $30 billion [[tcchatgpt]].`,
+            `{{op:Healthy boom or overspending?|Jefferies analyst Brent Thill told the Financial Times the AI economy is healthy and called the bear case “garbage” [[tomscapex]]. SLC Management’s Dec Mullarkey said investors worry Meta is turning from a lean business into a capital-hungry one [[tomscapex]]. Section 6 sets out both cases in full.}}`],
+      example:`{{co:Anthropic|Amazon is Anthropic’s primary training partner [[anttpu]],}} and also put $50 billion into OpenAI [[tcchatgpt]]. Big tech companies often back more than one lab.`,
+      links:[["s3-vertical","pursue"],["s3-hyperscalers","run the"],["s6-concentration","create"],["s7-power","raise concerns about"]],
+      deeper:[`Since 2014, Google has produced more notable AI models than any other organisation, followed by Meta and OpenAI [[aiindex26full]].`,
+              `Google Cloud’s contract backlog reached $460 billion in early 2026, about double the figure at the end of 2025 [[tomscapex]].`]
+    },
+    { id:"s3-oss", title:"Open-source communities", level:"Intermediate", terms:["open source","Hugging Face","GitHub","Linux Foundation"],
+      def:`Developers, companies and non-profits who share AI code, models and datasets openly, mainly through GitHub and Hugging Face, often under neutral foundations.`,
+      body:[`The AI Index counts 5.6 million AI projects on GitHub, and uploads to Hugging Face have tripled since 2023 [[aiindex26full]]. US-based projects still attract the most engagement [[aiindex26full]].`,
+            `The community is spreading out. Google and Meta, once the main authors of popular models, now account for a relatively small share of downloads, while community groups such as Sentence Transformers have grown [[aiindex26full]]. The Index says open-source development is starting to change who participates in AI [[aiindex26]].`,
+            `Neutral foundations hold key projects. The Linux Foundation hosts PyTorch, and its new Agentic AI Foundation now holds MCP [[mcpaaif]].`],
+      example:`A university team in a country without a frontier lab can download an open model and adapt it to a local language. (Illustrative.)`,
+      links:[["s3-openmodels","share"],["s3-frameworks","maintain"],["s3-openclosed","shape the debate in"],["s7-strategies","feature in"]],
+      deeper:[`The Open Source Initiative’s definition of open-source AI covers code, model parameters and detailed information about training data [[osaid]].`,
+              `Most downloads still go to a small number of sources, even though a large share falls into an “others” category of smaller developers [[aiindex26full]].`]
+    },
+    { id:"s3-academia", title:"Universities & research institutes", level:"Intermediate", terms:["academic AI research","compute divide","NAIRR"],
+      def:`Universities and public research labs. They trained most of the field’s pioneers and still produce much of its most-cited research, but now build very few frontier models.`,
+      body:[`Epoch AI counted two notable AI models from universities in 2025, against 93 from industry [[aiindex26full]]. Over the past decade the most prolific universities were Tsinghua (26), Stanford (26) and Carnegie Mellon (25) [[aiindex26full]].`,
+            `Academia remains the top source of highly cited research [[aiindex25]]. China’s share of the 100 most-cited AI papers grew from 33 in 2021 to 41 in 2024 [[aiindex26full]].`,
+            `Computing power is the main gap. The US National AI Research Resource (NAIRR), a pilot led by the National Science Foundation from 2024, gives researchers access to computing, data and models. It has supported more than 600 projects and 6,000 students and is becoming a permanent service [[nairr]].`],
+      example:`A PhD student who wants to test an idea on a large model typically cannot afford the chips. Programmes like NAIRR exist to lend them computing time [[nairr]].`,
+      links:[["s4-dlpioneers","trained"],["s3-oss","contribute to"],["s3-labs","supply talent to"],["s3-nonprofits","work alongside"]],
+      deeper:[`New AI PhDs in the US and Canada rose 22% from 2022 to 2024, and the extra graduates took jobs in academia rather than industry [[aiindex26full]].`,
+              `The number of AI researchers moving to the US has dropped 89% since 2017. Australia is among the countries with relatively high female representation among AI researchers, at 30.1% [[aiindex26full]].`]
+    },
+    { id:"s3-nonprofits", title:"Non-profits, safety institutes & standards bodies", level:"Intermediate", terms:["AI Safety Institute","AISI","AI standards"],
+      def:`Organisations outside the commercial labs that test models, set standards and advise governments: government AI safety institutes, standards bodies and independent foundations.`,
+      body:[`AI safety institutes are state-backed bodies that run technical evaluations and safety research for governments [[aiindex26full]]. Fully operational ones exist in the UK (the AI Security Institute), the US (at NIST), Japan, Singapore and Israel. India and France have launched their own, and Canada, South Korea, Germany and Brazil are building theirs [[aiindex26full]]. Priorities differ: the UK and Israel stress security, while the EU AI Office combines testing with enforcement [[aiindex26full]].`,
+            `{{conf:|The 2026 AI Index lists Australia as a member of the International Network of AI Safety Institutes without a formal institute of its own [[aiindex26full]]. But on 25 November 2025 the Australian government announced an Australian AI Safety Institute, to be set up in 2026 within the Department of Industry, Science and Resources [[acsaisi]]. It is meant to assess AI risks and help make sure AI companies comply with Australian law [[itnews25]]. The Index’s data may predate the institute starting work.}}`,
+            `Standards bodies and foundations shape the rest. NIST’s AI Risk Management Framework gives organisations a voluntary way to manage AI risks [[nistrmf]]. The Open Source Initiative defines what counts as open-source AI [[osaid]].`],
+      example:`The UK AI Security Institute publishes its testing tool, Inspect, as free software that anyone can use to evaluate models [[inspectai]].`,
+      links:[["s3-evalmon","carry out"],["s7-intl","coordinate through"],["s7-aus","include Australia’s, covered in"],["s7-selfgov","contrast with"]],
+      deeper:[`For countries without the resources to set up a full institute, joining the international network is a practical first step [[aiindex26full]].`,
+              `Australia’s institute will work with the National AI Centre and with safety institutes in other countries [[acsaisi]].`]
+    }]
+  }]},
 { id:"s4", n:4, title:"History & Key Ideas", q:"How did we get here?", color:"var(--c4)", status:"built", updated:"14 Nov 2026",
   intro:`Seven eras, the people behind them, and the patterns that keep coming back. The map is a timeline: coloured bands are eras, grey shading marks the two “AI winters”, and the line sketches the rise and fall of excitement. Era dates are this guide’s approximate groupings; historians draw the lines in slightly different places.`,
   subs:[
@@ -1530,6 +1901,84 @@ function mapS2(){
   }));
 }
 
+/* Section 3: vertical layer cake. Card nodes sit in their layer; companies are
+   plain tags (not nodes); "!" badges mark chokepoints (sourced in the cards);
+   a toggle swaps the right-hand column between companies and player types. */
+function mapS3(){
+  const C = "var(--c3)";
+  const T = (x,y,txt,o={}) => `<text x="${x}" y="${y}" text-anchor="${o.a||"start"}" font-size="${o.fs||13}" font-weight="${o.w||400}" style="fill:${o.fill||"var(--ink)"}${o.mono?";font-family:var(--mono)":""}"${o.tr?` transform="${o.tr}"`:""}>${esc(txt)}</text>`;
+  const Y0=80, BH=74, GAP=8, X0=156, X1=790, RX=806, RW=190;
+  const by = i => Y0 + i*(BH+GAP);
+  // [label lines, number, cards [id,label,chokepoint?], company tags]
+  const L = [
+    [["Applications"],"3.6",[["s3-wrapper","Horizontal vs\nvertical apps"],["s3-distribution","Distribution"]],["ChatGPT","Gemini app","Cursor","GitHub Copilot"]],
+    [["Tooling &","infrastructure"],"3.5",[["s3-frameworks","Frameworks"],["s3-dataplat","Data &\nlabelling"],["s3-hosting","Hosting\n& APIs"],["s3-retrievalinfra","Retrieval &\nagent tools"],["s3-evalmon","Evaluation &\nmonitoring"]],["PyTorch","Hugging Face","Scale AI","Bedrock","MCP"]],
+    [["Foundation","models"],"3.4",[["s3-labs","Frontier\nlabs"],["s3-openclosed","Open vs\nclosed"],["s3-openmodels","Open-weight\nmodels"],["s3-propmodels","Proprietary\nmodels"],["s3-sizes","Model\nsizes"]],["OpenAI","Anthropic","Google","xAI","Meta","Alibaba","DeepSeek"]],
+    [["Cloud &","compute"],"3.3",[["s3-hyperscalers","Hyperscalers"],["s3-neoclouds","Neoclouds"],["s3-buycompute","How compute\nis bought"]],["AWS","Azure","Google Cloud","Oracle","CoreWeave","Nebius"]],
+    [["Data centres","& energy"],"3.2",[["s3-dc","AI data\ncentres"],["s3-power","Power &\nthe grid",1],["s3-cooling","Cooling\n& water"]],["CoreWeave","Oracle","Amazon","Microsoft"]],
+    [["Chips &","hardware"],"3.1",[["s3-gpus","GPUs &\naccelerators"],["s3-customchips","Custom\nAI chips"],["s3-litho","Lithography",1],["s3-foundries","Foundries",1],["s3-packaging","Advanced\npackaging",1],["s3-hbm","High-\nbandwidth\nmemory",1]],["Nvidia","AMD","Google TPU","ASML","TSMC","SK hynix","Samsung","Micron"]]
+  ];
+  let s = `<svg viewBox="0 0 1000 640" role="img" aria-label="Layer-cake map of the AI industry: six layers from chips to applications, with chokepoints, example companies and player types">${DEFS}`;
+  s += T(50,22,"LAYER",{fs:13,w:600,fill:"var(--muted)",mono:1});
+  s += T(X0,22,"CARDS IN EACH LAYER",{fs:13,w:600,fill:"var(--muted)",mono:1});
+  s += `<g class="s3co">${T(RX,22,"EXAMPLE COMPANIES",{fs:13,w:600,fill:"var(--muted)",mono:1})}</g>`;
+  s += `<g class="s3pl" style="display:none">${T(RX,22,"KINDS OF PLAYER",{fs:13,w:600,fill:"var(--muted)",mono:1})}</g>`;
+  s += box("s3-stack",X0,32,X1-X0,36,"How the stack fits together: apps on top, chips at the bottom",C,{fs:14,bold:true,solid:true});
+  // vertical integration rail
+  const vy0=by(0), vy1=by(5)+BH;
+  s += `<g class="node" data-go="s3-vertical"><rect x="8" y="${vy0}" width="30" height="${vy1-vy0}" rx="8" fill="color-mix(in srgb, ${C} 22%, var(--surface))" stroke="${C}" stroke-width="1.5"/>`;
+  s += T(23,(vy0+vy1)/2,"Vertical integration: one company, several layers",{a:"middle",fs:13.5,w:600,tr:`rotate(-90 23 ${(vy0+vy1)/2})`}) + `</g>`;
+  // bands
+  L.forEach(([lab,num,cards,cos],i)=>{
+    const y=by(i);
+    s += `<rect x="44" y="${y}" width="${X1-44+6}" height="${BH}" rx="10" fill="color-mix(in srgb, ${C} ${i%2?6:11}%, var(--surface))" stroke="var(--rule)"/>`;
+    lab.forEach((t,j)=>{ s += T(52, y+BH/2 - (lab.length-1)*8 + j*16 - 4, t, {fs:13.5,w:600}); });
+    s += T(52, y+BH/2 + (lab.length)*8 + 6, num, {fs:13,fill:"var(--muted)",mono:1});
+    const n=cards.length, g=8, w=Math.min(150,(X1-X0-g*(n-1))/n);
+    cards.forEach(([id,l,chk],k)=>{
+      const x=X0+k*(w+g), cy=y+13;
+      s += box(id,x,cy,w,BH-26,l,C,{fs:13});
+      if(chk) s += `<g class="node" data-go="${id}"><circle cx="${x+w-3}" cy="${cy+1}" r="10" fill="var(--c7)" stroke="var(--surface)" stroke-width="2"/><text x="${x+w-3}" y="${cy+5.5}" text-anchor="middle" font-size="14" font-weight="700" style="fill:var(--surface)">!</text></g>`;
+    });
+    // company tags: simple flow layout, up to three rows
+    let cx=RX, row=0, out="";
+    cos.forEach(c=>{
+      const pw = Math.round(c.length*6.8 + 14);
+      if(cx+pw > RX+RW){ row++; cx=RX; }
+      const py = y + 4 + row*23;
+      out += `<rect x="${cx}" y="${py}" width="${pw}" height="20" rx="10" fill="var(--surface)" stroke="var(--rule)"/>` + T(cx+pw/2, py+14.5, c, {a:"middle",fs:13});
+      cx += pw + 5;
+    });
+    s += `<g class="s3co">${out}</g>`;
+  });
+  // players view: bars spanning the layers where each kind of player is most active
+  const P = [["s3-bigtech","Big tech platforms",0,5],["s3-oss","Open source",1,2],["s3-academia","Universities",1,2],["s3-nonprofits","Safety & standards",1,2]];
+  let pl = "";
+  P.forEach(([id,l,a,b],j)=>{
+    const x=RX+j*48, y0=by(a), y1=by(b)+BH, w=42;
+    pl += `<g class="node" data-go="${id}"><rect x="${x}" y="${y0}" width="${w}" height="${y1-y0}" rx="8" fill="color-mix(in srgb, ${C} ${j?14:24}%, var(--surface))" stroke="${C}" stroke-width="1.5"/>`;
+    pl += T(x+w/2+5,(y0+y1)/2,l,{a:"middle",fs:13.5,w:600,tr:`rotate(-90 ${x+w/2+5} ${(y0+y1)/2})`}) + `</g>`;
+  });
+  s += `<g class="s3pl" style="display:none">${pl}</g>`;
+  // legend
+  const ly = by(5)+BH+30;
+  s += `<circle cx="56" cy="${ly-5}" r="10" fill="var(--c7)"/><text x="56" y="${ly-0.5}" text-anchor="middle" font-size="14" font-weight="700" style="fill:var(--surface)">!</text>`;
+  s += T(74,ly,"= chokepoint: one or a few suppliers dominate, or capacity is short",{fs:13,fill:"var(--muted)",mono:1});
+  s += `<g class="s3co">${T(RX,ly,"tags only, not cards",{fs:13,fill:"var(--muted)",mono:1})}</g>`;
+  s += `<g class="s3pl" style="display:none">${T(RX-18,ly,"rough guide (3.7)",{fs:13,fill:"var(--muted)",mono:1})}</g>`;
+  s += T(56,ly+24,"Money flows down the stack (apps pay for models, models pay for compute); products flow up.",{fs:13,fill:"var(--muted)",mono:1});
+  s += `</svg>`;
+  const el = document.getElementById("map-s3");
+  el.innerHTML = `<div class="expick" role="group" aria-label="Right-hand column"><span>Right-hand column:</span><button class="vbtn" type="button" data-view="co" aria-pressed="true">Example companies</button><button class="vbtn" type="button" data-view="pl" aria-pressed="false">Players</button></div>${s}`;
+  wireMap(el);
+  el.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>{
+    const pl = b.dataset.view==="pl";
+    el.querySelectorAll("[data-view]").forEach(x=>x.setAttribute("aria-pressed", String(x===b)));
+    el.querySelectorAll(".s3co").forEach(g=>g.style.display = pl?"none":"");
+    el.querySelectorAll(".s3pl").forEach(g=>g.style.display = pl?"":"none");
+  }));
+}
+
 /* =========================================================
    INTERACTIVE VISUALS (illustrative, labelled as such)
    ========================================================= */
@@ -1726,7 +2175,7 @@ document.getElementById("pathExit").onclick=exitPath;
    BOOT
    ========================================================= */
 document.getElementById("stagebar").innerHTML = SECTIONS.map(s=>`<span class="stage ${s.status==="built"?"done":""}">${s.n} ${esc(s.title)}${s.status==="built"?" ✓":""}</span>`).join("");
-renderSections(); renderNav(); masterMap(); mapS1(); mapS2(); mapS4(); renderViz(); renderGlossary(); renderMyths(); spy();
+renderSections(); renderNav(); masterMap(); mapS1(); mapS2(); mapS3(); mapS4(); renderViz(); renderGlossary(); renderMyths(); spy();
 if(location.hash){ const id=location.hash.slice(1); setTimeout(()=>{ const el=document.getElementById(id); if(el) el.scrollIntoView(); },60); }
 </script>
 </body>
